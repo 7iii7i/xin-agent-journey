@@ -17,10 +17,15 @@ Day 2 任务：自己手动用 requests 把这个程序重写一遍（合上这�
 重写完跑通后，再打开 day2_chatbot_requests.py 对照。
 """
 
+import os  # ← 我加的：让密钥从 .env 读，不硬编码
+
+from dotenv import load_dotenv  # ← 我加的
 from openai import OpenAI
 
+load_dotenv()  # ← 我加的
+
 client = OpenAI(
-    api_key="你的密钥",
+    api_key=os.getenv("DEEPSEEK_API_KEY"),  # ← 我改的：原来是 "你的密钥"
     base_url="https://api.deepseek.com",
 )
 
