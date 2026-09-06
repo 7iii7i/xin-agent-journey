@@ -8,6 +8,7 @@ dependencies = [
     "markdown>=3.10.3",
     "openai>=3.8.0",
     "python-dotenv>=1.2.3",
+    "reportlab>=5.0.1",
     "requests>=2.34.2",
 ]
 
