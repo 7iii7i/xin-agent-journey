@@ -1,0 +1,339 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>术语表（忻的学习词典）</title><style>
+:root{--bg:#fff;--fg:#1f2328;--muted:#57606a;--line:#d0d7de;--accent:#0969da;--code:#f6f8fa;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+color:var(--fg);background:var(--bg);line-height:1.7;font-size:16px;padding-bottom:40px;}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 16px;z-index:10;}
+header h1{font-size:18px;margin:0 0 8px}
+#search{width:100%;padding:10px 12px;font-size:16px;border:1px solid var(--line);border-radius:8px;}
+.toc{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;border-bottom:1px solid var(--line);background:#fafbfc;}
+.toc-link{font-size:13px;color:var(--accent);text-decoration:none;background:#eef3f8;padding:4px 10px;border-radius:999px;}
+.group{padding:8px 16px;max-width:760px;margin:0 auto;}
+h2{font-size:19px;border-left:4px solid var(--accent);padding-left:10px;margin:28px 0 12px;}
+h3{font-size:16px;margin:20px 0 6px;color:var(--accent);}
+.term{border-bottom:1px dashed var(--line);padding-bottom:10px;}
+code{background:var(--code);padding:2px 6px;border-radius:4px;font-size:14px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto;}
+pre code{background:none;padding:0;}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0;}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;}
+th{background:#fafbfc;}
+blockquote{color:var(--muted);border-left:3px solid var(--line);margin:8px 0;padding-left:12px;}
+.hidden{display:none}
+.empty{text-align:center;color:var(--muted);padding:30px;display:none}
+</style></head>
+<body><header><h1>术语表 · 忻的学习词典</h1>
+<input id="search" placeholder="搜词，例如：embedding / venv / .get()" autocomplete="off"></header>
+<nav class="toc"><a class="toc-link" href="#g0">环境与工程工具</a><a class="toc-link" href="#g1">Python 数据类型</a><a class="toc-link" href="#g2">取数与错误处理</a><a class="toc-link" href="#g3">接口与数据</a><a class="toc-link" href="#g4">一句总提醒</a><a class="toc-link" href="#g5">LLM 与 Agent 核心词汇（预习，按学习阶段排）</a><a class="toc-link" href="#g6">通用软件工程词汇（预习）</a><a class="toc-link" href="#g7">怎么用这份表</a></nav>
+<section class="group" id="g0"><h2>一、环境与工程工具</h2><section class="term" data-text="终端 / terminal **就是"用打字指挥电脑的黑窗口"。** 平时你用鼠标双击、点菜单，在终端里全靠敲命令。 - 打开方式：pycharm 底部 `terminal` 标签；或 `win+r` → 输 `cmd` → 回车。 - 粘贴：windows 终端里**不能用 ctrl+v**，按**鼠标右键**粘贴。 "><h3>终端 / Terminal</h3><p><strong>就是"用打字指挥电脑的黑窗口"。</strong> 平时你用鼠标双击、点菜单，在终端里全靠敲命令。
+- 打开方式：PyCharm 底部 <code>Terminal</code> 标签；或 <code>Win+R</code> → 输 <code>cmd</code> → 回车。
+- 粘贴：Windows 终端里<strong>不能用 Ctrl+V</strong>，按<strong>鼠标右键</strong>粘贴。</p></section><section class="term" data-text="venv / 虚拟环境（virtual environment） **给每个项目单独准备的"食材冰箱"。** 项目 a 装的包只存在 a 的冰箱里，不会污染项目 b。 - 比喻：项目 a 的 `.venv` = 厨房 a 的冰箱；项目 b 的 `.venv` = 厨房 b 的冰箱。你在一个厨房找另一个厨房的食材当然找不到。 - 我们项目里装了 `requests` / `python-dotenv` / `openai`，welcomescreen 项目里没装，所以跨项目跑会报 `modulenotfounderror`。 "><h3>venv / 虚拟环境（virtual environment）</h3><p><strong>给每个项目单独准备的"食材冰箱"。</strong> 项目 A 装的包只存在 A 的冰箱里，不会污染项目 B。
+- 比喻：项目 A 的 <code>.venv</code> = 厨房 A 的冰箱；项目 B 的 <code>.venv</code> = 厨房 B 的冰箱。你在一个厨房找另一个厨房的食材当然找不到。
+- 我们项目里装了 <code>requests</code> / <code>python-dotenv</code> / <code>openai</code>，WelcomeScreen 项目里没装，所以跨项目跑会报 <code>ModuleNotFoundError</code>。</p></section><section class="term" data-text="path（环境变量） **一份"常用命令清单"，告诉电脑哪些文件夹里的程序可以直接用名字调用。** - 报错 `无法将"uv"识别为...` = 电脑的清单里找不到 `uv` 这个程序。 - 修法：把 uv 所在目录加进 path（已帮你加好），或每次用 `python -m uv` 绕开。 "><h3>PATH（环境变量）</h3><p><strong>一份"常用命令清单"，告诉电脑哪些文件夹里的程序可以直接用名字调用。</strong>
+- 报错 <code>无法将"uv"识别为...</code> = 电脑的清单里找不到 <code>uv</code> 这个程序。
+- 修法：把 uv 所在目录加进 PATH（已帮你加好），或每次用 <code>python -m uv</code> 绕开。</p></section><section class="term" data-text="uv **一个 python 包管理 + 虚拟环境工具**（比老式的 `pip` + `virtualenv` 快很多）。 - `uv add requests` = 装 requests 包 - `uv run python xxx.py` = 在项目的虚拟环境里运行脚本 - 嫌麻烦可写成 `python -m uv run python xxx.py`（不受 path 影响，永远能用） "><h3>uv</h3><p><strong>一个 Python 包管理 + 虚拟环境工具</strong>（比老式的 <code>pip</code> + <code>virtualenv</code> 快很多）。
+- <code>uv add requests</code> = 装 requests 包
+- <code>uv run python xxx.py</code> = 在项目的虚拟环境里运行脚本
+- 嫌麻烦可写成 <code>python -m uv run python xxx.py</code>（不受 PATH 影响，永远能用）</p></section><section class="term" data-text="包（package）/ 模块（module） **别人写好的、可以复用的代码集合。** `import` 就是把别人的工具拿进来用。 - 比喻：sdk 是整套工具箱，模块是工具箱里的一个工具。 - **坑：`pip install` 的名字 ≠ `import` 的名字**（见下条）。 "><h3>包（package）/ 模块（module）</h3><p><strong>别人写好的、可以复用的代码集合。</strong> <code>import</code> 就是把别人的工具拿进来用。
+- 比喻：SDK 是整套工具箱，模块是工具箱里的一个工具。
+- <strong>坑：<code>pip install</code> 的名字 ≠ <code>import</code> 的名字</strong>（见下条）。</p></section><section class="term" data-text="pip install 名 vs import 名 **pypi 上的项目名（安装用）和 python 里的模块名（导入用）常常不一样。**  | `pip install` 时 | `import` 时 | |---|---| | `python-dotenv` | `import dotenv` | | `pyyaml` | `import yaml` | | `pillow` | `from pil import image` | | `scikit-learn` | `import sklearn` | | `beautifulsoup4` | `from bs4 import beautifulsoup` | "><h3>pip install 名 vs import 名</h3><p><strong>PyPI 上的项目名（安装用）和 Python 里的模块名（导入用）常常不一样。</strong></p>
+<table>
+<thead>
+<tr>
+<th><code>pip install</code> 时</th>
+<th><code>import</code> 时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>python-dotenv</code></td>
+<td><code>import dotenv</code></td>
+</tr>
+<tr>
+<td><code>PyYAML</code></td>
+<td><code>import yaml</code></td>
+</tr>
+<tr>
+<td><code>Pillow</code></td>
+<td><code>from PIL import Image</code></td>
+</tr>
+<tr>
+<td><code>scikit-learn</code></td>
+<td><code>import sklearn</code></td>
+</tr>
+<tr>
+<td><code>BeautifulSoup4</code></td>
+<td><code>from bs4 import BeautifulSoup</code></td>
+</tr>
+</tbody>
+</table></section><section class="term" data-text="硬编码（hardcode） **把本该可变的"密码 / 配置"直接写死在代码里。** - 反面教材：`api_key = "sk-5cd26..."`（密钥暴露在代码里，传到 github 就泄露） - 正确做法：放 `.env`，代码里 `os.getenv("deepseek_api_key")` 读。 "><h3>硬编码（hardcode）</h3><p><strong>把本该可变的"密码 / 配置"直接写死在代码里。</strong>
+- 反面教材：<code>api_key = "sk-5cd26..."</code>（密钥暴露在代码里，传到 GitHub 就泄露）
+- 正确做法：放 <code>.env</code>，代码里 <code>os.getenv("DEEPSEEK_API_KEY")</code> 读。</p></section><section class="term" data-text=".env **专门放密码的"记事本"文件。** 名字来自 environment（环境）。 - 内容：`deepseek_api_key=sk-xxxx` - 代码里：`os.getenv("deepseek_api_key")` 读取 - `.env` 被 `.gitignore` 排除，**永远不会被提交到 github**，所以安全 - `.env.example` 是模板（里面是空的），可以传，别人复制它改名 `.env` 填自己的 "><h3>.env</h3><p><strong>专门放密码的"记事本"文件。</strong> 名字来自 environment（环境）。
+- 内容：<code>DEEPSEEK_API_KEY=sk-xxxx</code>
+- 代码里：<code>os.getenv("DEEPSEEK_API_KEY")</code> 读取
+- <code>.env</code> 被 <code>.gitignore</code> 排除，<strong>永远不会被提交到 GitHub</strong>，所以安全
+- <code>.env.example</code> 是模板（里面是空的），可以传，别人复制它改名 <code>.env</code> 填自己的</p></section><section class="term" data-text="sdk（software development kit） **别人替你写好的一套现成工具（"开发工具包"）。** - 比喻：要开电视，`requests` 是自己接电线调信号；sdk 是拿遥控器按一下。 - `openai` 这个 sdk 故意和 deepseek 兼容，所以 `from openai import openai` + `base_url="https://api.deepseek.com"` 能直接调 deepseek。 - 生产环境用 sdk（自带重试/限流/超时）；学 `requests` 是为了懂原理。  --- "><h3>SDK（Software Development Kit）</h3><p><strong>别人替你写好的一套现成工具（"开发工具包"）。</strong>
+- 比喻：要开电视，<code>requests</code> 是自己接电线调信号；SDK 是拿遥控器按一下。
+- <code>openai</code> 这个 SDK 故意和 DeepSeek 兼容，所以 <code>from openai import OpenAI</code> + <code>base_url="https://api.deepseek.com"</code> 能直接调 DeepSeek。
+- 生产环境用 SDK（自带重试/限流/超时）；学 <code>requests</code> 是为了懂原理。</p>
+<hr /></section></section><section class="group" id="g1"><h2>二、Python 数据类型</h2><section class="term" data-text="字典 dict **键值对集合。`{"name": "玉环", "code": "331083"}`** - 取值：`d["name"]` 或 `d.get("name")` - 键必须唯一；值可以是任意类型（包括另一个字典 → 嵌套） "><h3>字典 dict</h3><p><strong>键值对集合。<code>{"name": "玉环", "code": "331083"}</code></strong>
+- 取值：<code>d["name"]</code> 或 <code>d.get("name")</code>
+- 键必须唯一；值可以是任意类型（包括另一个字典 → 嵌套）</p></section><section class="term" data-text="列表 list **有序的元素集合。`[1, 2, 3]`** - 取值：`lst[0]`（从 0 开始） - 追加：`lst.append(x)` - **可变**：造出来还能改 "><h3>列表 list</h3><p><strong>有序的元素集合。<code>[1, 2, 3]</code></strong>
+- 取值：<code>lst[0]</code>（从 0 开始）
+- 追加：<code>lst.append(x)</code>
+- <strong>可变</strong>：造出来还能改</p></section><section class="term" data-text="元组 tuple **和列表像，但**不可变**。 `(1, 2, 3)`** - 用圆括号 `()`；列表用方括号 `[]` - 没有 `.append()`，造出来就锁死 - 你 tier 1 写 `qw = (...)` 就是错把元组当列表，导致 `.append()` 报错 "><h3>元组 tuple</h3><p><strong>和列表像，但</strong>不可变<strong>。 <code>(1, 2, 3)</code></strong>
+- 用圆括号 <code>()</code>；列表用方括号 <code>[]</code>
+- 没有 <code>.append()</code>，造出来就锁死
+- 你 Tier 1 写 <code>qw = (...)</code> 就是错把元组当列表，导致 <code>.append()</code> 报错</p></section><section class="term" data-text="f-string **字符串里嵌变量的写法。字符串前加 `f`，`{}` 里放表达式。** ```python name = "忻" print(f"你好 {name}")          # 你好 忻 print(f"明年 {28 + 1} 岁")     # 明年 29 岁 ``` - 忘了写 `f` → `{}` 原样显示，不报错（最难发现的 bug） - 格式说明符：`{x:.2f}`（2位小数）、`{x:.1%}`（百分比）、`{x:,}`（千位分隔）、`{x:>10}`（右对齐宽10） - 详见 `week01/notes/fstring_cheatsheet.md`  --- "><h3>f-string</h3><p><strong>字符串里嵌变量的写法。字符串前加 <code>f</code>，<code>{}</code> 里放表达式。</strong></p>
+<pre><code class="language-python">name = &quot;忻&quot;
+print(f&quot;你好 {name}&quot;)          # 你好 忻
+print(f&quot;明年 {28 + 1} 岁&quot;)     # 明年 29 岁
+</code></pre>
+<ul>
+<li>忘了写 <code>f</code> → <code>{}</code> 原样显示，不报错（最难发现的 bug）</li>
+<li>格式说明符：<code>{x:.2f}</code>（2位小数）、<code>{x:.1%}</code>（百分比）、<code>{x:,}</code>（千位分隔）、<code>{x:&gt;10}</code>（右对齐宽10）</li>
+<li>详见 <code>week01/notes/fstring_cheatsheet.md</code></li>
+</ul>
+<hr /></section></section><section class="group" id="g2"><h2>三、取数与错误处理</h2><section class="term" data-text="嵌套取值 **一层套一层地从字典里掏数据。** ```python data["choices"][0]["message"]["content"] #  字典      列表    字典      键 ``` - 看不懂就拆开一层一层 `print`，拆三次就会了。 - 风险：任意一层 key 不存在 → `keyerror` 崩溃。用 `.get()` 化解。 "><h3>嵌套取值</h3><p><strong>一层套一层地从字典里掏数据。</strong></p>
+<pre><code class="language-python">data[&quot;choices&quot;][0][&quot;message&quot;][&quot;content&quot;]
+#  字典      列表    字典      键
+</code></pre>
+<ul>
+<li>看不懂就拆开一层一层 <code>print</code>，拆三次就会了。</li>
+<li>风险：任意一层 key 不存在 → <code>KeyError</code> 崩溃。用 <code>.get()</code> 化解。</li>
+</ul></section><section class="term" data-text=".get() **字典的"安全取值"。取不到也不崩。** ```python d.get("age")            # 没有 → none（不报错） d.get("age", 0)         # 没有 → 返回 0 d.get("a", {}).get("b", {}).get("c")   # 链式，中间用 {} 兜底保证链不断 ``` - 拿到 `none` 后不能直接拼字符串（`"x" + none` 崩），要先 `if name:` 判断。 - 详见 `week01/notes/get_and_tryexcept_cheatsheet.md` "><h3>.get()</h3><p><strong>字典的"安全取值"。取不到也不崩。</strong></p>
+<pre><code class="language-python">d.get(&quot;age&quot;)            # 没有 → None（不报错）
+d.get(&quot;age&quot;, 0)         # 没有 → 返回 0
+d.get(&quot;a&quot;, {}).get(&quot;b&quot;, {}).get(&quot;c&quot;)   # 链式，中间用 {} 兜底保证链不断
+</code></pre>
+<ul>
+<li>拿到 <code>None</code> 后不能直接拼字符串（<code>"x" + None</code> 崩），要先 <code>if name:</code> 判断。</li>
+<li>详见 <code>week01/notes/get_and_tryexcept_cheatsheet.md</code></li>
+</ul></section><section class="term" data-text="try / except **出错也不让程序挂。try 放可能崩的代码，except 放崩了怎么办。** ```python try:     resp = json.loads(raw) except json.jsondecodeerror:     print("解析失败") else:     print("解析成功")        # 没崩才走 ``` - 该写哪种错误名？看报错最后一行最下面的名字：`keyerror` / `indexerror` / `typeerror` / `json.jsondecodeerror` ... - 初学先用 `except exception:` 兜底，跑通再换具体名。 - 详见 `week01/notes/get_and_tryexcept_cheatsheet.md` "><h3>try / except</h3><p><strong>出错也不让程序挂。try 放可能崩的代码，except 放崩了怎么办。</strong></p>
+<pre><code class="language-python">try:
+    resp = json.loads(raw)
+except json.JSONDecodeError:
+    print(&quot;解析失败&quot;)
+else:
+    print(&quot;解析成功&quot;)        # 没崩才走
+</code></pre>
+<ul>
+<li>该写哪种错误名？看报错最后一行最下面的名字：<code>KeyError</code> / <code>IndexError</code> / <code>TypeError</code> / <code>json.JSONDecodeError</code> ...</li>
+<li>初学先用 <code>except Exception:</code> 兜底，跑通再换具体名。</li>
+<li>详见 <code>week01/notes/get_and_tryexcept_cheatsheet.md</code></li>
+</ul></section><section class="term" data-text="常见报错名（背下来，看到就不慌） | 报错 | 含义 | 常见原因 | |---|---|---| | `keyerror` | 字典里没有这个键 | `d["不存在的key"]` | | `indexerror` | 列表下标越界 | `lst[10]` 但只有 3 个 | | `typeerror` | 类型不对 | `"x" + none`、`1 + "2"` | | `attributeerror` | 对象没有这个方法 | `none.get(...)`、`(1,2).append(...)` | | `jsondecodeerror` | 不是合法 json | `json.loads("垃圾文本")` | | `modulenotfounderror` | 没装这个包 | 跨 venv 跑 / 没 `uv add` | | `indentationerror` | 缩进错 | 多余空格 / 混用 tab 和空格 |  --- "><h3>常见报错名（背下来，看到就不慌）</h3><table>
+<thead>
+<tr>
+<th>报错</th>
+<th>含义</th>
+<th>常见原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KeyError</code></td>
+<td>字典里没有这个键</td>
+<td><code>d["不存在的key"]</code></td>
+</tr>
+<tr>
+<td><code>IndexError</code></td>
+<td>列表下标越界</td>
+<td><code>lst[10]</code> 但只有 3 个</td>
+</tr>
+<tr>
+<td><code>TypeError</code></td>
+<td>类型不对</td>
+<td><code>"x" + None</code>、<code>1 + "2"</code></td>
+</tr>
+<tr>
+<td><code>AttributeError</code></td>
+<td>对象没有这个方法</td>
+<td><code>None.get(...)</code>、<code>(1,2).append(...)</code></td>
+</tr>
+<tr>
+<td><code>JSONDecodeError</code></td>
+<td>不是合法 JSON</td>
+<td><code>json.loads("垃圾文本")</code></td>
+</tr>
+<tr>
+<td><code>ModuleNotFoundError</code></td>
+<td>没装这个包</td>
+<td>跨 venv 跑 / 没 <code>uv add</code></td>
+</tr>
+<tr>
+<td><code>IndentationError</code></td>
+<td>缩进错</td>
+<td>多余空格 / 混用 tab 和空格</td>
+</tr>
+</tbody>
+</table>
+<hr /></section></section><section class="group" id="g3"><h2>四、接口与数据</h2><section class="term" data-text="api（application programming interface） **两个程序之间"对话"的约定。** 你写代码调 deepseek 的 api，就是按它的格式发请求、收回答。 - 比喻：餐厅里服务员是 api——你（程序 a）点单，服务员把单传给厨房（程序 b），再把菜端回来。 "><h3>API（Application Programming Interface）</h3><p><strong>两个程序之间"对话"的约定。</strong> 你写代码调 DeepSeek 的 API，就是按它的格式发请求、收回答。
+- 比喻：餐厅里服务员是 API——你（程序 A）点单，服务员把单传给厨房（程序 B），再把菜端回来。</p></section><section class="term" data-text="json（javascript object notation） **一种"用文本表示数据"的通用格式。** 接口来回传的都是它。 ```json {"name": "玉环", "code": "331083"} ``` - 对应 python：长得像字典，但它是**文本**（字符串），要先 `json.loads` 才能当字典用。 "><h3>JSON（JavaScript Object Notation）</h3><p><strong>一种"用文本表示数据"的通用格式。</strong> 接口来回传的都是它。</p>
+<pre><code class="language-json">{&quot;name&quot;: &quot;玉环&quot;, &quot;code&quot;: &quot;331083&quot;}
+</code></pre>
+<ul>
+<li>对应 Python：长得像字典，但它是<strong>文本</strong>（字符串），要先 <code>json.loads</code> 才能当字典用。</li>
+</ul></section><section class="term" data-text="json.loads / json.dumps **`json` 模块的两个核心函数（一对）。** - `json.loads(s)` = load string：把 json **文本** → python 字典（读进来） - `json.dumps(obj)` = dump to string：把 python 字典 → json **文本**（写出去） - 你 day 1 的 `resp.json()` 底层就是 `json.loads`；`requests.post(json=xxx)` 底层就是 `json.dumps`。 "><h3>json.loads / json.dumps</h3><p><strong><code>json</code> 模块的两个核心函数（一对）。</strong>
+- <code>json.loads(s)</code> = load string：把 JSON <strong>文本</strong> → Python 字典（读进来）
+- <code>json.dumps(obj)</code> = dump to string：把 Python 字典 → JSON <strong>文本</strong>（写出去）
+- 你 Day 1 的 <code>resp.json()</code> 底层就是 <code>json.loads</code>；<code>requests.post(json=xxx)</code> 底层就是 <code>json.dumps</code>。</p></section><section class="term" data-text="raw **"原始的、未加工的"数据，通常是个变量名。** ```python raw = '{"data": {"city": {"name": "玉环"}}}'   # 还没解析的 json 文本 ``` - 下一步 `json.loads(raw)` 把它"加工"成字典。加工前的叫 raw。 "><h3>raw</h3><p><strong>"原始的、未加工的"数据，通常是个变量名。</strong></p>
+<pre><code class="language-python">raw = '{&quot;data&quot;: {&quot;city&quot;: {&quot;name&quot;: &quot;玉环&quot;}}}'   # 还没解析的 JSON 文本
+</code></pre>
+<ul>
+<li>下一步 <code>json.loads(raw)</code> 把它"加工"成字典。加工前的叫 raw。</li>
+</ul></section><section class="term" data-text="resp **"response"（响应）的缩写，通常装"接口返回的数据"。** ```python resp = json.loads(raw)        # resp 是解析后的字典 ``` - 就是个普通变量名，叫 `data` / `result` 也行。 - 你 day 1 的 `data = resp.json()` 里 `data` 和它扮演同一角色。 "><h3>resp</h3><p><strong>"response"（响应）的缩写，通常装"接口返回的数据"。</strong></p>
+<pre><code class="language-python">resp = json.loads(raw)        # resp 是解析后的字典
+</code></pre>
+<ul>
+<li>就是个普通变量名，叫 <code>data</code> / <code>result</code> 也行。</li>
+<li>你 Day 1 的 <code>data = resp.json()</code> 里 <code>data</code> 和它扮演同一角色。</li>
+</ul></section><section class="term" data-text="requests **一个发 http 请求的 python 库（自己接电线那套）。** ```python import requests r = requests.post(url, json={"k": "v"})   # 发 post r.json()                                  # 把返回文本 → 字典 ``` - 和 sdk 对比：sdk 是遥控器，requests 是自己接线。学它是为了懂原理。 "><h3>requests</h3><p><strong>一个发 HTTP 请求的 Python 库（自己接电线那套）。</strong></p>
+<pre><code class="language-python">import requests
+r = requests.post(url, json={&quot;k&quot;: &quot;v&quot;})   # 发 POST
+r.json()                                  # 把返回文本 → 字典
+</code></pre>
+<ul>
+<li>和 SDK 对比：SDK 是遥控器，requests 是自己接线。学它是为了懂原理。</li>
+</ul></section><section class="term" data-text="序列化 / 反序列化 **数据在"内存对象"和"可传输文本"之间来回变。** - 序列化（对象 → 文本）：`json.dumps`、deepseek 请求的 `json=` - 反序列化（文本 → 对象）：`json.loads`、`resp.json()` - day 1 的"六步数据变形"本质就是这两步在跨机器往返。  --- "><h3>序列化 / 反序列化</h3><p><strong>数据在"内存对象"和"可传输文本"之间来回变。</strong>
+- 序列化（对象 → 文本）：<code>json.dumps</code>、DeepSeek 请求的 <code>json=</code>
+- 反序列化（文本 → 对象）：<code>json.loads</code>、<code>resp.json()</code>
+- Day 1 的"六步数据变形"本质就是这两步在跨机器往返。</p>
+<hr /></section></section><section class="group" id="g4"><h2>五、一句总提醒</h2><p><strong>看到不认识的词，先问自己三件事：</strong>
+1. 它是变量名（随便起的）还是关键字（Python 固定的）？
+2. 它是模块名（要 <code>import</code>）还是函数名（要 <code>()</code> 调用）？
+3. 它在做"取值""转换"还是"控制流程"？</p>
+<p>分不清就发我那个词，我拆。</p>
+<hr /></section><section class="group" id="g5"><h2>六、LLM 与 Agent 核心词汇（预习，按学习阶段排）</h2><blockquote>
+<p>这些是你后面几周一定会撞上的。现在不要求懂，先有个印象，撞到时回来搜。</p>
+</blockquote><section class="term" data-text="a. 大模型基础（w6 前后）  **token（词元）** **模型读写的最小计价单位**，不是"字"也不是"词"。中文约 1-2 字 = 1 token。你 deepseek 返回的 `usage` 里 `prompt_tokens` / `completion_tokens` 就是它。**计费、限速、上下文长度都按 token 算。**  **prompt（提示词）** **你发给模型的指令文本。** 包括 system / user / assistant 三种角色的消息。  **system prompt（系统提示）** **最前面的一条指令，设定模型的"身份和规矩"**。比如"你是政务助手，只回答公开政策"。你 day 2 的聊天机器人没写 system，所以模型不知道自己是谁。  **temperature（温度）** **控制输出随机性。0 = 每次都一样（稳定），1 = 更发散（有创意）。** 写代码/抽字段用 0，写文案用高一点。  **top_p** **和 temperature 类似的"随机性"旋钮**，按概率截断。一般只调其中一个，不两个都动。  **few-shot / zero-shot（少样本 / 零样本）** **zero-shot** = 不给例子直接让模型做；**few-shot** = 在 prompt 里先给几个"示例问答"再让它做。抽字段、分类任务用 few-shot 准确率暴涨。  **上下文窗口（context window）** **模型一次能"看到"的最大 token 数**（输入+输出合计）。超出会被截断遗忘。deepseek 一般是 32k/64k 级别。  **幻觉（hallucination）** **模型一本正经地编假内容。** rag（见下）主要就是用来压幻觉的——给它真文档，让它照着说。 "><h3>A. 大模型基础（W6 前后）</h3><p><strong>token（词元）</strong>
+<strong>模型读写的最小计价单位</strong>，不是"字"也不是"词"。中文约 1-2 字 = 1 token。你 DeepSeek 返回的 <code>usage</code> 里 <code>prompt_tokens</code> / <code>completion_tokens</code> 就是它。<strong>计费、限速、上下文长度都按 token 算。</strong></p>
+<p><strong>prompt（提示词）</strong>
+<strong>你发给模型的指令文本。</strong> 包括 system / user / assistant 三种角色的消息。</p>
+<p><strong>system prompt（系统提示）</strong>
+<strong>最前面的一条指令，设定模型的"身份和规矩"</strong>。比如"你是政务助手，只回答公开政策"。你 Day 2 的聊天机器人没写 system，所以模型不知道自己是谁。</p>
+<p><strong>temperature（温度）</strong>
+<strong>控制输出随机性。0 = 每次都一样（稳定），1 = 更发散（有创意）。</strong> 写代码/抽字段用 0，写文案用高一点。</p>
+<p><strong>top_p</strong>
+<strong>和 temperature 类似的"随机性"旋钮</strong>，按概率截断。一般只调其中一个，不两个都动。</p>
+<p><strong>few-shot / zero-shot（少样本 / 零样本）</strong>
+<strong>zero-shot</strong> = 不给例子直接让模型做；<strong>few-shot</strong> = 在 prompt 里先给几个"示例问答"再让它做。抽字段、分类任务用 few-shot 准确率暴涨。</p>
+<p><strong>上下文窗口（context window）</strong>
+<strong>模型一次能"看到"的最大 token 数</strong>（输入+输出合计）。超出会被截断遗忘。DeepSeek 一般是 32k/64k 级别。</p>
+<p><strong>幻觉（hallucination）</strong>
+<strong>模型一本正经地编假内容。</strong> RAG（见下）主要就是用来压幻觉的——给它真文档，让它照着说。</p></section><section class="term" data-text="b. 提示工程（w6）  **提示工程（prompt engineering）** **通过设计 prompt 让模型稳定产出想要结果的技术。** 2026 年 jd 里"上下文工程"比它更值钱（见 f 节）。 "><h3>B. 提示工程（W6）</h3><p><strong>提示工程（prompt engineering）</strong>
+<strong>通过设计 prompt 让模型稳定产出想要结果的技术。</strong> 2026 年 JD 里"上下文工程"比它更值钱（见 F 节）。</p></section><section class="term" data-text="c. rag 检索增强生成（w10-13）  **嵌入 / embedding** **把一段文字变成一串数字（向量），语义相近的文字向量也相近。** 这是"让机器懂语义"的基础。  **向量 / vector** **嵌入产出的那串数字。** 存在向量库里，用来算相似度。  **切片 / chunk** **把长文档切成小块再喂给模型**——模型一次看不下整本手册，先切。切多大、怎么切是 rag 效果的关键。  **文档解析 / parsing** **把 pdf/word/网页变成纯文本**的过程。表格、图片常在这里丢信息，是 rag 的常见坑。  **向量库（faiss / milvus / chroma）** **专门存向量、做"找最相似"的数据库。** 你计划里 rag 阶段要装一个。  **召回 / recall** **用户提问后，从向量库找出"最相关几段"的过程。** 召回准不准决定答案下限。  **重排 / rerank** **召回后，用更精的模型把候选再排一遍序**，把最相关的顶到前面。你计划里"纯向量 vs +rerank"的对照实验就在这。  **余弦相似度（cosine similarity）** **衡量两段向量（语义）有多像的指标**，值域 -1~1，越接近 1 越相关。向量库检索的底层算法。  **rag（检索增强生成，retrieval-augmented generation）** **先检索相关资料、再让模型基于资料回答**的架构。企业 70% 的 ai 落地本质都是 rag。目的：压幻觉、用私有知识。 "><h3>C. RAG 检索增强生成（W10-13）</h3><p><strong>嵌入 / embedding</strong>
+<strong>把一段文字变成一串数字（向量），语义相近的文字向量也相近。</strong> 这是"让机器懂语义"的基础。</p>
+<p><strong>向量 / vector</strong>
+<strong>嵌入产出的那串数字。</strong> 存在向量库里，用来算相似度。</p>
+<p><strong>切片 / chunk</strong>
+<strong>把长文档切成小块再喂给模型</strong>——模型一次看不下整本手册，先切。切多大、怎么切是 RAG 效果的关键。</p>
+<p><strong>文档解析 / parsing</strong>
+<strong>把 PDF/Word/网页变成纯文本</strong>的过程。表格、图片常在这里丢信息，是 RAG 的常见坑。</p>
+<p><strong>向量库（FAISS / Milvus / Chroma）</strong>
+<strong>专门存向量、做"找最相似"的数据库。</strong> 你计划里 RAG 阶段要装一个。</p>
+<p><strong>召回 / recall</strong>
+<strong>用户提问后，从向量库找出"最相关几段"的过程。</strong> 召回准不准决定答案下限。</p>
+<p><strong>重排 / rerank</strong>
+<strong>召回后，用更精的模型把候选再排一遍序</strong>，把最相关的顶到前面。你计划里"纯向量 vs +Rerank"的对照实验就在这。</p>
+<p><strong>余弦相似度（cosine similarity）</strong>
+<strong>衡量两段向量（语义）有多像的指标</strong>，值域 -1~1，越接近 1 越相关。向量库检索的底层算法。</p>
+<p><strong>RAG（检索增强生成，Retrieval-Augmented Generation）</strong>
+<strong>先检索相关资料、再让模型基于资料回答</strong>的架构。企业 70% 的 AI 落地本质都是 RAG。目的：压幻觉、用私有知识。</p></section><section class="term" data-text="d. function calling / 工具调用（w7-9）  **function calling（函数调用 / 工具调用）** **让模型决定"该调哪个工具、传什么参数"的能力。** 比如模型判断"用户问天气→调 get_weather(city)"。这是 agent 能"动手"的根本。  **tool use（工具使用）** function calling 的同义说法。工具 = 你写的一个函数（查数据库、调 api、算账……）。  **json schema** **描述"一个函数长啥样"的规范格式**——名字、参数是什么类型、是否必填。你要把工具告诉模型，就得写它的 json schema。  **参数 schema** **json schema 里描述"这个函数要哪些参数"的部分。** 模型输出会严格按这个结构来（你也才能 `.get()` 取值）。  **重试 / retry** **调用失败（超时、限流、模型抽风）后自动再试一次。** 生产必备。  **退避 / backoff** **重试时"等一会再试"，且越试等越久**（如 1s→2s→4s），避免把对方服务器打爆。常见叫"指数退避"。 "><h3>D. Function Calling / 工具调用（W7-9）</h3><p><strong>Function Calling（函数调用 / 工具调用）</strong>
+<strong>让模型决定"该调哪个工具、传什么参数"的能力。</strong> 比如模型判断"用户问天气→调 get_weather(city)"。这是 Agent 能"动手"的根本。</p>
+<p><strong>tool use（工具使用）</strong>
+Function Calling 的同义说法。工具 = 你写的一个函数（查数据库、调 API、算账……）。</p>
+<p><strong>JSON Schema</strong>
+<strong>描述"一个函数长啥样"的规范格式</strong>——名字、参数是什么类型、是否必填。你要把工具告诉模型，就得写它的 JSON Schema。</p>
+<p><strong>参数 schema</strong>
+<strong>JSON Schema 里描述"这个函数要哪些参数"的部分。</strong> 模型输出会严格按这个结构来（你也才能 <code>.get()</code> 取值）。</p>
+<p><strong>重试 / retry</strong>
+<strong>调用失败（超时、限流、模型抽风）后自动再试一次。</strong> 生产必备。</p>
+<p><strong>退避 / backoff</strong>
+<strong>重试时"等一会再试"，且越试等越久</strong>（如 1s→2s→4s），避免把对方服务器打爆。常见叫"指数退避"。</p></section><section class="term" data-text="e. agent 架构与上下文工程（w14-17）  **react** **一种 agent 经典套路：reason（思考）→ act（调工具）→ observe（看结果）→ 再 reason……循环。** 你 w7-9 要手写这个循环。  **agent loop（智能体循环）** **上述"思考-行动-观察"反复跑，直到任务完成**的整个过程。你 day 1 说"一知半解"的那一层，最后会落脚在这。  **langgraph** **一个用"图"来编排 agent 流程的框架**（节点=步骤，边=走向）。你 w14 开始用，之前手写的循环它帮你封装好了。  **状态 / state** **agent 在循环里"记得的东西"**（对话历史、中间结果、当前步骤）。图里数据在节点间靠 state 传递。  **节点 / node、图 / graph** **图编排的两个概念：node = 一个处理步骤（如"调模型""查库"），graph = 这些步骤怎么连起来、谁先谁后。**  **checkpoint（检查点）** **把 agent 运行到一半的状态存下来**，出错能从中间恢复而不是重来。你计划里"可恢复 agent"就靠它。  **上下文工程（context engineering）** **2026 年 jd 高频词：比"提示词工程"更值钱。** 指系统性地管理"喂给模型的全部信息"（历史、工具描述、检索结果、约束），而不只是写一句 prompt。 "><h3>E. Agent 架构与上下文工程（W14-17）</h3><p><strong>ReAct</strong>
+<strong>一种 Agent 经典套路：Reason（思考）→ Act（调工具）→ Observe（看结果）→ 再 Reason……循环。</strong> 你 W7-9 要手写这个循环。</p>
+<p><strong>Agent loop（智能体循环）</strong>
+<strong>上述"思考-行动-观察"反复跑，直到任务完成</strong>的整个过程。你 Day 1 说"一知半解"的那一层，最后会落脚在这。</p>
+<p><strong>LangGraph</strong>
+<strong>一个用"图"来编排 Agent 流程的框架</strong>（节点=步骤，边=走向）。你 W14 开始用，之前手写的循环它帮你封装好了。</p>
+<p><strong>状态 / state</strong>
+<strong>Agent 在循环里"记得的东西"</strong>（对话历史、中间结果、当前步骤）。图里数据在节点间靠 state 传递。</p>
+<p><strong>节点 / node、图 / graph</strong>
+<strong>图编排的两个概念：node = 一个处理步骤（如"调模型""查库"），graph = 这些步骤怎么连起来、谁先谁后。</strong></p>
+<p><strong>checkpoint（检查点）</strong>
+<strong>把 Agent 运行到一半的状态存下来</strong>，出错能从中间恢复而不是重来。你计划里"可恢复 Agent"就靠它。</p>
+<p><strong>上下文工程（context engineering）</strong>
+<strong>2026 年 JD 高频词：比"提示词工程"更值钱。</strong> 指系统性地管理"喂给模型的全部信息"（历史、工具描述、检索结果、约束），而不只是写一句 prompt。</p></section><section class="term" data-text="f. 生产工程（w18-21）  **评测集 / eval** **一套标准题目+标准答案，用来量化"你的 agent 好不好"**。"召回从 61%→89%"这种数字就来自评测集。作品集的核心证据。  **基准 / benchmark** **业界公认的标准评测（如 mmlu）。** 个人项目一般用自己做的 eval 集，不必追 benchmark。  **观测 / observability、链路追踪 / tracing** **把每次调用的"模型输入输出、耗时、花了多少 token、卡在哪一步"记下来看。** 排错和优化的眼睛。  **限流 / rate limit** **接口方限制你"单位时间能调多少次"**（你 day 2 就撞过 429）。靠重试+退避应对。  **提示词注入 / prompt injection、越狱 / jailbreak** **攻击者骗模型无视规矩干坏事**（如在文档里藏"忽略上面所有指令"）。做对外 agent 必须防。  **对齐 / alignment** **让模型行为符合人类预期与安全规范**的研究方向。你做产品时会遇到"模型该不该拒绝某类问题"的取舍。  **流式响应 / streaming** **模型边生成边往回传**，你看到打字机效果。聊天产品标配，比"等全生成完再给"体验好。  --- "><h3>F. 生产工程（W18-21）</h3><p><strong>评测集 / eval</strong>
+<strong>一套标准题目+标准答案，用来量化"你的 Agent 好不好"</strong>。"召回从 61%→89%"这种数字就来自评测集。作品集的核心证据。</p>
+<p><strong>基准 / benchmark</strong>
+<strong>业界公认的标准评测（如 MMLU）。</strong> 个人项目一般用自己做的 eval 集，不必追 benchmark。</p>
+<p><strong>观测 / observability、链路追踪 / tracing</strong>
+<strong>把每次调用的"模型输入输出、耗时、花了多少 token、卡在哪一步"记下来看。</strong> 排错和优化的眼睛。</p>
+<p><strong>限流 / rate limit</strong>
+<strong>接口方限制你"单位时间能调多少次"</strong>（你 Day 2 就撞过 429）。靠重试+退避应对。</p>
+<p><strong>提示词注入 / prompt injection、越狱 / jailbreak</strong>
+<strong>攻击者骗模型无视规矩干坏事</strong>（如在文档里藏"忽略上面所有指令"）。做对外 Agent 必须防。</p>
+<p><strong>对齐 / alignment</strong>
+<strong>让模型行为符合人类预期与安全规范</strong>的研究方向。你做产品时会遇到"模型该不该拒绝某类问题"的取舍。</p>
+<p><strong>流式响应 / streaming</strong>
+<strong>模型边生成边往回传</strong>，你看到打字机效果。聊天产品标配，比"等全生成完再给"体验好。</p>
+<hr /></section></section><section class="group" id="g6"><h2>七、通用软件工程词汇（预习）</h2><p><strong>函数 / function</strong>
+<strong>一段可重复调用的代码。</strong> <code>def add(a, b): return a + b</code> 就是函数。你现在写的 <code>for</code> 循环里那段逻辑，将来会包成函数复用。</p>
+<p><strong>类 / class、面向对象 / OOP</strong>
+<strong>把"数据"和"操作数据的方法"打包成一个"对象"的写法。</strong> 你做 Agent 时 <code>class ChatBot:</code> 会比一堆零散函数好管。初学先会写函数，类晚点再碰。</p>
+<p><strong>装饰器 / decorator</strong>
+<strong>在不改函数内部的情况下，给它"加功能"的语法</strong>，形如 <code>@retry</code>。你将来会写 <code>@app.post("/chat")</code> 注册接口——那就是装饰器。</p>
+<p><strong>类型注解 / type hints</strong>
+<strong>给变量/函数参数标类型，如 <code>def f(x: int) -&gt; str:</code></strong>。不强制但能帮 IDE 报错、帮人读懂。FastAPI 强烈依赖它。</p>
+<p><strong>异步 / async、await</strong>
+<strong>"等 IO（网络/磁盘）时不干等，先去干别的"的写法。</strong> FastAPI 接口常用 <code>async def</code>。你 W1-5 会学，先知道它解决"高并发不卡"就行。</p>
+<p><strong>并发 / 并行</strong>
+<strong>并发 = 多件事交替推进（像单核切时间片）；并行 = 真同时跑（多核）。</strong> 调多个工具时常用到。</p>
+<p><strong>阻塞 / 非阻塞</strong>
+<strong>阻塞 = 等结果期间啥也干不了；非阻塞 = 等的时候能去干别的。</strong> async 就是非阻塞思路。</p>
+<p><strong>日志 / logging</strong>
+<strong>用 <code>logging</code> 模块把程序运行过程写进文件</strong>，比 <code>print</code> 专业（能带时间、级别、存盘）。排线上问题靠它。</p>
+<p><strong>依赖 / dependency</strong>
+<strong>你的项目"依赖"的第三方包</strong>（requests、openai…）。<code>uv add</code> 就是加依赖。</p>
+<p><strong>缓存 / cache</strong>
+<strong>把算过/取过的结果暂存，下次直接用，省时间省钱。</strong> DeepSeek 返回的 <code>prompt_cache_hit_tokens</code> 就是命中缓存——你 Day 1 见过。</p>
+<p><strong>超时 / timeout</strong>
+<strong>"等对方回应最多等几秒，超了就当失败"</strong>。不设这个，对方卡死你会跟着卡死。</p>
+<p><strong>幂等 / idempotent</strong>
+<strong>同一个操作重复做多次，结果一样、不产生副作用。</strong> 比如"扣款"必须幂等，否则重试一次扣两次。</p>
+<p><strong>HTTP 方法 GET / POST</strong>
+<strong>GET = 去拿数据（查）；POST = 提交数据（改/建）。</strong> 你 Day 1 调 DeepSeek 用的是 POST。</p>
+<p><strong>状态码 200 / 400 / 401 / 429 / 500</strong>
+<strong>接口回应的"结果代号"</strong>：200=成功，400=请求错，401=没权限（Key错），429=太快被限流，500=对方服务器炸。你看报错先看这个数字。</p>
+<p><strong>Git 基础</strong>
+<strong>版本控制工具。</strong> <code>commit</code>=存快照，<code>branch</code>=开分支，<code>push</code>=推到远程，<code>pull</code>=拉下来，<code>PR</code>=请求合并。你 Day 1 已用 <code>commit</code>，后面要学 <code>push</code> 到 GitHub。</p>
+<p><strong>部署 / deploy、Docker、云</strong>
+<strong>把你写的程序放到"别人能访问的服务器"上跑。</strong> Docker=把程序连环境打包成容器；云=租的服务器（阿里云/腾讯云）。作品集最后要部署出来才叫"上线"。</p>
+<hr /></section><section class="group" id="g7"><h2>八、怎么用这份表</h2><ol>
+<li><strong>撞到不认识的词 → Ctrl+F 搜。</strong> 搜不到就发我，我补进去。</li>
+<li><strong>第六、七节是预习，不用现在背。</strong> 学到那一周再回来细看对应的段。</li>
+<li><strong>真正的懂 = 用过一次。</strong> 每个词你都会在实际代码里撞到，撞到时才算真记住。</li>
+</ol></section>
+<div class="empty" id="empty">没找到，发这个词给我，我补进去 👋</div>
+<script>
+const box=document.getElementById('search');
+const terms=document.querySelectorAll('.term');
+const groups=document.querySelectorAll('.group');
+const empty=document.getElementById('empty');
+box.addEventListener('input',()=>{
+  const q=box.value.trim().toLowerCase();
+  let shown=0;
+  terms.forEach(t=>{
+    const hit=t.dataset.text.includes(q);
+    t.classList.toggle('hidden', q && !hit);
+    if(hit && q) shown++;
+  });
+  groups.forEach(g=>{
+    const anyTerm=[...g.querySelectorAll('.term')].some(t=>!t.classList.contains('hidden'));
+    const hasIntro=g.querySelector('p,ul,blockquote');
+    g.classList.toggle('hidden', q && !anyTerm && !hasIntro);
+  });
+  empty.style.display=(q && shown===0)?'block':'none';
+});
+</script></body></html>
