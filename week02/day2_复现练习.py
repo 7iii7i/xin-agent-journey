@@ -82,3 +82,8 @@ t.show()
 #     book.show()
 #     print("总额：", book.total())
 # ============================================================
+if __name__ == "__main__":
+     book = AccountBook()
+     book.add(12, "早饭"); book.add(35, "午饭"); book.add(20, "打车")
+     book.show()
+     print("总额：", book.total())
