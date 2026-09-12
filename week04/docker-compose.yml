@@ -1,0 +1,12 @@
+# docker-compose.yml —— 把 "docker build + docker run -p 8000:8000 -e KEY=..."
+# 这一长串命令，写成一个文件。以后一条命令就能起：docker compose up --build
+services:
+  agent:
+    build: .                              # 用同目录的 Dockerfile 打包镜像
+    ports:
+      - "8000:8000"                       # 端口映射：宿主机8000 -> 容器8000
+    environment:
+      # 钥匙从"当前终端的环境变量"读，不写死在这里（安全）
+      # 运行前先在终端设： set DEEPSEEK_API_KEY=sk-xxxx   (Windows)
+      #                   export DEEPSEEK_API_KEY=sk-xxxx  (Git Bash)
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
