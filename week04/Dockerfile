@@ -4,6 +4,11 @@
 # ① 地基：用官方 Python 3.13 精简版当底座（比完整版小很多）
 FROM python:3.13-slim
 
+# ①.⑤ 中文兜底：容器默认编码设成 UTF-8，否则 stdout / SQLite / 接口返回中文会炸
+ENV PYTHONIOENCODING=utf-8
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
 # ② 进店：在容器里建 /app 目录并设为工作目录（后面所有命令都在这里跑）
 WORKDIR /app
 

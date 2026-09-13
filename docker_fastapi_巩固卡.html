@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="GlN36WqCCcKcAi3jTDdGMY">
+<head data-page-node-id="oqLv93MOHSL2ajuYUgSMrv">
+<meta charset="UTF-8" data-page-node-id="pwQgAK8xRsVpHHGMoYeSK6">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="vv9xJrtpV4QaBiYil3tvwy">
+<title>Docker + FastAPI 两天巩固卡</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1f2329; --sub:#5b6168;
+    --line:#e4e7ec; --ok:#1f8a4c; --okbg:#e9f7ee;
+    --warn:#b76e00; --warnbg:#fff4e0; --must:#c0392b; --mustbg:#fdecea;
+    --code:#0f1b2d; --codebg:#f0f2f5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.7;}
+  .wrap{max-width:880px;margin:0 auto;padding:28px 20px 60px;}
+  h1{font-size:24px;margin:0 0 4px;}
+  .lead{color:var(--sub);margin:0 0 22px;font-size:14px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  h2{font-size:17px;margin:0 0 10px;display:flex;align-items:center;gap:8px;}
+  h2 .tag{font-size:12px;font-weight:600;padding:2px 9px;border-radius:20px;}
+  .t-ok{background:var(--okbg);color:var(--ok);}
+  .t-warn{background:var(--warnbg);color:var(--warn);}
+  .t-must{background:var(--mustbg);color:var(--must);}
+  pre{background:var(--codebg);color:var(--code);border-radius:8px;padding:14px 16px;
+    overflow:auto;font-size:13px;line-height:1.55;margin:10px 0 4px;}
+  code{font-family:"SFMono-Regular",Consolas,Menlo,monospace;}
+  .note{font-size:13px;color:var(--sub);margin:6px 0 0;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0;}
+  .pill{font-size:12px;padding:3px 10px;border-radius:20px;font-weight:600;}
+  .p-ok{background:var(--okbg);color:var(--ok);}
+  .p-must{background:var(--mustbg);color:var(--must);}
+  .check li{margin:7px 0;}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:#f0f2f5;font-weight:600;}
+  ul{margin:6px 0;padding-left:20px;}
+  .kbd{background:#eef0f3;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px;}
+</style>
+</head>
+<body data-page-node-id="iDTmHKgb05YKC74NYpyGmL">
+<div class="wrap" data-page-node-id="9Xz0xxOAUlTYoMUNoSs9cF">
+  <h1 data-page-node-id="ZEHgpmsoXDG3Crr08MG5Q5">Docker + FastAPI 两天巩固卡</h1>
+  <p class="lead" data-page-node-id="kpe8JFocLLDXNeIsWid1Ba">2026-09-13 · 用途：今晚只读成品、记修改点；明天从空白重敲验证。不学新东西。</p>
+
+  <div class="card" data-page-node-id="J3sqBFDAak8z7gCNdeW4d5">
+    <h2 data-page-node-id="ii1SM8Noh8shapuGc2GTsw">① 进度自检 · 你已自己推通了什么</h2>
+    <ul data-page-node-id="c1X7s9AAzDbLAlnL48Wnlc">
+      <li data-page-node-id="JTPc7jZickpXy7eJ30xtwo">FastAPI：装饰器 <code data-page-node-id="21muwPeWPy3vJmyP46WLAg">@app.post</code> 是"门牌"、<code data-page-node-id="OvLWPdD8iFI19SnS0snGju">BaseModel</code> 是"填表模板拦错"、<code data-page-node-id="soil6OpyTEKMkwiYaTGN8m">uvicorn</code> 不在 .py 里（是开门的服务员）。</li>
+      <li data-page-node-id="DNnU69jrBbxuVGZkZVv3iV">Docker 全链路：镜像(死) vs 容器(活) → <code data-page-node-id="Ts7q3N5xNTUGpWwGQx7V3z">build</code> 封箱 → <code data-page-node-id="aDEDAOzAOVoioAFzxHdTrf">run -p</code> 开门 → <code data-page-node-id="5ocGUxgj8mpvu3CE527u7M">push</code> 只上货架。</li>
+      <li data-page-node-id="wpBypCmhALssoDDjwzoFCe">两个容易混的点你已经点破：<b data-page-node-id="DMXAtzrLln6fCrOMQBgEym">"-p 前面是本机、后面是容器"</b>、<b data-page-node-id="s740MowQekAghbBUvgRG8I">"Docker Hub 不跑容器、不开任何端口，8000 永远开在跑容器的那台机器上"</b>。</li>
+    </ul>
+    <p class="note" data-page-node-id="F9zTpPQ3bbF94M4MslgXBx">★ 结论：从"不知道 decorator 是啥"到能讲通 Docker 整条概念链，零基础里算<b data-page-node-id="pQEoEqXjvf1Uz98wrdxaa4">偏快</b>。感觉快 = 新名词密度高，正常。今晚巩固即可，不必加速。</p>
+  </div>
+
+  <div class="card" data-page-node-id="x9pfqklzn11JubTn4MFJWA">
+    <h2 data-page-node-id="At2qGBFzkcgBezN0dw3lyH">② 今晚读 · FastAPI 最小骨架 <span class="tag t-ok" data-page-node-id="ycXrQIlknhxRRqvjt6IO5E">理解+会改</span></h2>
+    <pre data-page-node-id="FDBaI5HKehXZXvGaVRCH2G"><code data-page-node-id="ub89Zions2QJCalLgNCZJc">from fastapi import FastAPI
+
+app = FastAPI()                 # 开店（应用实例）。抄模板，闭眼会敲即可
+
+@app.post("/login")             # 门牌：POST + 路径/login。路径你要会改
+def login():
+    return {"msg": "登录成功"}  # ← 这里面的逻辑才是你的活儿，要会自己写</code></pre>
+    <div class="row" data-page-node-id="oHy6VSvz8ctsLG2uJmpIu4">
+      <span class="pill p-ok" data-page-node-id="Nt2KuBfAUGZ0QPdBamMYwx">app=FastAPI() 理解+会改</span>
+      <span class="pill p-ok" data-page-node-id="COh9iG6WU9eX4KLdCoZRuc">@装饰器挂路由 理解+会改</span>
+      <span class="pill p-must" data-page-node-id="b35U1hpkqhlkq6KXAZZ7OC">函数里return的逻辑 必须自己写</span>
+    </div>
+    <p class="note" data-page-node-id="kjdVe7G75NOMmL3eZPWbCh">读的时候只问自己一句：<b data-page-node-id="qSsNF0vDl1lfqbaCygIvCW">"哪行是脚手架、哪行是我的业务逻辑？"</b> 分清楚就达标。</p>
+    <p class="note" data-page-node-id="bmBaseModelNote">⚠️ 为什么这里没配 <code>BaseModel</code>？这段是"最小骨架"，只演示开店+挂路由+返回固定话，<b>不接收客户端任何数据</b>，用不着"收数据的碗"。<code>BaseModel</code> 是给进来的请求定格式的（碗），只有要收客户端传来的东西才配——见 ⑧-1 的 <code>/chat</code> 才出现。所以"POST 常配 BaseModel"指的是<b>真正要收数据的 POST</b>，本段是教学最简版、还没走到那步。</p>
+    <p class="note" data-page-node-id="bmFnNote">🔑 <code>def login()</code> 只是"定义一个函数"，它自己不知道挂哪个路径——<b>路径由上面那行 <code>@app.post("/login")</code> 决定</b>。"如果是 /login 就交给 login 处理"是装饰器的分派工作；函数体里的 <code>return</code> 才是"进门后回啥"。函数名 login 可随便改（如 <code>def handle():</code>），URL 仍是 /login，名字只给人看、不影响路由。</p>
+    <p class="note" data-page-node-id="bmRouteNote">🗂️ <code>@app.post("/login")</code> 是<b>往路由表"登记/挂牌"</b>（启动程序时把规则存进 app）；真正"查路由表"是<b>每次请求进来时 FastAPI 自动做的</b>，你代码里看不到查的那行。即：app.post = 填表/挂门牌（登记）；查表 = 客人来了服务员对菜单（框架隐式行为）。</p>
+    <p class="note" data-page-node-id="bmGetLabel">📌 对照：把上面换成 <code>@app.get("/")</code> 长这样（浏览器地址栏直接敲 <code>localhost:8000/</code> 就能看到返回，因为浏览器默认发 GET 请求）：</p>
+    <pre data-page-node-id="bmGetCode"><code data-page-node-id="bmGetCodeC">from fastapi import FastAPI
+
+app = FastAPI()                 # 开店（应用实例）。【理解+会改】
+
+@app.get("/")                   # 门牌：GET + 根路径/。浏览器直接敲就能进【理解+会改】
+def home():
+    return {"msg": "欢迎光临"}  # ← 这里面的逻辑才是你的活儿，要会自己写【必须自己写】</code></pre>
+    <p class="note" data-page-node-id="bmDecoNote">🔗 觉得 <code>@app.get("/")</code> 和 <code>def home():</code> 没关联？其实强关联：<b>@ 装饰器必须紧贴在它要修饰的函数正上方</b>，Python 会把下面那个函数当参数传进去登记。等价写法（不用 @ 语法）一看就懂：先 <code>def home():...</code> 再写 <code>app.get("/")(home)</code>。即 <code>@app.get("/")</code> 就是 <code>app.get("/")(home)</code> 的简写——"把 home 这个柜台，挂到 / 这个门牌"。两行不是各管各的，是挂牌动作指向这个函数。</p>
+  </div>
+
+  <div class="card" data-page-node-id="uvCard">
+    <h2 data-page-node-id="uvH2">②-b 今晚读 · uvicorn 是什么（开门的服务员） <span class="tag t-warn" data-page-node-id="uvTag">理解为主</span></h2>
+    <pre data-page-node-id="uvCmd"><code data-page-node-id="uvCmdC">uvicorn main:app --reload --host 0.0.0.0 --port 8000</code></pre>
+    <p class="note" data-page-node-id="uv1">你的 <code>main.py</code> 只"定义"了 app（菜单+厨房），自己不会开门接客。uvicorn 是独立的<b>服务器程序</b>（ASGI 服务器），负责监听端口、等 HTTP 请求、把请求递给 app、把 app 的 <code>return</code> 转成响应送回去——就是"服务员+大门"。没它，<code>python main.py</code> 啥也不会发生（没人告诉 Python 去监听端口）。</p>
+    <p class="note" data-page-node-id="uv2">逐段拆：<b>main</b>=文件 main.py（去后缀）；<b>app</b>=文件里的变量 app（FastAPI 实例），uvicorn 去把它找出来；<b>main:app</b> 的冒号="文件:变量"。<b>--reload</b>=改代码自动重启（开发用，生产别加）；<b>--host 0.0.0.0</b>=监听所有网卡（容器/服务器让外部能访问；本机用 127.0.0.1 也行但 0.0.0.0 通用）；<b>--port 8000</b>=监听 8000 门牌。</p>
+    <p class="note" data-page-node-id="uv3">接客流程：启动后 uvicorn 在 8000 蹲着 → 请求到 → 解析方法+路径交给路由表匹配 → 执行对应函数拿 return → 转成 JSON 响应送回。容器里也靠它：Dockerfile 的 <code>CMD</code> 就是自动跑这条命令，里面监听的 8000 正是 <code>-p 8000:8000</code> 接的那扇门（--host 0.0.0.0 才能让外部进）。</p>
+    <p class="note" data-page-node-id="uv4">🔍 <code>--host 0.0.0.0</code> 和 <code>--port 8000</code> 不是"双向"，是<b>监听地址的两个坐标</b>：host=在哪些网卡/IP上听（0.0.0.0=这台机器所有网卡的入口都听），port=听哪个门牌（8000）。两者合起来="在机器所有入口的 8000 门牌上蹲着等请求"。uvicorn 是<b>被动服务器</b>，只"等请求来→处理→回应"，不是主动双向通信；接收请求和返回响应是同一次连接的两个方向，不是"双向监听"。</p>
+    <p class="note" data-page-node-id="uv5">🏠 纠正：<code>8000</code> 不是"本机"，它是<b>端口（门牌号）</b>。本机是 <b>IP/楼</b>（如 127.0.0.1），一台机器上可有成千上万个端口（80、443、8000…）。正确说法：uvicorn 在"本机的 8000 门牌"上蹲着听。组合"本机IP:8000"才是完整接入点——楼（IP）+ 房间号（8000）。前面"-p 前面本机"那个"本机"指 IP/楼，8000 是房间号，两码事。</p>
+    <div class="row" data-page-node-id="uvRow">
+      <span class="pill p-ok" data-page-node-id="uvP1">main:app = 文件:变量 理解</span>
+      <span class="pill p-ok" data-page-node-id="uvP2">--reload/--host/--port 会改</span>
+      <span class="pill p-must" data-page-node-id="uvP3">"uvicorn 是开门服务员"要理解透</span>
+    </div>
+  </div>
+
+  <div class="card" data-page-node-id="td2VIhBsgmflpF7BoiqGiI">
+    <h2 data-page-node-id="p3oWcnGrvUJgHO6ByikBNO">③ 今晚读 · Dockerfile 说明书 <span class="tag t-warn" data-page-node-id="r3YDC98OU4JE06LJCAEDfD">理解为主·会改端口/依赖</span></h2>
+    <pre data-page-node-id="4wMhyw2r4gx6yMyjT05i0N"><code data-page-node-id="WWitfJ1fhWaSLPFzfO78bB">FROM python:3.11                       # 基础系统：拿现成的 Python 环境
+WORKDIR /app                           # 进店后站在哪个目录
+COPY requirements.txt .                # 把依赖清单拷进来
+RUN pip install -r requirements.txt     # 按清单装依赖（含 fastapi、uvicorn）
+COPY . .                               # 把你的代码(main.py等)拷进来
+CMD ["uvicorn","main:app","--host","0.0.0.0","--port","8000"]  # 开门命令</code></pre>
+    <div class="row" data-page-node-id="gfAVKSpeiIyFRgeA5xD56j">
+      <span class="pill p-ok" data-page-node-id="wG3m6ditikO6FjvVQU4G3l">FROM 版本 会改</span>
+      <span class="pill p-ok" data-page-node-id="cWq1SwqvIfFxQohV1xiUnD">依赖清单/端口 会改</span>
+      <span class="pill p-must" data-page-node-id="pgNe0m3CMZ53CnaWQOPjJS">CMD 启动 uvicorn 理解为何在这</span>
+    </div>
+    <p class="note" data-page-node-id="EG6WYVLlo6yulOkNS02jAM">关键记忆：<code data-page-node-id="Blo1m9X7s3PsqmjOnCYCgg">uvicorn</code> 不在你的 .py 里，而是在说明书最后一行 <code data-page-node-id="65O2O1ba3W6uZ5EIpXBLml">CMD</code> 启动。这就是"服务员开门"写在哪。</p>
+  </div>
+
+  <div class="card" data-page-node-id="SvFaPRqrOsTu0PBsX4KIld">
+    <h2 data-page-node-id="tA76mXaEpJKPVpTeiFG9nR">④ 今晚记 · 跑容器的命令 <span class="tag t-warn" data-page-node-id="VOMsBxmLmH6CcBCEyZ2Suz">记死口诀</span></h2>
+    <pre data-page-node-id="YTbVR34bPapVHBnbmBWmlA"><code data-page-node-id="yDA2hXDWBvcMHeGUAWIVTA">docker build -t myshop .        # 封箱成镜像，起名 myshop
+docker run -p 8000:8000 myshop  # 开门：本机8000 接 容器8000</code></pre>
+    <p class="note" data-page-node-id="lQfJtrPWh75aKXG9hKBRQK">口诀：<b data-page-node-id="b9PGKx30QciVXvnrmY6fLr">"-p 前面本机、后面容器"</b>。忘了写 <code data-page-node-id="5SrnUOADzRgW9sij6Cqibt">-p</code> 店照跑但外面进不来。<code data-page-node-id="29C6qT0OKCw1hAZ7tSksm6">push</code> 上货架不需要 <code data-page-node-id="SfFG3RCqRCT5jDhYrdIBl2">-p</code>，两件事平行无关。</p>
+    <p class="note" data-page-node-id="pContainer8000">🔗 "容器 8000"= 容器里那间店（uvicorn）监听的<b>端口（房间号）</b>，由 Dockerfile 的 <code>CMD --port 8000</code> 决定。<code>-p 本机:容器</code> 的<b>第二个数必须 = 容器里 uvicorn 蹲的这个数</b>。改了 uvicorn 监听 9000，就得写 <code>-p 8000:9000</code>（本机8000 接 容器9000）。</p>
+    <p class="note" data-page-node-id="pImgVsCtn">⚠️ 术语分清楚：<b>"打包的产品"是<b>镜像 image</b>（死的模板），<b>容器 container</b> 是镜像<b>跑起来后的活实例</b></b>——别把俩词混成一个。端口号写死在镜像的 Dockerfile 里（<code>--port 8000</code>），容器从镜像跑起来后 uvicorn 就听那个 8000，所以 <code>-p</code> 第二个数必须跟它一致，管子才接得进。</p>
+    <p class="note" data-page-node-id="pScope">🌐 本机 <code>run -p</code> 的访问范围：<b>你自己（localhost:8000，自测）✅ + 同 WiFi 的人（你笔记本局域网IP:8000）✅</b>；但<b>公网陌生人 ❌</b>进不去（路由器 NAT 挡着）。所以笔记本跑主要是<b>自测 + 局域网给别人试</b>。要全网能进，得把容器 <code>run</code> 在<b>云服务器</b>（有公网 IP）上。</p>
+  </div>
+
+  <div class="card" data-page-node-id="LtUmbQ1eHb6QQPzXfvHYOy">
+    <h2 data-page-node-id="v8VXeedrj0rzmruRb3hprf">⑤ 明天重敲 · 从空白写（验收你真懂没）</h2>
+    <ul data-page-node-id="by444cuyJiYayIPgnyVBrt">
+      <li data-page-node-id="J2wJ6oZrAqEjj681HtSeQF">不抄，手写 FastAPI 骨架：一个 <code data-page-node-id="527kRmEYv9Bq1X4H4BoV1H">@app.get("/")</code> 返回一句问候。</li>
+      <li data-page-node-id="dIuw2OQMQN6CNwQJF9c6nH">不抄，手写 Dockerfile：5 行（FROM / WORKDIR / COPY / RUN / CMD）。</li>
+      <li data-page-node-id="D05eMF3yNG4PMYD0AMp2pH">改端口练习：把 <code data-page-node-id="dIK1d5wHcXbFS2R9L3jLYc">-p 8000:8000</code> 改成 <code data-page-node-id="LMfyW7bCNg2rKxiTrSj9QG">-p 9000:8000</code>，说出外面该敲哪个门牌。</li>
+      <li data-page-node-id="V12sggDkNrw6Bbs40fXJmu">Agent echo 版：从空白写 ⑧-1 那段（手写 BaseModel + <code data-page-node-id="HsSYg0xfDzYkHD8oKuW6rF">/chat</code> 路由），跑通返回"你说了：xxx"。</li>
+    </ul>
+    <p class="note" data-page-node-id="fy2hJFg5SBHwwlEK7CLRER">写不出来 ≠ 笨，是没读熟。回看 ②③④ 再敲，敲通就稳了。</p>
+  </div>
+
+  <div class="card" data-page-node-id="OmFdAlIFKD6LCp7SNfPi5x">
+    <h2 data-page-node-id="ZFO8U05uJ1rygJlsCo19Bg">⑥ 关键概念勾选 · 睡前过一遍</h2>
+    <ul class="check" data-page-node-id="3UKYX7XhWH0jH7wTPTwSRG">
+      <li data-page-node-id="yQXT3ANmKljjsKz5pNmQyD">□ 镜像是"死的物件"、容器是"活的店"——一个镜像能跑多个容器</li>
+      <li data-page-node-id="NGfmO5ksWFEzMsiO1KOJoj">□ <code data-page-node-id="aCq8ZsFG9XO9jwRAOnIq71">build</code> 造物件、<code data-page-node-id="zM6ofBWinQ6hpwjHFQVKX5">run</code> 让物件活过来开门</li>
+      <li data-page-node-id="JHG1LEBnjAUYxgkHG1xCPV">□ <code data-page-node-id="lXDy1Sk7BXyK6rrSPOEWs0">-p 本机:容器</code>，本机 = 跑容器的那台机器（笔记本/服务器都行）</li>
+      <li data-page-node-id="1fmKCMMVy88RCph0gQWw4B">□ Docker Hub 是货架不是房东，只存模板、不开端口</li>
+      <li data-page-node-id="plCTuUnWJEnutDPlyDznBL">□ <code data-page-node-id="08Bt9Xi6QtfcxHqGzWqTRt">uvicorn</code> 是独立服务器程序，由终端/CMD 启动，不在 .py 里</li>
+      <li data-page-node-id="L4NrNTOINCZ3YPBShFg4ND">□ 脚手架理解+会改就够；业务逻辑必须自己能写</li>
+    </ul>
+  </div>
+
+  <div class="card" data-page-node-id="GvkDQDtjAQSdGdvw2xRlE4">
+    <h2 data-page-node-id="v3ytBbP13hDj7M2649qIE7">⑦ 你问的"进度快慢" · 直说</h2>
+    <table data-page-node-id="aaaSLLU0KYJqMqIoSSNBG8">
+      <tr data-page-node-id="qxLD3kk5wdDTL9zwfQmOam"><th data-page-node-id="ueSjRO6AFMSWfm2Snhn14s">维度</th><th data-page-node-id="LRvD0vfItgc3gsECpjA0Jt">判断</th></tr>
+      <tr data-page-node-id="gEaqj1OtLKDDCYIbRPYbSj"><td data-page-node-id="A7De2w6s8sX1WmYnnTUDuZ">概念理解速度</td><td data-page-node-id="XC5JB0lTbmSnCtPWdTX3zP"><b data-page-node-id="ibrZpj6A7kmCT61I0CXUI2">偏快</b>。零基础两天讲通 Docker 全链路+主动纠错，多数人要一周。</td></tr>
+      <tr data-page-node-id="lzxYfkla6WHSoFaAkM4HZx"><td data-page-node-id="Fo2fUXE7Mb26ggaNgjdKLH">代码默写速度</td><td data-page-node-id="Edn4h6eXEDqnZU4XMpj7sw"><b data-page-node-id="tczmbS9ig2RwAY4DVrbCOw">正常/偏慢都 OK</b>。你才第2天，不要求背脚手架，理解即可。</td></tr>
+      <tr data-page-node-id="Cz6Typkw9I9zdF6vIqAEjK"><td data-page-node-id="H4X4DXTteHfv1y9byZ9Jlb">当前该做的</td><td data-page-node-id="K7DqKqupwIwbKoZ2mkXoAh"><b data-page-node-id="mlJZh8G2y1xTnDYYFN14Fg">停新内容、巩固</b>。你"感觉快"=信号正确，今晚计划对。</td></tr>
+    </table>
+    <p class="note" data-page-node-id="uCOQZZWFNnEVE0v65okZDE">一句话：你不是慢，是<b data-page-node-id="qBtK9nHZNCC7gqywr1LPHG">学得太顺以至于没消化</b>。今晚只读不赶，明天重敲，节奏就回来了。</p>
+  </div>
+
+  <div class="card" data-page-node-id="cukH7ZQLh95ZHKleSzWC5i">
+    <h2 data-page-node-id="2gIglstJdszyBmMHhkCo5E">⑧ Agent 毕业版最终流程（整条流水线合起来） <span class="tag t-must" data-page-node-id="IEx4YF822LXx9SuhVWN447">重点巩固</span></h2>
+    <p class="note" data-page-node-id="1dqN9FV1nr0GMucwIezEeH"><b>⑧ 不是把 ②③④ 合并精简。</b>它是在 ② 的 FastAPI 店基础上，把 <code>return</code> 里的"固定话"换成"Agent 干的事"；Docker 部署仍是 ③ ④，本段只在末尾一句引用。你重点看"<b>② 和 ⑧ 差在哪</b>"：就差 <code>return</code> 里那一行（固定话 vs Agent 逻辑）。所以巩固时 ②③④ 各自独立读，⑧ 读"它在 ② 上加了什么"即可。</p>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;" data-page-node-id="57fHYVijs1fTjUL5IsFSTP">⑧-1 最小可跑版（今晚读 + 明天重敲，不用任何 API key）</h3>
+    <pre data-page-node-id="7mRBdSJZKAhAN2a7ePXCi0"><code data-page-node-id="I9OQCHGLisqC85fvXgA8Q5">from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Msg(BaseModel):            # 脚手架：定义"进来的格式"（填表模板）
+    user_msg: str
+
+@app.post("/chat")              # 门牌：POST + /chat
+def chat(msg: Msg):
+    reply = "你说了：" + msg.user_msg   # ← 这行是 Agent 真正干的事，必须自己写
+    return {"reply": reply}</code></pre>
+    <div class="row" data-page-node-id="zrfzjWP15AEo8J9FuYA1YR">
+      <span class="pill p-ok" data-page-node-id="DPQC01wb7Y1KUSOHAAAfuB">class Msg 填表模板 理解+会改</span>
+      <span class="pill p-ok" data-page-node-id="eZMesolGc0hxFvODosmD4z">@app.post 门牌 理解+会改</span>
+      <span class="pill p-must" data-page-node-id="wxKCZa1RFTlUaPjvl31MuE">reply=... 业务逻辑 必须自己写</span>
+    </div>
+
+    <h3 style="font-size:14px;margin:16px 0 6px;" data-page-node-id="xJ1uody2gLMWbT7EaiTImo">⑧-2 真实 LLM Agent 结构（今晚只读，理解整体流程）</h3>
+    <pre data-page-node-id="d168XmH2IdVuQbk7vxAnj4"><code data-page-node-id="skZ8bt2BziTSeJKrwIz8j5">from fastapi import FastAPI
+from pydantic import BaseModel
+from openai import OpenAI
+
+app = FastAPI()
+client = OpenAI()    # 需要 API key（放 .env，第4章讲，别写死在代码里）
+
+class Req(BaseModel):
+    user_msg: str
+
+@app.post("/agent")
+def agent(req: Req):
+    sys_prompt = "你是一个简洁的查资料助手。"   # ← 人设/规矩，必须自己写
+    resp = client.chat.completions.create(       # 调 LLM（脚手架：理解这步在干嘛）
+        model="gpt-4o-mini",
+        messages=[{"role":"system","content":sys_prompt},
+                  {"role":"user","content":req.user_msg}]
+    )
+    return {"reply": resp.choices[0].message.content}</code></pre>
+    <div class="row" data-page-node-id="DBqvenKcVryvLa4hKVdWIl">
+      <span class="pill p-ok" data-page-node-id="luFYMUe8eJpdPnSvsPEcWh">端点结构 / BaseModel / 怎么传消息 理解+会改</span>
+      <span class="pill p-must" data-page-node-id="zDB7OXShURxtrJCVdtgREY">sys_prompt 人设 / 选模型 / 要不要用工具 必须自己写</span>
+    </div>
+
+    <p class="note" data-page-node-id="OmBsJTMAp87Um5ysYlByUO"><b data-page-node-id="YfxHXQufjRF99tFhCJTTEA">整条流水线一句话</b>：写 .py(店) → 写 Dockerfile(说明书) → <code data-page-node-id="abKN7PXL36Dskp1l2SOosW">build</code>(封箱) → <code data-page-node-id="yy8QfAPI0AcvaSVnIjGmPr">run -p</code>(开门) → 别人 POST 你的 /chat 或 /agent → 你的 Agent 干活返回。<br data-page-node-id="1vYGEkeD9F5bGZfFudIMfs">
+    你"写不出"的永远是 <b data-page-node-id="ANvW11WpIbkraMFBMZjmLu">sys_prompt 和 reply 逻辑</b> 这两类——它们才是 Agent 的核心，其余都是脚手架。今晚只把 ⑧-1 读熟、把"脚手架 vs 业务逻辑"的分界记牢，明天从空白写 ⑧-1 就够。</p>
+  </div>
+
+  <div class="card">
+    <h2>⑨ 长版 w3_agent_full.py 详细版（Agent 大脑）+ 整合闭环 <span class="tag t-must">关键</span></h2>
+    <p class="note">这就是<b>"你写的 Agent 连接大模型的模板"</b>——Agent 的<b>大脑</b>。它自己是个终端脚本（<code>python w3_agent_full.py</code> 跑），不能联网给别人调。要"接给别人用 + 自测"，得给它套上 ⑧-2 的 FastAPI <b>外壳</b>。两者拼起来 = 真毕业版，见本卡末尾"整合闭环"。</p>
+    <pre><code>import os
+import json
+from openai import OpenAI
+
+# ===== 1. 连接大模型 =====
+client = OpenAI(
+    api_key=os.environ["DEEPSEEK_API_KEY"],   # 从环境变量取密钥【理解+会改：换家/换key改这】
+    base_url="https://api.deepseek.com",      # 用哪家大模型的服务地址【理解+会改】
+)
+
+# ===== 2. 真实函数：模型调工具时真正干活的（你的业务逻辑）=====
+def 加法(num1, num2):                          # 【必须自己写】工具背后的真本事
+    return f"{num1} + {num2} = {num1 + num2}"
+
+# ===== 3. 工具说明书：告诉模型"你有个 add 工具可用"（name/参数必须英文）=====
+工具清单 = [                                    # 【必须自己写】agent 会用啥工具就列在这
+    {
+        "type": "function",
+        "function": {
+            "name": "add",
+            "description": "计算两个数字相加的和，当用户问加法、求和、几加几时用",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "num1": {"type": "number", "description": "第一个加数"},
+                    "num2": {"type": "number", "description": "第二个加数"}
+                },
+                "required": ["num1", "num2"]
+            }
+        }
+    }
+]
+
+历史 = []   # ← 整个对话历史，跨所有问题保留（记忆来源）【理解：这就是"记忆"】
+
+# ===== 4. 问题列表：第1个多步推理，第2个考跨轮记忆 =====
+问题列表 = [                                    # 【理解+会改：换成你自己的问题】
+    "帮我算一下，先算 3 加 5，再用这个结果加 10，最后是多少",
+    "我刚才让你算的第一个算式是什么？最后结果是多少？",
+]
+
+# ===== 外层 for：一个问题一个问题地聊（多轮）=====
+for 问题 in 问题列表:
+    历史.append({"role": "user", "content": 问题})
+    print(f"\n你：{问题}")
+
+    轮次 = 0
+    最大轮次 = 10            # 每个问题最多推理 10 步【理解：防死循环护栏】
+
+    # ===== 内层 while：多步推理，直到模型给最终答案（Agent 大脑核心）=====
+    while 轮次 < 最大轮次:
+        轮次 += 1
+        print(f"--- 第 {轮次} 轮 ---")
+
+        resp = client.chat.completions.create(
+            model="deepseek-chat",             # 【理解+会改：换模型名】
+            messages=历史,                     # 把记忆一起发给模型
+            tools=工具清单,                    # 把工具清单交给模型
+            tool_choice="auto",
+        )
+        回复 = resp.choices[0].message
+
+        if 回复.tool_calls:
+            # 模型要调工具 → 执行 → 结果喂回历史 → 继续循环（不退出）
+            历史.append(回复)
+            for 调用 in 回复.tool_calls:
+                函数名 = 调用.function.name
+                参数 = json.loads(调用.function.arguments)
+                if 函数名 == "add":
+                    结果 = 加法(参数["num1"], 参数["num2"])   # 【必须自己写】真正执行
+                    print(f"  [执行工具] add({参数['num1']}, {参数['num2']}) -> {结果}")
+                历史.append({"role": "tool", "tool_call_id": 调用.id, "content": str(结果)})
+            continue
+        else:
+            # 模型给了最终文字 → 任务完成 → 跳出内层循环，进下一个问题
+            print("模型：" + 回复.content)
+            break
+
+    if 轮次 >= 最大轮次:
+        print("⚠️ 达到最大轮次，强制结束（防止死循环）")
+
+print("\n=== 全部问题处理完毕 ===")</code></pre>
+    <div class="row">
+      <span class="pill p-ok">client 连接 理解+会改</span>
+      <span class="pill p-must">真实函数/工具清单 必须自己写</span>
+      <span class="pill p-ok">历史=记忆 理解</span>
+      <span class="pill p-must">while+tool_calls 大脑核心 必须懂</span>
+    </div>
+    <p class="note">🔑 <b>四块分工</b>：①<b>连接大模型</b>（client，理解+会改 key/模型/base_url）；②<b>真实函数</b>（加法，必须自己写——agent 的真本事）；③<b>工具清单</b>（告诉模型能用 add，必须自己写）；④<b>历史</b>（跨轮记忆，理解）；⑤<b>while 循环+tool_calls</b>（大脑核心：模型可多次调工具直到给最终答案，必须理解透）。<b>while + tool_calls + 历史</b> 三件套就是 Agent 跟"普通一次聊天"的本质区别。</p>
+    <p class="note">🔀 <b>关于"模型不选择用工具"</b>：外层 <code>if 回复.tool_calls:</code> 的 <b>else 分支就是干这个的</b>——模型没调工具、直接给最终文字时，打印并 <code>break</code> 跳出循环。你担心的"不调工具"情况<b>没少写</b>。真正没 else 的是内层 <code>if 函数名 == "add":</code>：那是"模型调了工具但名字不是 add"的情况；本脚本只注册了 add 一个工具不会触发，所以安全。要更稳可补 <code>else: print("未知工具")</code> 兜底。</p>
+    <p class="note">🔀 <b>分支分工再点清</b>：<code>if 回复.tool_calls:</code>（模型决定调工具）→ 执行工具 + <code>continue</code> 继续循环，<b>绝不在此出口</b>；<code>else:</code>（模型决定不调工具）→ 打印最终答案 + <code>break</code> 退出。<b>最终答案永远从 else 出来</b>，但它是"模型调完工具后、这轮决定不再调了"才到达的——不是"调用工具得出了答案=走 else"。<code>tool_choice="auto"</code> 就是让模型每轮自己选走 if 还是 else。<b>关键点</b>：if/else 是<b>每一轮都重新判断</b>的，不是"先调后不调"才合法。"模型从最开始（第 1 轮）就不调工具、直接回答"走的也是同一个 else → 打印 → <code>break</code>，<b>while 只跑 1 次就收工</b>，和"调了 3 轮后第 4 轮才不调"用的是同一个 else，区别只是循环跑了几次。所以"首轮直接答"不是 bug、是正确设计——不需要工具时硬调才错。</p>
+    <p class="note">🔍 <b>内层 for 循环逐行复盘</b>：<code>回复.tool_calls</code> 是模型这轮写下的"点单小票"列表（可能含多个工具调用，也可能为空→走 else）。<code>for 调用 in 回复.tool_calls:</code> = 一张张取出小票逐个处理（模型调了几个工具就循环几次）。<code>调用.function.name</code> = 这道"菜"的名字（字符串，如 "add"）→ 存入 <code>函数名</code>。<code>调用.function.arguments</code> = 这道菜的参数，但模型只能发<b>文字</b>，所以它是 <b>JSON 格式的一段字符串</b>（如 <code>'{"num1":3,"num2":5}'</code>），不能直接用 <code>参数["num1"]</code> 取。<code>json.loads(...)</code> = "把 JSON 文字还原成真正的 Python 字典"（<code>loads</code> 的 s = string），转完才能 <code>参数["num1"]</code> 取值。两行"取名字/取参数" = <b>【理解+会改】</b>脚手架（OpenAI 系工具调用的固定拆法）；<code>if 函数名 == "add": 结果 = 加法(...)</code> = <b>【必须自己写】</b>你的业务逻辑（决定调哪个函数、怎么执行）。</p>
+    <p class="note">🌐 <b>整合闭环（今晚所有东西合起来）</b>：你写的这个 Agent 大脑（⑨） + ⑧-2 的 FastAPI 外壳（把 <code>/agent</code> 函数包成网页能调的接口） + ③ Dockerfile 把整间店装进集装箱 + ④ <code>run -p 8000:8000</code> 开门。<br>= <b>"我写的 Agent 连接大模型的模板，通过接口接给别人用（别人 POST 我的 /agent），并且我自己 localhost:8000 自测。"</b> 这就是"FastAPI 包 Agent 成 API 服务"的完整形态，也是你转岗 Agent 开发的核心交付物。具体代码见下面 ⑨-b / ⑨-c / ⑨-d。</p>
+
+    <h3>⑨-b 毕业版：给大脑套上 FastAPI 外壳（= ⑧-2 外壳 + ⑨ 大脑合体）</h3>
+    <p class="note">把上面 w3_agent_full.py 的 <b>while 大脑</b>塞进一个 <code>run_agent()</code> 函数，外面套 FastAPI 的 <code>/agent</code> 接口。① client / ② 加法 / ③ 工具清单 三个<b>直接复用上面</b>，不重复写。注意：API 版每请求新建 <code>历史</code>（无状态，演示用）；真实多轮对话要按用户 session 保留——这点先记着，明天不要求写。</p>
+    <pre><code>from fastapi import FastAPI, BaseModel
+
+app = FastAPI()                    # 开店（应用实例）【理解+会改】
+
+class AgentReq(BaseModel):         # 收客户端发来的消息（有外部输入→用 BaseModel）【理解+会改】
+    消息: str
+
+# 把 w3_agent_full.py 的 while 大脑，封装成一个函数（复用上面 ①client ②加法 ③工具清单）
+def run_agent(用户消息: str) -> str:
+    历史 = [{"role": "user", "content": 用户消息}]   # 每请求新建历史（演示；真实多轮用 session）
+    轮次 = 0
+    最大轮次 = 10
+    while 轮次 < 最大轮次:
+        轮次 += 1
+        resp = client.chat.completions.create(
+            model="deepseek-chat",
+            messages=历史,
+            tools=工具清单,
+            tool_choice="auto",
+        )
+        回复 = resp.choices[0].message
+        if 回复.tool_calls:
+            历史.append(回复)
+            for 调用 in 回复.tool_calls:
+                函数名 = 调用.function.name
+                参数 = json.loads(调用.function.arguments)
+                if 函数名 == "add":
+                    结果 = 加法(参数["num1"], 参数["num2"])   # 【必须自己写】真执行
+                历史.append({"role": "tool", "tool_call_id": 调用.id, "content": str(结果)})
+            continue
+        else:
+            return 回复.content     # 最终答案（从 else 出，前面讲过）
+    return "⚠️ 超过最大轮次"
+
+@app.post("/agent")                # 门牌：POST + /agent【理解+会改】
+def agent(req: AgentReq):          # BaseModel 接住客户端消息【理解】
+    return {"reply": run_agent(req.消息)}   # 【必须自己写】调大脑、回结果</code></pre>
+    <div class="row">
+      <span class="pill p-ok">app=FastAPI() / @app.post 理解+会改</span>
+      <span class="pill p-must">run_agent 里的 while 大脑 必须懂</span>
+      <span class="pill p-must">return {"reply":...} 业务逻辑 必须自己写</span>
+    </div>
+
+    <h3>⑨-c 装进集装箱：Dockerfile（= 卡里 ③）</h3>
+    <p class="note">把整间店（FastAPI + Agent 大脑 + 依赖）装进集装箱。依赖清单 <code>requirements.txt</code> 比纯 FastAPI 多了 <code>openai</code> 一行（调大模型要它）。</p>
+    <pre><code># requirements.txt
+fastapi
+uvicorn
+openai
+
+# Dockerfile
+FROM python:3.11                                   # 基础系统【理解+会改：换 Python 版本】
+WORKDIR /app                                       # 店内工作目录
+COPY requirements.txt .                            # 拷依赖清单
+RUN pip install -r requirements.txt                # 装依赖（含 fastapi/uvicorn/openai）
+COPY . .                                           # 拷代码（main.py 等）
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]  # 开门命令【理解：--port 8000 = 容器里 uvicorn 蹲的房间号】</code></pre>
+
+    <h3>⑨-d 跑起来 + 自测（= 卡里 ④）</h3>
+    <pre><code>docker build -t myagent .          # 封箱成镜像（模板）
+docker run -p 8000:8000 myagent     # 开门成容器：-p 前面本机、后面容器(8000 须跟 CMD --port 一致)</code></pre>
+    <p class="note">跑起来后：<b>你自己</b>浏览器开 <code>http://localhost:8000/docs</code> 自测（发 POST 给 /agent）；<b>同 WiFi 的人</b>用你笔记本局域网 IP:8000 也能试；公网陌生人进不来（路由器挡着）。要全网进，把容器 run 在云服务器上。别人 POST 你的 /agent → 你的 Agent 大脑就干活返回。这就是"我写的 Agent 模板，接给别人用 + 自己自测"的完整闭环。</p>
+  </div>
+
+</div>
+</body>
+</html>

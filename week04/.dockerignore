@@ -2,3 +2,6 @@
 qa.db
 __pycache__
 *.pyc
+
+# 不要把带密钥的 .env 打进镜像（安全）
+.env

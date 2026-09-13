@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="DVimlQ5MaqclodGu10HrR6">
+<head data-page-node-id="OylBiCaXAyem96s2SEcaR8">
+<meta charset="UTF-8" data-page-node-id="YoSk4aef9ROoSqHDz4AIdo">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="cQ85APHOcgEGGqRhwQNzI0">
+<title>xin-agent-journey · 毕业版一条线（从学 Agent 到部署上线）</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1f2329; --sub:#5b6168;
+    --line:#e4e7ec; --ok:#1f8a4c; --okbg:#e9f7ee;
+    --warn:#b76e00; --warnbg:#fff4e0; --must:#c0392b; --mustbg:#fdecea;
+    --code:#0f1b2d; --codebg:#f0f2f5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.7;}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 20px 60px;}
+  h1{font-size:24px;margin:0 0 4px;}
+  .lead{color:var(--sub);margin:0 0 22px;font-size:14px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  h2{font-size:17px;margin:0 0 10px;display:flex;align-items:center;gap:8px;}
+  h2 .tag{font-size:12px;font-weight:600;padding:2px 9px;border-radius:20px;}
+  .t-ok{background:var(--okbg);color:var(--ok);}
+  .t-warn{background:var(--warnbg);color:var(--warn);}
+  .t-must{background:var(--mustbg);color:var(--must);}
+  pre{background:var(--codebg);color:var(--code);border-radius:8px;padding:14px 16px;
+    overflow:auto;font-size:13px;line-height:1.55;margin:10px 0 4px;}
+  code{font-family:"SFMono-Regular",Consolas,Menlo,monospace;}
+  .note{font-size:13px;color:var(--sub);margin:6px 0 0;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0;}
+  .pill{font-size:12px;padding:3px 10px;border-radius:20px;font-weight:600;}
+  .p-ok{background:var(--okbg);color:var(--ok);}
+  .p-must{background:var(--mustbg);color:var(--must);}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:#f0f2f5;font-weight:600;}
+  ul{margin:6px 0;padding-left:20px;}
+  .kbd{background:#eef0f3;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px;}
+  .fileref{font-family:"SFMono-Regular",Consolas,Menlo,monospace;background:#eef0f3;
+    border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px;color:#333;}
+</style>
+</head>
+<body data-page-node-id="gIevn2Bq7kBBay6Z7ValN7">
+<div class="wrap" data-page-node-id="LYoBneBvORBwWvAhQpPF2p">
+  <h1 data-page-node-id="qFiHdJlwmlhjxGIMcdZ78f">xin-agent-journey · 毕业版一条线</h1>
+  <p class="lead" data-page-node-id="sJYnUEJiuusuKMlRpMBZ3f">从"学 Agent"到"部署上线"的单一主线。本卡是教学说明，真实可跑代码都在项目里：大脑 = <span class="fileref" data-page-node-id="f0IKogBhHqwitcZVzUAa61">week03/w3_agent_full.py</span>，毕业版 = <span class="fileref" data-page-node-id="hAO28pA4iBWWm1irCax0xY">week04/</span>。week03 原样保留不动。</p>
+
+  <div class="card" data-page-node-id="rWQKhox6SEtHusGzNDkSLh">
+    <h2 data-page-node-id="PJZkAX4tRo5EWErGEhAQ9W">① 这条线怎么串（进度地图）</h2>
+    <table data-page-node-id="KJQa22VedPtX5CjGlRaEBH">
+      <tr data-page-node-id="howt9fumzpm3e0CNYFLjGF"><th data-page-node-id="Iypwg3xpFiByiTxU09xU4v">阶段</th><th data-page-node-id="32mGeG1ZhTNEBTPmuwTE2Y">项目里真实文件</th><th data-page-node-id="Dalr6LYNBHFT0BkfmMWBDD">你学到什么</th></tr>
+      <tr data-page-node-id="80ow7497tfoCmHb7kFmSHN"><td data-page-node-id="9M2NqEb7g7nIms3PZWgDbW">Python 基础</td><td data-page-node-id="VGHGMMz3HFAVf02nhqBLlK"><span class="fileref" data-page-node-id="cWzI6dfcxiXoEYCtGgcGeo">week01/ week02/</span></td><td data-page-node-id="QUX26hPGOHXxEze6U2PC1D">函数/类/字典/循环/文件（脚手架+业务逻辑分界）</td></tr>
+      <tr data-page-node-id="5SncfbfAntR28DFn3B0nxu"><td data-page-node-id="bj6H3orXPsJdbjzW8vAufE">Agent 大脑（终端脚本）</td><td data-page-node-id="sbs9WNINQ6D7LLFbq5zw4Z"><span class="fileref" data-page-node-id="VwpSIUXFDs4pNd1eypAwZi">week03/w3_agent_full.py</span></td><td data-page-node-id="esFDcVXCD0GvxYvDeRusQ7">while 多步推理 + 工具调用 + 跨轮记忆</td></tr>
+      <tr data-page-node-id="cDwHQcm0y9DM07MDao6GHs"><td data-page-node-id="T77FzwYAaSRV4kDLRn6191">毕业版（联网+部署）</td><td data-page-node-id="g8mj2HI7WJYpTjqBSToyky"><span class="fileref" data-page-node-id="27aX08dt3uoQ5aIqjEsfRo">week04/api_service.py</span> + <span class="fileref" data-page-node-id="ZM7MV2w85DlWDHJJJDFO20">Dockerfile</span> + <span class="fileref" data-page-node-id="3gR0Ka4TbSLBK0iQJke6PX">docker-compose.yml</span></td><td data-page-node-id="iM1SiLtqYFRssGRQUkU4lZ">给大脑套 FastAPI 外壳 → 装 Docker → 别人能调、自己能自测</td></tr>
+    </table>
+    <p class="note" data-page-node-id="o5EOufO4jfIoixzeRKZXN6">★ 一句话：week03 是"Agent 会思考+会用工具+会记"（但只是个终端脚本，不能联网）；week04 是"把它包成网页接口 + 装进集装箱"。两者拼起来 = <b data-page-node-id="BnbGZ6cGMHjpgDv2RScWLz">你转岗 Agent 开发的核心交付物</b>。本卡把这两块用同一套标注讲透。</p>
+  </div>
+
+  <div class="card" data-page-node-id="6cCzeqIBNnpVsGvEkedUrk">
+    <h2 data-page-node-id="T2zAAWA8pHzRUmc6u5YkdO">② Agent 大脑（week03 · 终端脚本，毕业版的核心） <span class="tag t-must" data-page-node-id="ofwR3bc6BeHebBL9bb3TlJ">必须懂</span></h2>
+    <p class="note" data-page-node-id="54XRVV4ckZvXp0ILrXHSdm">这是"你写的 Agent 连接大模型的模板"——大脑。它在 <span class="fileref" data-page-node-id="8CAeoSGlEdMFVX7mkPj0qM">week03/w3_agent_full.py</span>，自己跑（<code data-page-node-id="FCT9NQfAhtM6BF9OvRK9b1">python w3_agent_full.py</code>）不能联网。下面抓最该懂的四块：</p>
+    <pre data-page-node-id="IQjHia1l9KOFv0niiEQEtc"><code data-page-node-id="l2AK95g6WpVIXkbu4ApPU2">import os, json
+from openai import OpenAI
+
+# 1. 连接大模型 —— 【理解+会改】换家/换 key/换 base_url 改这
+client = OpenAI(
+    api_key=os.environ["DEEPSEEK_API_KEY"],
+    base_url="https://api.deepseek.com",
+)
+
+# 2. 真实函数：模型调工具时真正干活的 —— 【必须自己写】agent 的真本事
+def 加法(num1, num2):
+    return f"{num1} + {num2} = {num1 + num2}"
+
+# 3. 工具清单：告诉模型"你有个 add 可用"（name/参数必须英文）—— 【必须自己写】
+工具清单 = [{"type":"function","function":{
+    "name":"add","description":"计算两个数字相加",
+    "parameters":{"type":"object","properties":{
+        "num1":{"type":"number"},"num2":{"type":"number"}},
+        "required":["num1","num2"]}}}]
+
+历史 = []   # 【理解】跨轮记忆就存在这
+
+# 4. while 多步推理（大脑核心）—— 【必须懂】
+while 轮次 < 最大轮次:
+    resp = client.chat.completions.create(model="deepseek-chat",
+        messages=历史, tools=工具清单, tool_choice="auto")
+    回复 = resp.choices[0].message
+    if 回复.tool_calls:          # 模型决定调工具 → 执行 → 继续循环
+        历史.append(回复)
+        for 调用 in 回复.tool_calls:
+            函数名 = 调用.function.name
+            参数 = json.loads(调用.function.arguments)   # 把文字菜单翻成真字典
+            if 函数名 == "add":
+                结果 = 加法(参数["num1"], 参数["num2"])  # 【必须自己写】真执行
+            历史.append({"role":"tool","tool_call_id":调用.id,"content":str(结果)})
+        continue
+    else:                        # 模型不调工具、给最终答案 → 跳出
+        print("模型：" + 回复.content)
+        break</code></pre>
+    <div class="row" data-page-node-id="3DYPmGCsLiHRL5lS2N1hxY">
+      <span class="pill p-ok" data-page-node-id="rZi9BwLRF37yZ2KhWtVulx">client 连接 理解+会改</span>
+      <span class="pill p-must" data-page-node-id="NjBaesvL2ibWtgsIsBE3ks">真实函数/工具清单 必须自己写</span>
+      <span class="pill p-ok" data-page-node-id="IY3uZu1W35MWDaRMIqjynN">历史=记忆 理解</span>
+      <span class="pill p-must" data-page-node-id="qESu7pIe5b1qMmCYgF6JSj">while+tool_calls 大脑核心 必须懂</span>
+    </div>
+    <p class="note" data-page-node-id="2MbYrnRUd7dFAM6H9Zxl6V">🔑 控制流要点（你今晚抠透的）：<b data-page-node-id="BdyPVABdT7Im027Oz3Pg2s">if 调工具→continue 继续；else 不调→break 出口</b>。最终答案永远从 else 出，但它是"调完工具后这轮决定不调了"才到。首轮就不调工具也走同一个 else（while 只跑 1 次），是正确设计不是 bug。<b data-page-node-id="SAqPqADy4tE3Ye6B2m66NF">json.loads</b> 必须把模型发来的"文字版参数"还原成真字典，才能 <code data-page-node-id="eKqqq9rZni4mC3IaljlUj5">参数["num1"]</code> 取值。</p>
+  </div>
+
+  <div class="card" data-page-node-id="QaR2prns6WAzQjLyRWpNHi">
+    <h2 data-page-node-id="9LKGsWsw36ea3AktDZvh9m">③ 毕业版：给大脑套 FastAPI 外壳（week04 · 联网接口） <span class="tag t-must" data-page-node-id="fPt8vlegPCE5rTE1fQkBHe">重点</span></h2>
+    <p class="note" data-page-node-id="X9vy8Z0Ljw3kkYUoYp8H5Q">week04 的 <span class="fileref" data-page-node-id="WGdQjKgm9EKkBr8AHGuzWG">api_service.py</span> 把上面的 while 大脑封装成 <code data-page-node-id="Xw2Dv4vRIg7mEgRD9aIwk3">跑_agent()</code> 函数，外面套 <code data-page-node-id="z7fGaO9MqETHDPnMXY8WwT">@app.post("/ask")</code>。比本卡 ② 多了两样：① <span class="fileref" data-page-node-id="GbchE0CFSlGhrH0WMlHy4m">BaseModel</span> 收客户端消息（有外部输入才有它）② 顺手把问答存进 SQLite（第 3 层持久化）。</p>
+    <pre data-page-node-id="mfz4SLlHUBA7sd85XuCw2t"><code data-page-node-id="AGTMfCO3yS1NXE1QXA5yUU">from fastapi import FastAPI, BaseModel
+from openai import OpenAI
+import os, json, sqlite3
+from datetime import datetime
+
+client = OpenAI(api_key=os.environ["DEEPSEEK_API_KEY"], base_url="https://api.deepseek.com")
+
+# 加法 / 工具清单 / 跑_agent(while 大脑) 与 ② 完全相同，直接复用，不重复写
+
+app = FastAPI()
+
+class 提问体(BaseModel):        # 有外部输入→用 BaseModel 收【理解+会改】
+    question: str
+
+@app.post("/ask")               # 门牌：POST + /ask【理解+会改】
+def ask(提问: 提问体):
+    try:
+        答案 = 跑_agent(提问.question)   # 调大脑算出答案
+        存问答(提问.question, 答案)      # 第3层：存进数据库
+        return {"answer": 答案}          # 【必须自己写】把结果递出去
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"服务内部出错：{e}")</code></pre>
+    <div class="row" data-page-node-id="BiE8wORg6GYGBvHYKy6Glt">
+      <span class="pill p-ok" data-page-node-id="TeyqjdIaHldiCOyp9eeDVr">app=FastAPI() / @app.post 理解+会改</span>
+      <span class="pill p-ok" data-page-node-id="mAwgONM1Nr8GnJ7HUyAoWi">BaseModel 收消息 理解+会改</span>
+      <span class="pill p-must" data-page-node-id="LaWEEsYTdBBjmptuN9Xy7O">return {"answer":...} 业务逻辑 必须自己写</span>
+    </div>
+    <p class="note" data-page-node-id="octDPWbl1QRoechH9P1nuD">📌 和 ② 的区别就一行：② 的 <code data-page-node-id="uTtJzPR73nIkv3cZ2mJxUc">print</code> 是直接打印给终端；③ 的 <code data-page-node-id="vbjEx8pFSMchHNzr9yXHr2">return {"answer": 答案}</code> 是把答案装进 JSON 信封发回客户端。其余 <code data-page-node-id="0NQHxFTKefZsje0O5SbRGb">app=FastAPI()</code>、<code data-page-node-id="ZThEYvBTqpC2L5y7qerPRE">@app.post</code>、<code data-page-node-id="CKRAGOwdJbyhYZZQgk3Gw7">BaseModel</code> 全是脚手架（理解+会改即可）。<span class="fileref" data-page-node-id="pfKYf5IgGe0L05qNDSaRjs">api_service.py</span> 末尾还有 <code data-page-node-id="pxsXEUnenvfJh1eJmu57nk">if __name__=="__main__": uvicorn.run(...)</code> 把"怎么起服务"写进代码，不用记 uvicorn 命令。</p>
+  </div>
+
+  <div class="card" data-page-node-id="RsqJuAMBicPXhCVaya6W1U">
+    <h2 data-page-node-id="QMpqAnov2OpuV2DxXykdUS">④ 装进集装箱：Dockerfile（week04） <span class="tag t-warn" data-page-node-id="9NOK0a2If2MhprdHHDelmD">理解为主·会改端口/依赖</span></h2>
+    <p class="note" data-page-node-id="ZnsmmrFxRg27yp0jJMafjX">把整间店（FastAPI + Agent 大脑 + 数据库）装进集装箱。真实文件 <span class="fileref" data-page-node-id="T9HnoIw5q39onAOUPgQqFy">week04/Dockerfile</span>，比纯 FastAPI 多了中文编码兜底（否则中文会炸）。</p>
+    <pre data-page-node-id="25wP6ngyGAb1GmFUALEfsa"><code data-page-node-id="ptr8gTiN3kEXEGD94uJKLK">FROM python:3.13-slim                       # 基础系统【理解+会改：换版本】
+ENV PYTHONIOENCODING=utf-8 LANG=C.UTF-8 LC_ALL=C.UTF-8   # 中文兜底
+WORKDIR /app                                # 店内工作目录
+COPY requirements.txt .                      # 先搬依赖清单（利用缓存）
+RUN pip install --no-cache-dir -r requirements.txt         # 装 fastapi/uvicorn/openai
+COPY . .                                    # 搬代码
+EXPOSE 8000                                 # 声明监听 8000（房间号）
+CMD ["python","-m","uvicorn","api_service:app","--host","0.0.0.0","--port","8000"]  # 开门</code></pre>
+    <div class="row" data-page-node-id="jMWd6Dw94RRW1UUec3bXBH">
+      <span class="pill p-ok" data-page-node-id="xDsSPalGRhEXz5B8QXMOgC">FROM 版本 会改</span>
+      <span class="pill p-ok" data-page-node-id="rSmMCTI9QPyoGlCMsLmhHw">依赖清单/端口 会改</span>
+      <span class="pill p-must" data-page-node-id="TKPSG9K04nB9htC4qB3giB">CMD 启动 uvicorn 理解为何在这</span>
+    </div>
+    <p class="note" data-page-node-id="7CMZFOntm5gi8RuEWPeAXd">🔗 <b data-page-node-id="cAai8mU1Yx90XzHz3T1nX5">"容器 8000"</b> = 容器里 uvicorn 监听的端口（房间号），由 <code data-page-node-id="osc7AxeFAitBWRuhlqN8Hn">CMD --port 8000</code> 决定。<code data-page-node-id="1hHJcV43ACDX9HBVDpfRFh">-p 本机:容器</code> 第二个数必须=它。改了监听 9000 就写 <code data-page-node-id="s548FYwwQB6Va58Sa5oww3">-p 8000:9000</code>。<b data-page-node-id="7YTsCsyXuXYyHj9M3010PF">镜像才是打包的产品（死），容器是它跑起来的活实例</b>——别混。</p>
+  </div>
+
+  <div class="card" data-page-node-id="p5KSc8OSK0bgatDGvxS7jL">
+    <h2 data-page-node-id="gZQ2VSPA8NtoZWbkCGJCrt">⑤ 一条命令起 + 自测（week04） <span class="tag t-warn" data-page-node-id="xMnEgXN4CWeiFlIyHxVuNR">记死口诀</span></h2>
+    <p class="note" data-page-node-id="FUxSE1NaUxDNRigmTnf1de">真实文件 <span class="fileref" data-page-node-id="xtlB0OAlBtQmrz1bJFVUnn">week04/docker-compose.yml</span> 把"build + run -p + 传密钥"写成一个文件。先设好密钥，再一条命令起：</p>
+    <pre data-page-node-id="T3C8FiZOF6dtygYgSvVC4w"><code data-page-node-id="YD6zFw5DAbFP46OC9C8SqC"># 终端先设密钥（Windows）
+set DEEPSEEK_API_KEY=sk-xxxx
+# 进 week04 目录，一条命令起（含 build + run -p 8000:8000）
+docker compose up --build</code></pre>
+    <p class="note" data-page-node-id="xGjrNLMTQo0A9LWdyAf1Q0">口诀：<b data-page-node-id="uqKPJsOz8Zt4aeyJPrTdsL">"-p 前面本机、后面容器"</b>。跑起来后：<b data-page-node-id="LYoebNCYwZDmpmQ05N3ucR">你自己</b>开 <code data-page-node-id="m0hs5xPx9NGouUky6979uT">http://localhost:8000/docs</code> 自测（发 POST 给 /ask）；<b data-page-node-id="BD3AcayGmCNxXkewSMGCVO">同 WiFi</b> 用你笔记本局域网 IP:8000 也能试；<b data-page-node-id="XKpGzJqeYxRxXZUrdfzEPw">公网陌生人进不来</b>（路由器 NAT 挡着）。要全网进，把容器 run 在云服务器上。</p>
+    <p class="note" data-page-node-id="m6ZTGFWBUSVvJ5jaIhWPuY">🌐 <b data-page-node-id="vO6q3hVOO3bspwwKXAtJ9n">整合闭环</b>：week03 大脑（②） + week04 FastAPI 外壳（③） + week04 Dockerfile（④） + <code data-page-node-id="CEkngqnENWTF8ZKp9G262G">docker compose up</code>（⑤）
+= <b data-page-node-id="lVk1VYipbv5hMDGOVdvR94">"我写的 Agent 连接大模型的模板，通过接口接给别人用（别人 POST 我的 /ask），并且我自己 localhost:8000 自测。"</b> 这就是"FastAPI 包 Agent 成 API 服务"的完整形态。</p>
+  </div>
+
+  <div class="card" data-page-node-id="36qNYRHFFY7lN0JCPsNYT8">
+    <h2 data-page-node-id="O79sLO3GzrJfiA5utAORmP">⑥ 你"写不出"的永远是这几类（验收标准）</h2>
+    <ul class="check" data-page-node-id="DdUHUCH1pFzv2lrYqkfFk6">
+      <li data-page-node-id="1CUoJ6mKQF3Nm2qoSLl4rd">□ <b data-page-node-id="AQKr8u18yUEJZ0vMAM4o9e">必须自己写</b>：真实函数（如 加法）、工具清单、<code data-page-node-id="XGkdzrCG1YbuhbY43UAjxZ">sys_prompt</code> 人设、<code data-page-node-id="YkpWNEFU1L6EvTmAmw1kXx">return</code> 里的业务逻辑</li>
+      <li data-page-node-id="A1sF9vAuRHDTmi3GPJplne">□ <b data-page-node-id="mIdJTVFbi7m3aShK4DXDyi">理解+会改</b>：<code data-page-node-id="VgBwwRdpfVIuvP0l9D7YPl">app=FastAPI()</code>、<code data-page-node-id="YdADDyilfz0AjPM03PagmA">@app.post</code>、<code data-page-node-id="YB6vB4vvCfED12HI4HqnCu">BaseModel</code>、<code data-page-node-id="DFXBIoDLKAeQmsUDeq9m3G">uvicorn</code> 命令、<code data-page-node-id="Kew3Vc5oBBabtAc5RKNNe2">Dockerfile</code> 的 FROM/端口/依赖、<code data-page-node-id="KEViR6Buw8Y0CPO0xQictu">-p</code> 口诀</li>
+      <li data-page-node-id="pUbWba9YcwAKKbIgiuLJfR">□ <b data-page-node-id="6whTL6TCk5lDAVD4Nvjn3P">必须懂</b>：while+tool_calls+历史 三件套；if 调工具/else 给答案 的分支；json.loads 还原参数</li>
+    </ul>
+    <p class="note" data-page-node-id="MLgQmzwbyYZBk6NcPOXFkr">写不出来 ≠ 笨，是没读熟。回看 <span class="fileref" data-page-node-id="ZkWz8A7HanV7PdBr9Hmw0a">week03/w3_agent_full.py</span> 和 <span class="fileref" data-page-node-id="FMNPPUatMB62DvF38beLrZ">week04/api_service.py</span> 再敲，敲通就稳。</p>
+  </div>
+
+  <div class="card" data-page-node-id="KGOcCVuCFCtFvFOa5EqiyL">
+    <h2 data-page-node-id="QQsCneFh3JUMuMXxb54QpR">⑦ 配套记忆文件（给教学 Agent 读）</h2>
+    <p class="note" data-page-node-id="u8oEl10w0wHKuCNKqBDYDo">本项目的易忘点追踪在 <span class="fileref" data-page-node-id="oHSE2zhtaVlTbt7YMk3Dzs">level_test/weak_points.md</span>（教学 Agent 一开就直接读，知道你哪块踩过坑）。今晚 Docker/Agent 部署线的易混点若要补进那里，按现有模板加一条即可——这是"用在 AGENT 的记忆文件"，比翻聊天历史高级。</p>
+  </div>
+
+</div>
+</body>
+</html>
