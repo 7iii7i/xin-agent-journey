@@ -374,6 +374,83 @@ docker run -p 8000:8000 myagent     # 开门成容器：-p 前面本机、后面
     <p class="note">跑起来后：<b>你自己</b>浏览器开 <code>http://localhost:8000/docs</code> 自测（发 POST 给 /agent）；<b>同 WiFi 的人</b>用你笔记本局域网 IP:8000 也能试；公网陌生人进不来（路由器挡着）。要全网进，把容器 run 在云服务器上。别人 POST 你的 /agent → 你的 Agent 大脑就干活返回。这就是"我写的 Agent 模板，接给别人用 + 自己自测"的完整闭环。</p>
   </div>
 
+  <div class="card">
+    <h2>⑩ SQLite 文件数据库（W4-5 盲区 · 2026-09-14 补） <span class="tag t-must">重点</span></h2>
+    <p class="note">📌 标注规则：🔴 <b>死记</b>＝默写骨架（代码核心逻辑，能从空白写出来才算懂）；🟢 <b>懂框架</b>＝理解+会改（概念/原理/脚手架/参数，不用背原文）。</p>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;">⑩-1 四步套路（🔴死记：从空白写一遍就通）</h3>
+    <pre><code>import sqlite3
+conn = sqlite3.connect("test.db")                 # ① 连接（Python 自带，不用 pip 装）
+cur = conn.cursor()                               # 游标：靠它执行命令
+cur.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER, name TEXT, age INTEGER)")  # ② 建表
+cur.execute("INSERT INTO users VALUES (1, '小明', 20)")   # ③ 插入
+conn.commit()                                     # ⚠️ 写操作必须保存才落盘
+rows = cur.execute("SELECT * FROM users").fetchall()      # ④ 查 + 取结果
+for row in rows: print(row)                       # 遍历打印
+conn.close()                                      # 关连接</code></pre>
+    <div class="row">
+      <span class="pill p-must">connect→execute→commit/fetchall→close 四步 死记</span>
+      <span class="pill p-ok">CREATE/INSERT/SELECT 语句 懂框架</span>
+      <span class="pill p-ok">commit 时机（写才保存）懂框架</span>
+    </div>
+
+    <h3 style="font-size:14px;margin:16px 0 6px;">⑩-2 五个必懂的框架点（🟢懂框架）</h3>
+    <ul>
+      <li><b>INSERT 是"无脑追加"不是"有就跳过"</b>：每跑一次脚本就往表里加一遍，重复运行→数据翻倍。想干净：跑前 <code>del test.db</code>，或在循环前 <code>DELETE FROM 表</code> 清一次。</li>
+      <li><b>Python 看"缩进"不看"在第几行"</b>：<code>DELETE</code> 写在 <code>for</code> 上面、但缩进在 <code>def 插商品</code> 里 → 仍被循环调 5 次 → 只剩最后一行。要"只跑一次"必须写<b>函数外、顶层（与 def/for 同缩进）、循环前</b>。</li>
+      <li><b>动内容就要 commit</b>：INSERT/DELETE/UPDATE 改了数据→必须 <code>commit()</code> 才落盘；SELECT 只读→不用。commit≠close，两个都要做。</li>
+      <li><b>? 占位符防注入</b>：<code>execute("INSERT ... VALUES (?, ?)", (a, b))</code> 把"命令"和"数据"分开传，用户输入也不会被当命令执行。自己写死数据可不用，真实项目必用。</li>
+      <li><b>列表用数字下标</b>：<code>商品[0]</code>=名字、<code>商品[1]</code>=价格（数数从 0 开始）。<code>商品['名称']</code> 是字典写法，列表不能这么取。</li>
+    </ul>
+
+    <h3 style="font-size:14px;margin:16px 0 6px;">⑩-3 加强版融合（🔴死记：函数+列表+循环+SQLite）</h3>
+    <p class="note">把四步套进"自己写的函数"<code>def 插商品(名称,价格)</code>，用 <code>for 商品 in 商品列表</code> 逐个调；<code>查全部()</code>/<code>查贵货()</code> 无参数，SELECT + <code>WHERE price &gt; 50</code> 查贵货。两个 bug 已自修：①函数多余参数→NameError；②DELETE 误放函数内→只剩最后行。三件套（while/tool_calls/历史 是 Agent 的；SQLite 这边是 四步/函数/列表循环）都是 <b>死记级</b>。</p>
+  </div>
+
+  <div class="card">
+    <h2>⑫ 完全版：FastAPI + while + SQLite 三块融合（毕业作品 · 2026-09-14）</h2>
+    <p class="note">📌 一句话：<b>week04/api_service.py 就是完全版</b>，已用真实 key + 真实 DeepSeek + 真实 qa.db 端到端跑通（<code>POST /ask</code> 返回 8，<code>GET /history</code> 能看到 9-12 那天的老数据，证明跨会话持久化真生效）。下面把三块怎么拼、你踩过的坑，一次性串起来。（⑪ pytest 先放着，用到再补。）</p>
+
+    <h3 style="font-size:14px;margin:14px 0 6px;">⑫-1 三块在代码里的位置（徽章）</h3>
+    <div class="row">
+      <span class="pill p-ok">🔵 FastAPI 三件套 理解+会改</span>
+      <span class="pill p-must">🟢 while 大脑 必须自己写</span>
+      <span class="pill p-must">🟠 SQLite 四步 必须自己写</span>
+    </div>
+    <pre><code># FastAPI 三件套（脚手架·照模板填）
+app = FastAPI()
+class 提问体(BaseModel): question: str
+@app.post("/ask")
+def ask(提问): return {"answer": 跑_agent(提问.question)}
+
+# while 大脑（核心逻辑）
+def 跑_agent(问题):
+    历史 = [{"role":"user","content":问题}]
+    while 轮次 &lt; 10:
+        resp = client.chat.completions.create(..., tool_choice="auto")
+        if resp.tool_calls: 历史.append(resp); 执行工具; 结果带 tool_call_id 回历史; continue
+        else: return resp.content
+
+# SQLite 四步（核心逻辑）
+def 存问答(问题, 答案):
+    conn = connect("qa.db"); cur.execute(INSERT ?, (问题,答案)); commit; close</code></pre>
+
+    <h3 style="font-size:14px;margin:16px 0 6px;">⑫-2 一次提问的生命周期</h3>
+    <p class="note">用户 <code>POST /ask</code> → FastAPI 收 → 交给 <code>跑_agent</code> 的 while 大脑 → 调 DeepSeek（auto 下模型自己决定调不调 add）→ 调工具就把结果塞回历史 → 模型给最终答案 → <code>ask</code> 把(问题,答案)写进 qa.db → <code>GET /history</code> 从 qa.db 读回。左边"循环"是 while 内反复调工具直到模型满意，右边"直达"是模型不调工具直接给答案。</p>
+
+    <h3 style="font-size:14px;margin:16px 0 6px;">⑫-3 你问过/踩过的坑，全对应进来了</h3>
+    <ul>
+      <li><b>「8 是模型自己算的，不是代码加的」</b>：<code>tool_choice="auto"</code> 下 DeepSeek 常直接给答案不调 add → 输出 8 但工具没跑。要证明"工具链路真通"，得强制第一轮调 add（见 ⑨）。</li>
+      <li><b>重复运行会追加</b>：每发一次 <code>/ask</code>，<code>存问答</code> 就 INSERT 一行（追加非跳过）。所以 <code>/history</code> 能看到 9-12 那天的老数据——这正是 SQLite 跨会话持久化在干活，不是 bug。</li>
+      <li><b>Python 看缩进不看行数</b>：这里 <code>存问答</code> 写在 <code>ask</code> 函数体里、每次请求调一次，是对的；若误把"建表/清空"缩进进 <code>跑_agent</code> 循环内 → 每轮清空 → 只剩最后一行（你 SQLite 加强版踩过的同一个坑）。</li>
+      <li><b>tool_choice 不能每轮强制</b>：强制每轮都调 add → 模型永远被逼着调工具、走不到"给答案"→ 触发轮次上限死循环。正确：第一轮强制、之后交回 auto。</li>
+      <li><b>工具结果历史要带 tool_call_id</b>：<code>历史.append({"role":"tool","tool_call_id":调用.id,"content":...})</code> 配对，否则 DeepSeek 报"找不到对应调用"。</li>
+    </ul>
+
+    <h3 style="font-size:14px;margin:16px 0 6px;">⑫-4 毕业练习：完全版_骨架.py</h3>
+    <p class="note">week04/<code>完全版_骨架.py</code> 已挖好 9 个 TODO（客户端 / FastAPI / while / SQLite / 工具 各留空，语法已验证通过）。照 ⑨ + ⑩ 填完跑通 = W4-5 主线彻底毕业。填法：①客户端照抄 ②SQLite 四步（⑩-1）③加法函数 + 工具清单 ④while 大脑（⑨）⑤两个路由（⑫-1）。</p>
+  </div>
+
 </div>
 </body>
 </html>

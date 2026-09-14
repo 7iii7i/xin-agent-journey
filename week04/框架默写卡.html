@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="OR5mP4R4iX2uIBP7xQMD1i">
+<head data-page-node-id="mpCEr1lDfLo0gTi5pYWsyV">
+<meta charset="UTF-8" data-page-node-id="p10AKOlhPkNJlrf2TU1a6w">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="l2tvEWIFLaq9fnSLHP7FAR">
+<title>Python 框架默写卡（4 大骨架）</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1f2329; --sub:#5b6168;
+    --line:#e4e7ec; --ok:#1f8a4c; --okbg:#e9f7ee;
+    --warn:#b76e00; --warnbg:#fff4e0; --must:#c0392b; --mustbg:#fdecea;
+    --code:#0f1b2d; --codebg:#f0f2f5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.7;}
+  .wrap{max-width:880px;margin:0 auto;padding:28px 20px 60px;}
+  h1{font-size:24px;margin:0 0 4px;}
+  .lead{color:var(--sub);margin:0 0 22px;font-size:14px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  h2{font-size:17px;margin:0 0 10px;display:flex;align-items:center;gap:8px;}
+  h2 .tag{font-size:12px;font-weight:600;padding:2px 9px;border-radius:20px;}
+  .t-ok{background:var(--okbg);color:var(--ok);}
+  .t-warn{background:var(--warnbg);color:var(--warn);}
+  .t-must{background:var(--mustbg);color:var(--must);}
+  pre{background:var(--codebg);color:var(--code);border-radius:8px;padding:14px 16px;
+    overflow:auto;font-size:13px;line-height:1.55;margin:10px 0 4px;
+    font-family:"SFMono-Regular",Consolas,Menlo,monospace;}
+  .note{font-size:13px;color:var(--sub);margin:6px 0 0;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0;}
+  .pill{font-size:12px;padding:3px 10px;border-radius:20px;font-weight:600;}
+  .p-ok{background:var(--okbg);color:var(--ok);}
+  .p-must{background:var(--mustbg);color:var(--must);}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;}
+  th{background:var(--codebg);font-weight:600;}
+  .slip{font-size:13px;color:var(--must);margin:6px 0 0;background:var(--mustbg);
+    padding:8px 12px;border-radius:8px;}
+  .check li{margin:9px 0;font-size:14px;}
+  .big{font-size:15px;font-weight:600;}
+</style>
+</head>
+<body data-page-node-id="s6aELCtgFfE9phODlamxts">
+<div class="wrap" data-page-node-id="GaIzmFXnOdAEVcpXhNzw4J">
+
+  <h1 data-page-node-id="lWi4lxhGg6d0ke6higLsXn">Python 框架默写卡 · 4 大骨架</h1>
+  <p class="lead" data-page-node-id="lzclStFxcHXYLgr1mF2IaX">用途：每天闭眼默写一遍，把「看着答案能懂」推进到「不抄也能写」。和巩固卡配合——巩固卡讲原理，这张卡只练「手写」。</p>
+
+  <div class="card" data-page-node-id="EDQzXGcdpG2FNnr0z8gIdG">
+    <h2 data-page-node-id="6VHw0LPOOVNObIMJLa6rm9">📌 怎么用这张卡（写背两遍）</h2>
+    <p class="note" data-page-node-id="JSSDZXiGDAyHe1QR90q7Ci">① <b data-page-node-id="2RdVsWMbFu6PkAq7NGAMuQ">早上</b>：新建一个空 <code data-page-node-id="zIb7isaVknAZE0R08KEzje">.py</code>，<b data-page-node-id="WJ9aKJwBCcQvY0NZaavCMm">不抄、凭记忆</b>把当天框架写一遍 → 跑通算过关。<br data-page-node-id="jS4YEyGOpgRvhws1RQoMP4">
+    ② <b data-page-node-id="42ykMqlA3xm3f8k32kS1Bw">晚上</b>：对照本卡标红处改，把卡壳的点记进脑子。<br data-page-node-id="Fuzt9ED0ubFgj3jcci25xL">
+    ③ <b data-page-node-id="EpzSAOoRRbAgvUJlHZ7B60">次日</b>：重敲一遍（不用看卡）。三遍下来就是肌肉记忆。</p>
+    <p class="slip" data-page-node-id="LGCX2whdq4NGaAUjNPjSJI">判据：能闭眼写出 = 真懂（🔴死记达标）；写时卡壳 = 还在【理解+会改】，继续背，不是退步。</p>
+  </div>
+
+  <div class="card" data-page-node-id="MydbuRjvgJsDQES8Zz9asW">
+    <h2 data-page-node-id="rucOw2G6Gs16UjbePDZgY4">🗓️ 本周默写计划（9-15 ~ 9-20）</h2>
+    <table data-page-node-id="Mpjb2ICwUN1iwF5TQY8CZF">
+      <tr data-page-node-id="cXVWQBLyu3CO9xuKxCtWXj"><th data-page-node-id="nkssghfoH0Xlh5wZDNumwE">天</th><th data-page-node-id="qRQRVLgHhSS1Mi0tmg05kX">默写内容</th><th data-page-node-id="Hw995G59jGOIBHAjxvsPF4">对应骨架</th></tr>
+      <tr data-page-node-id="KAujtdXtv0eaxDJQFMuhMf"><td data-page-node-id="yc9yoDREz9A0ZJ3MJEVCt8">周一</td><td data-page-node-id="DuXEdY30yakozII2kW65fA">FastAPI 三件套</td><td data-page-node-id="KEv7hLMDWec8gaFQTKrZ87">①</td></tr>
+      <tr data-page-node-id="C3DtLIeH4pYIqoSJaQHO8U"><td data-page-node-id="0AmJl2TZweBWfAh3RzPt66">周二</td><td data-page-node-id="Zn1srlQNVLl1SyvId49kF8">Dockerfile 七行</td><td data-page-node-id="oWJ8mp2mEQAmx4x9QDKfyl">②</td></tr>
+      <tr data-page-node-id="jPRlqm6SyGd3FfBhb6ZVhb"><td data-page-node-id="JUcsJJJ5fDWzFB3xefi10h">周三</td><td data-page-node-id="G4SlKwCmkA4y40KjDJC2Cf">Agent 三件套（while 大脑）</td><td data-page-node-id="JxIj3zWs3CPmfmfGFVJ48p">③</td></tr>
+      <tr data-page-node-id="nFjYggbinjjBOOLd3vNueJ"><td data-page-node-id="eDd0QMFy3KB1PJ5NaP6WSq">周四</td><td data-page-node-id="GaRHhiPH5MidDF075rSgeT">SQLite 四步</td><td data-page-node-id="GJcvsfl3YNQY419DcfGoau">④</td></tr>
+      <tr data-page-node-id="43YBabuE0Lal7qG9HXMsjk"><td data-page-node-id="Ewpdba73IC3LHHg0VVuvmd">周五</td><td data-page-node-id="TbCF7ZVViiBROQ6KhrJgA9">挑 2 个最卡的框架重默</td><td data-page-node-id="4BA3bmPnPHGLDkoT2XjPea">自选</td></tr>
+      <tr data-page-node-id="89NFUQfUdUc4IhjHPhEGOA"><td data-page-node-id="fbUIrNrVNaeeSnEGcRE20g">周六</td><td data-page-node-id="2TR4O1Qgb6yDagN1l8cEe6">完全版从空白重写（终极检验）</td><td data-page-node-id="zlUDa5cHc1JypwqpE86PaI">①②③④合体</td></tr>
+    </table>
+  </div>
+
+  <div class="card" data-page-node-id="V1fJ78ABLJQGCkFLvJQLS4">
+    <h2 data-page-node-id="olBb5CM33BBv9LMol8ZU90">① FastAPI 三件套 <span class="tag t-must" data-page-node-id="GErMrEGtV2NHhhFPVBjWOb">🔴 死记</span></h2>
+    <p class="note" data-page-node-id="I7EGvWQbm2e1Qbr69mV3ut">脚手架：公司(app) + 收数据的碗(BaseModel) + 接口(@app.post) + 回(return)。</p>
+    <pre data-page-node-id="7eswbTEXuFPS2NIIIKfJDR">from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()                     # ① 公司
+
+class 提问体(BaseModel):            # ② 收数据的碗
+    问题: str
+
+@app.post("/ask")                   # ③ 接口
+def ask(提问: 提问体):
+    return {"answer": "..."}        # ④ 回</pre>
+    <p class="slip" data-page-node-id="4DAM5lLPGV5UyNaEk8zimz">易手滑：① BaseModel 拼错 ② @app.post 的 @ 和括号 ③ return 缩进要进函数里 ④ 字段类型 str/int 别漏</p>
+  </div>
+
+  <div class="card" data-page-node-id="aNhDNPbEDLN78GDDfa7FCk">
+    <h2 data-page-node-id="jFhNnIGWNEbMpUj85WBCng">② Dockerfile 七行 <span class="tag t-must" data-page-node-id="U1faheGpnzHqa58Y4uXzt5">🔴 死记</span></h2>
+    <p class="note" data-page-node-id="pZfGzDcLpYa02KgHp6XsJM">脚手架：造箱子说明书。七行业务 + 三行 UTF-8（防中文乱码）。</p>
+    <pre data-page-node-id="w9FcGbjGn8jcum079ZhXGR">FROM python:3.13-slim
+ENV PYTHONIOENCODING=utf-8
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+EXPOSE 8000
+CMD ["python","api_service.py"]</pre>
+    <p class="slip" data-page-node-id="pL0fWqZaLfPPEVZp9Dvonb">易手滑：① WORKDIR 拼成 WORKDIE ② COPY . . 是两个点 ③ requirements.txt 逗号变点 ④ CMD 里空格不能少 ⑤ EXPOSE 端口要对</p>
+  </div>
+
+  <div class="card" data-page-node-id="52fN73Vza9aBnTBCWzQhr3">
+    <h2 data-page-node-id="aDhn0drA6J83NFtXzqXdkF">③ Agent 三件套（while 大脑） <span class="tag t-must" data-page-node-id="SOHewFcbMrZnT8gJ2e3MXv">🔴 死记</span></h2>
+    <p class="note" data-page-node-id="zRrT1J9tvxGxgNqt89NfSR">业务逻辑：历史列表(喂模型) + while(心跳) + if tool_calls(看要不要调工具)。</p>
+    <pre data-page-node-id="AgGwbVBE15ZNhilVpZa8PJ">def 跑_agent(问题):
+    历史 = [{"role":"user","content":问题}]
+    while 轮次 &lt; 10:
+        resp = client.chat.completions.create(
+            model="deepseek-chat", messages=历史,
+            tools=工具清单, tool_choice="auto")
+        回复 = resp.choices[0].message
+        if 回复.tool_calls:
+            历史.append(回复)
+            for 调用 in 回复.tool_calls:
+                函数名 = 调用.function.name
+                参数 = json.loads(调用.function.arguments)
+                if 函数名 == "add":
+                    结果 = 加法(参数["num1"], 参数["num2"])
+                    历史.append({"role":"tool","tool_call_id":调用.id,"content":str(结果)})
+            continue
+        return 回复.content</pre>
+    <p class="slip" data-page-node-id="iJTXXrkeb8cw1tlCaOQlAl">易手滑：① completions 少 s ② tool_choice 拼成 tools_choice ③ 判断用 == 不是 = ④ role:"tool" 单数 ⑤ str(结果) 用 () 不是 [] ⑥ for 行漏冒号</p>
+  </div>
+
+  <div class="card" data-page-node-id="aBIL9FRY6PAE5uI4Lr2hpH">
+    <h2 data-page-node-id="3Ey0CkEyefjr5Y27HGMbag">④ SQLite 四步 <span class="tag t-must" data-page-node-id="DL0PgT1Q7xFU0rurKCJfxv">🔴 死记</span></h2>
+    <p class="note" data-page-node-id="i9Y4xxcZ1ZUHfGwEnfA0l9">业务逻辑：连接→执行→保存/取→关闭。写操作(INSERT/DELETE)必须 commit。</p>
+    <pre data-page-node-id="bVQxGTXayCpRuxGwr1NeuG">import sqlite3
+conn = sqlite3.connect("test.db")
+cur = conn.cursor()
+cur.execute("CREATE TABLE IF NOT EXISTS t (id INTEGER, name TEXT)")
+cur.execute("INSERT INTO t VALUES (1, '小明')")
+conn.commit()                      # 写操作必须保存
+rows = cur.fetchall()              # 读：取全部
+conn.close()</pre>
+    <p class="slip" data-page-node-id="nZf6b4Tnkh6tjfUf7yCTns">易手滑：① sqlite3 拼成 sqliete3 ② fetchall 漏 () ③ 写了不 commit ④ DELETE 放循环里被反复调→只剩最后一行 ⑤ 重复运行会追加（删 .db 或循环前清一次）</p>
+  </div>
+
+  <div class="card" data-page-node-id="jwTxXtWGKtAtLAEfGFyJfm">
+    <h2 data-page-node-id="fb9DghlVKkT18gBAQAvODg">✅ 每日打卡</h2>
+    <ul class="check" data-page-node-id="I0SDMIOfo8UPI7wRaran6B">
+      <li data-page-node-id="DIvbs2Nxq8TKGMGjwlU9Ay">☐ 周一 FastAPI 三件套 — 闭眼写通</li>
+      <li data-page-node-id="iWPBrt8rV1JZUWhrrZ4Nfc">☐ 周二 Dockerfile 七行 — 闭眼写通</li>
+      <li data-page-node-id="NVI6rV8AITht2hPaeBGh0W">☐ 周三 Agent 三件套 — 闭眼写通</li>
+      <li data-page-node-id="LhCAWnG1d6tAlFqLxEFET3">☐ 周四 SQLite 四步 — 闭眼写通</li>
+      <li data-page-node-id="DEpm8YYFMmSeDhuypaCZYN">☐ 周五 2 个最卡的框架重默</li>
+      <li data-page-node-id="kKSFwPLdWsspuXkuGftWWC">☐ 周六 完全版从空白重写 — 跑通</li>
+    </ul>
+    <p class="big" data-page-node-id="mJ0YhtRoc9SwZtpX52ShQM">全打勾 = W4-5 主线彻底变成你自己的肌肉记忆 💪</p>
+  </div>
+
+</div>
+</body>
+</html>

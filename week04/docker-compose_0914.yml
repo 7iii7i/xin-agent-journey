@@ -1,0 +1,9 @@
+services:
+  agent:
+    build:
+      context: .
+      dockerfile: Dockerfile_0914
+    ports:
+      - "8000:8000"
+    environment:
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
