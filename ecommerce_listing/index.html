@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>电商自动上架 Agent</title>
+<style>
+  *{box-sizing:border-box;font-family:-apple-system,"Microsoft YaHei",sans-serif;}
+  body{background:#f7f7f7;margin:0;padding:32px;color:#222;}
+  .wrap{max-width:720px;margin:0 auto;background:#fff;border-radius:14px;padding:28px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+  h1{color:#ff5000;margin:0 0 4px;font-size:22px;}
+  .sub{color:#888;font-size:13px;margin-bottom:20px;}
+  input[type=file]{margin:10px 0;}
+  button{background:#ff5000;color:#fff;border:none;padding:10px 18px;border-radius:22px;font-size:14px;cursor:pointer;margin-right:8px;}
+  button.ghost{background:#eee;color:#555;}
+  .card{border:1px solid #eee;border-radius:10px;padding:14px 16px;margin:10px 0;}
+  .card h3{margin:0 0 6px;font-size:15px;color:#333;}
+  .card .meta{font-size:12px;color:#999;}
+  .card .desc{font-size:13px;color:#555;margin:6px 0;}
+  .tags span{display:inline-block;background:#fff2ec;color:#ff5000;font-size:12px;padding:2px 8px;border-radius:10px;margin:2px 4px 0 0;}
+  pre{background:#0f1b2d;color:#e6edf3;padding:14px;border-radius:8px;overflow:auto;font-size:12px;max-height:240px;}
+  a{color:#ff5000;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🐟 电商自动上架 Agent</h1>
+  <div class="sub">上传商品 CSV → AI 生成闲鱼风格文案 → 一键 RPA 自动填表上架</div>
+
+  <input type="file" id="csv" accept=".csv">
+  <div>
+    <button onclick="生成()">① 生成上架文案</button>
+    <button class="ghost" onclick="上架()">② RPA 自动上架</button>
+    <a href="/publish-page" target="_blank" style="margin-left:10px;font-size:13px;">查看模拟发布页 ↗</a>
+  </div>
+
+  <div id="listings"></div>
+  <h3 style="margin-top:24px;">运行日志</h3>
+  <pre id="log">（操作后会在这里显示）</pre>
+</div>
+
+<script>
+async function 生成(){
+  const f = document.getElementById('csv').files[0];
+  if(!f){ alert('先选一个 CSV 文件'); return; }
+  const fd = new FormData(); fd.append('文件', f);
+  const r = await fetch('/api/generate', {method:'POST', body:fd});
+  const d = await r.json();
+  let html = '<h3>共生成 '+d.数量+' 条</h3>';
+  d.listings.forEach(x=>{
+    if(x.错误){ html += '<div class="card"><h3>'+x.原始商品+'</h3><div class="meta">生成失败：'+x.错误+'</div></div>'; return; }
+    html += '<div class="card"><h3>'+x.标题+'</h3>'+
+            '<div class="meta">类目：'+x.类目+' ｜ 建议价：¥'+x.建议价+' ｜ 原始：'+x.原始商品+'</div>'+
+            '<div class="desc">'+x.描述+'</div>'+
+            '<div class="tags">'+x.卖点.map(t=>'<span>'+t+'</span>').join('')+'</div></div>';
+  });
+  document.getElementById('listings').innerHTML = html;
+  document.getElementById('log').textContent = '生成完成：'+JSON.stringify(d, null, 2);
+}
+async function 上架(){
+  const r = await fetch('/api/publish', {method:'POST'});
+  const d = await r.json();
+  document.getElementById('log').textContent = '上架结果：\n'+JSON.stringify(d, null, 2);
+  alert('RPA 自动上架完成，见下方日志');
+}
+</script>
+</body>
+</html>

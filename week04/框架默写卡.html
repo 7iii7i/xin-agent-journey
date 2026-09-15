@@ -138,6 +138,24 @@ conn.close()</pre>
     <p class="slip" data-page-node-id="nZf6b4Tnkh6tjfUf7yCTns">易手滑：① sqlite3 拼成 sqliete3 ② fetchall 漏 () ③ 写了不 commit ④ DELETE 放循环里被反复调→只剩最后一行 ⑤ 重复运行会追加（删 .db 或循环前清一次）</p>
   </div>
 
+  <div class="card" data-page-node-id="NEWclass5">
+    <h2 data-page-node-id="NEWc5h2">⑤ class 四件套（封装） <span class="tag t-must" data-page-node-id="NEWc5t">🔴 死记</span></h2>
+    <p class="note" data-page-node-id="NEWc5n">业务逻辑：把"数据 + 功能"打包成一个对象（封装）。调用方只看到干净方法，看不见内部脏活。today 主线把记忆库/计算器都这么干了。</p>
+    <pre data-page-node-id="NEWc5pre">class 笔记本:
+    def __init__(self, 主人):        # 出厂设置：造对象时自动跑
+        self.主人 = 主人              # 把参数绑到"这个对象"
+        self.条目 = []               # 每个对象自带的数据
+    def 写(self, 内容):              # 方法：首参永远是 self
+        self.条目.append(内容)
+    def 念(self):
+        print(f"{self.主人}的笔记本：", self.条目)
+
+小明的本 = 笔记本("小明")           # 造对象（自动跑 __init__）
+小明的本.写("今天学了 class")         # 点号自动填 self
+小明的本.念()</pre>
+    <p class="slip" data-page-node-id="NEWc5slip">易手滑：① class 拼错 ② __init__ 下划线数量(__init__ 双下划线) ③ 忘了 self 第一参数 ④ 调用时手写 self（点号已自动填）⑤ 造对象那句是 变量=类名()，class 那句只是图纸 ⑥ 类属性 vs 实例属性混用（self.主人 才是这个对象的，别写 笔记本.主人）</p>
+  </div>
+
   <div class="card" data-page-node-id="jwTxXtWGKtAtLAEfGFyJfm">
     <h2 data-page-node-id="fb9DghlVKkT18gBAQAvODg">✅ 每日打卡</h2>
     <ul class="check" data-page-node-id="I0SDMIOfo8UPI7wRaran6B">

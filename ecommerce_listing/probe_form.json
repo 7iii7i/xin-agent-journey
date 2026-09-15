@@ -1,0 +1,116 @@
+{
+  "inputs": [
+    {
+      "tag": "INPUT",
+      "id": null,
+      "class": null,
+      "placeholder": null,
+      "aria_label": null,
+      "type": "file",
+      "name": "file",
+      "text": ""
+    },
+    {
+      "tag": "INPUT",
+      "id": null,
+      "class": "ant-input css-d5i8y5",
+      "placeholder": "0.00",
+      "aria_label": null,
+      "type": "text",
+      "name": null,
+      "text": ""
+    },
+    {
+      "tag": "INPUT",
+      "id": null,
+      "class": "ant-input css-d5i8y5",
+      "placeholder": "0.00",
+      "aria_label": null,
+      "type": "text",
+      "name": null,
+      "text": ""
+    },
+    {
+      "tag": "INPUT",
+      "id": null,
+      "class": "ant-radio-input",
+      "placeholder": null,
+      "aria_label": null,
+      "type": "radio",
+      "name": null,
+      "text": ""
+    },
+    {
+      "tag": "INPUT",
+      "id": null,
+      "class": "ant-radio-input",
+      "placeholder": null,
+      "aria_label": null,
+      "type": "radio",
+      "name": null,
+      "text": ""
+    },
+    {
+      "tag": "INPUT",
+      "id": null,
+      "class": "ant-radio-input",
+      "placeholder": null,
+      "aria_label": null,
+      "type": "radio",
+      "name": null,
+      "text": ""
+    },
+    {
+      "tag": "INPUT",
+      "id": null,
+      "class": "ant-radio-input",
+      "placeholder": null,
+      "aria_label": null,
+      "type": "radio",
+      "name": null,
+      "text": ""
+    },
+    {
+      "tag": "INPUT",
+      "id": null,
+      "class": "ant-input css-d5i8y5",
+      "placeholder": "0.00",
+      "aria_label": null,
+      "type": "text",
+      "name": null,
+      "text": ""
+    },
+    {
+      "tag": "INPUT",
+      "id": "search-input",
+      "class": "search-input--SkYFms8d",
+      "placeholder": "搜索地点",
+      "aria_label": null,
+      "type": "text",
+      "name": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "id": null,
+      "class": "editor--MtHPS94K ",
+      "placeholder": null,
+      "aria_label": null,
+      "type": null,
+      "name": null,
+      "text": ""
+    }
+  ],
+  "buttons": [
+    {
+      "tag": "BUTTON",
+      "class": "ant-switch ant-switch-small css-d5i8y5",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "publish-button--KBpTVopQ",
+      "text": "发布"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>闲鱼发布页（模拟）</title>
+<style>
+  *{box-sizing:border-box;font-family:-apple-system,"Microsoft YaHei",sans-serif;}
+  body{background:#f7f7f7;margin:0;padding:24px;}
+  .card{background:#fff;border-radius:12px;max-width:520px;margin:0 auto;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  h2{color:#ff5000;margin-top:0;}
+  label{display:block;margin:14px 0 4px;font-size:13px;color:#555;font-weight:600;}
+  input,textarea,select{width:100%;padding:9px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:14px;}
+  textarea{height:90px;resize:vertical;}
+  button{margin-top:18px;width:100%;background:#ff5000;color:#fff;border:none;padding:12px;border-radius:24px;font-size:15px;cursor:pointer;}
+  #result{margin-top:16px;padding:12px;border-radius:8px;background:#fff7f3;color:#ff5000;font-size:14px;min-height:20px;}
+  .log{margin-top:14px;font-size:12px;color:#999;border-top:1px dashed #eee;padding-top:10px;}
+  .log div{margin:3px 0;}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>🐟 闲鱼 · 发布闲置（模拟页）</h2>
+    <!-- 注意：下面每个控件都带了 id，这正是 Playwright RPA 用来"定位"的锚点 -->
+    <label>标题</label>
+    <input id="title" placeholder="例如：九成新捷安特自行车便宜出">
+
+    <label>描述</label>
+    <textarea id="description" placeholder="闲置转让说明..."></textarea>
+
+    <label>价格（元）</label>
+    <input id="price" type="number" placeholder="0">
+
+    <label>卖点标签（逗号分隔）</label>
+    <input id="tags" placeholder="九成新,自提优惠,便宜出">
+
+    <label>类目</label>
+    <select id="category">
+      <option>手机数码</option>
+      <option>电脑办公</option>
+      <option>家用电器</option>
+      <option>服饰鞋包</option>
+      <option>图书音像</option>
+      <option>运动户外</option>
+      <option>母婴用品</option>
+      <option>闲置其他</option>
+    </select>
+
+    <button id="publishBtn">发布闲置</button>
+    <div id="result"></div>
+    <div class="log" id="log"></div>
+  </div>
+
+  <script>
+    // 模拟"平台接收并发布"：真实平台这里会是一个后端接口；
+    // 我们只是把填好的内容回显，证明 RPA 真的把表填对了、提交成功了。
+    document.getElementById('publishBtn').addEventListener('click', function(){
+      var t = document.getElementById('title').value;
+      var d = document.getElementById('description').value;
+      var p = document.getElementById('price').value;
+      var g = document.getElementById('tags').value;
+      var c = document.getElementById('category').value;
+      if(!t || !p){ document.getElementById('result').textContent = '⚠️ 标题和价格必填'; return; }
+      document.getElementById('result').textContent =
+        '✅ 发布成功！商品「' + t + '」已提交到闲鱼（模拟），类目：' + c + '，售价：' + p + '元';
+      var log = document.getElementById('log');
+      var line = document.createElement('div');
+      line.textContent = '• ' + t + ' | ' + p + '元 | ' + g;
+      log.appendChild(line);
+    });
+  </script>
+</body>
+</html>

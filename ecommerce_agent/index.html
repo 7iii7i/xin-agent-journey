@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="2hlq2sBm3FpWlVEmDGGm2f">
+<head data-page-node-id="X0owBVwSq0O8jBfBe9QjRX">
+<meta charset="UTF-8" data-page-node-id="bKQ5GAt26UGo4ubn35GBvW">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="kLykbyhVyYX1xft3gB5hUB">
+<title>小店智能客服</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, "Microsoft YaHei", sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; background:#f5f6f8; }
+  h1 { color:#2c3e50; text-align:center; }
+  #聊天 { border:1px solid #ddd; border-radius:12px; background:#fff; height:420px; overflow-y:auto; padding:16px; margin:16px 0; }
+  .消息 { margin:10px 0; padding:10px 14px; border-radius:10px; max-width:80%; line-height:1.5; white-space:pre-wrap; }
+  .用户 { background:#dafbe1; margin-left:auto; text-align:right; }
+  .客服 { background:#eef2f7; margin-right:auto; }
+  #输入区 { display:flex; gap:8px; }
+  #输入 { flex:1; padding:10px; border:1px solid #ccc; border-radius:8px; font-size:15px; }
+  button { padding:10px 18px; border:none; border-radius:8px; background:#2c7be5; color:#fff; cursor:pointer; font-size:15px; }
+  button:hover { background:#1a68d1; }
+  button:disabled { background:#aaa; }
+</style>
+</head>
+<body data-page-node-id="aqxTXAcf6Us7WL5xLwFM21">
+  <h1 data-page-node-id="OZaJrIWFi3L64jSSO54DYI">🛍️ 小店智能客服</h1>
+  <div id="聊天" data-page-node-id="5dVBl5VXxmowikfwXE6RPx"></div>
+  <div id="输入区" data-page-node-id="jBGEeq1YQJUDloC34PjqjU">
+    <input id="输入" placeholder="问问商品：耳机多少钱？还有货吗？" autofocus data-page-node-id="rfjRjyb8MJf9nlhCC8xMLO">
+    <button onclick="发送()" data-page-node-id="BTdFHuQjFFQrDeF1YGB5K2">发送</button>
+  </div>
+
+<script>
+const 聊天框 = document.getElementById("聊天");
+const 输入框 = document.getElementById("输入");
+
+// 从浏览器本地存储恢复历史（刷新页面不丢对话）
+let 历史 = JSON.parse(localStorage.getItem("聊天历史") || "[]");
+渲染();
+
+function 渲染() {
+  聊天框.innerHTML = "";
+  for (const m of 历史) {
+    const div = document.createElement("div");
+    div.className = "消息 " + (m.角色 === "用户" ? "用户" : "客服");
+    div.textContent = (m.角色 === "用户" ? "我：" : "客服：") + m.内容;
+    聊天框.appendChild(div);
+  }
+  聊天框.scrollTop = 聊天框.scrollHeight;
+}
+
+async function 发送() {
+  const 问题 = 输入框.value.trim();
+  if (!问题) return;
+  输入框.value = "";
+  历史.push({角色:"用户", 内容:问题});
+  渲染();
+  const 按钮 = document.querySelector("button");
+  按钮.disabled = true;
+  try {
+    const 响应 = await fetch("/ask", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({question: 问题})
+    });
+    const 数据 = await 响应.json();
+    const 回答 = 数据.answer || JSON.stringify(数据);
+    历史.push({角色:"客服", 内容:回答});
+  } catch (e) {
+    历史.push({角色:"客服", 内容:"⚠️ 出错：" + e});
+  }
+  按钮.disabled = false;
+  localStorage.setItem("聊天历史", JSON.stringify(历史));
+  渲染();
+  输入框.focus();
+}
+</script>
+</body>
+</html>
