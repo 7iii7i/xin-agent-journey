@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh" data-page-node-id="M6pi98NbnwcZupGCTQ5L7K">
+<head data-page-node-id="bneLUy0gQGYc9QGSL2Hyze">
+<meta charset="utf-8" data-page-node-id="mFCjSxfRTXU19JCQwVSHK7">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="5xQuAMIavuL22ZAQygjxEx">
+<title>异步流式巩固卡 · 电商客服 v2 Tier2</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f5f5f4; color: #2C2C2A;
+         font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+         line-height: 1.6; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 16px; }
+  header { background: #185FA5; color: #fff; border-radius: 12px;
+           padding: 16px; margin-bottom: 14px; }
+  header h1 { margin: 0 0 4px; font-size: 17px; font-weight: 600; }
+  header p { margin: 0; font-size: 13px; opacity: .9; }
+  .card { background: #fff; border: 1px solid #e3e1dc; border-radius: 12px;
+          padding: 14px 16px; margin-bottom: 14px; }
+  .card h2 { margin: 0 0 10px; font-size: 15px; font-weight: 600; color: #0C447C; }
+  .mind { background: #E6F1FB; border: 1px solid #B5D4F4; border-radius: 12px;
+          padding: 14px 16px; margin-bottom: 14px; }
+  .mind .big { font-size: 16px; font-weight: 600; color: #0C447C; }
+  .mind .sub { font-size: 13px; color: #444441; margin-top: 6px; }
+  .two { display: flex; gap: 10px; flex-wrap: wrap; }
+  .col { flex: 1; min-width: 150px; border-radius: 10px; padding: 10px; }
+  .col.old { background: #FCEBEB; border: 1px solid #F7C1C1; }
+  .col.new { background: #E6F1FB; border: 1px solid #B5D4F4; }
+  .col .tag { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+  .col.old .tag { color: #A32D2D; }
+  .col.new .tag { color: #0C447C; }
+  pre { background: #F1EFE8; border: 1px solid #D3D1C7; border-radius: 8px;
+        padding: 8px 10px; font-size: 12px; line-height: 1.5; overflow-x: auto;
+        color: #2C2C2A; margin: 6px 0; white-space: pre; }
+  .note { font-size: 12px; color: #5F5E5A; margin-top: 8px; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 600;
+           padding: 2px 9px; border-radius: 99px; }
+  .badge.red { background: #FCEBEB; color: #A32D2D; border: 1px solid #F7C1C1; }
+  .badge.green { background: #EAF3DE; color: #3B6D11; border: 1px solid #C0DD97; }
+  ul { margin: 6px 0; padding-left: 18px; }
+  li { margin-bottom: 6px; font-size: 13px; }
+  details { margin-top: 6px; }
+  summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #185FA5; }
+  .q { font-size: 13px; margin: 8px 0 2px; font-weight: 600; }
+  .a { font-size: 13px; color: #444441; margin: 0 0 8px; }
+  footer { font-size: 12px; color: #5F5E5A; text-align: center; padding: 8px; }
+</style>
+</head>
+<body data-page-node-id="Z2YkRbGKHf9PQjfFPJ73lA">
+<div class="wrap" data-page-node-id="9jIBkMtuEloASqHIBPFpGJ">
+
+  <header data-page-node-id="g9gp1mEDsx53ITtaPAuYOr">
+    <h1 data-page-node-id="TATw71bArBQtP9PPFXuXdN">异步 + 流式 巩固卡</h1>
+    <p data-page-node-id="Uorj1pVJwGIS0zuXZSBHO5">电商客服 v2 · Tier 2 学完这张 = 异步与流式过关</p>
+  </header>
+
+  <div class="mind" data-page-node-id="QmtAO8ngSLvQMzTDQPAxM7">
+    <div class="big" data-page-node-id="g4BWwEI21j680RJC80MxUg">await = 这一步要等，但我先放手去干别的</div>
+    <div class="sub" data-page-node-id="DltWgcsLrGfTOTRUcF8nnK">你原来的逻辑（取历史 → 跑 agent → 存答案）一行没变，只是「会等待的地方」前面机械地加了 await。</div>
+  </div>
+
+  <div class="card" data-page-node-id="oH5JA6e9IuDhU20CfZtF1f">
+    <h2 data-page-node-id="QE5AooHqgF1Ibtxyg7PSpp">一、同步 vs 异步（后端怎么干活）</h2>
+    <div class="two" data-page-node-id="tTbh9BMOEh08ehBpymUw7e">
+      <div class="col old" data-page-node-id="9nbNYgHoBTUDo0rvDGMWTk">
+        <div class="tag" data-page-node-id="rzC9SPlmRqwJmpAii6Gy2u">旧版（同步）</div>
+        <pre data-page-node-id="kFHECVZRWUtC7G8KxzQrRz">conn = sqlite3.connect(...)
+conn.execute(...)
+conn.commit()</pre>
+        <div class="note" data-page-node-id="pYEXx68JZ3DCYFdtMOtach">每一步都卡住当前线程，别人只能干等。</div>
+      </div>
+      <div class="col new" data-page-node-id="kD1LWTrKgjTzZZwRMeVJVq">
+        <div class="tag" data-page-node-id="rhETeJLsSlF3KT5jo8cGAF">新版（异步 Tier2）</div>
+        <pre data-page-node-id="dAq5XhQow8waHvrAYoHo6L">async with aiosqlite.connect(...) as db:
+    await db.execute(...)
+    await db.commit()</pre>
+        <div class="note" data-page-node-id="UFcwTU1AO3UhJM3MYzj1L7">等待时放手去服务别人，并发更高。</div>
+      </div>
+    </div>
+    <div class="note" data-page-node-id="7q2WUqAmBZagesPSNG7PFt">关键现象：<b data-page-node-id="9snSSi9DL3EXNAQh0bjRMZ">async 会传染整条链</b> —— 一个函数变 async，调用它的函数都要 async + 在它前面加 await（见 agent.py / main.py 里一串 await）。</div>
+  </div>
+
+  <div class="card" data-page-node-id="eSx0oaZzCEzHP5LOxbhZDf">
+    <h2 data-page-node-id="YN2LgoaaVYczI8P8NzfN8l">二、一次性 vs 流式（答案怎么到你眼前）</h2>
+    <div class="two" data-page-node-id="YGpQ5rbkwZFEryI3APDbQh">
+      <div class="col old" data-page-node-id="xY2TDnFcTXJ4FwYtDtHWq7">
+        <div class="tag" data-page-node-id="U6uSDhp3BXe5J7LWilZbVD">旧版（一次性）</div>
+        <pre data-page-node-id="67llcvUH00FWQEzlNzIIM8">return 回复.content
+# 接口层：
+return {"answer": 答案}</pre>
+        <div class="note" data-page-node-id="5Lvsts7jQr6zql5dpLcdiX">转圈等 2-5 秒，啪一下整段出现。</div>
+      </div>
+      <div class="col new" data-page-node-id="XHluJtzb40O1pKmVFh3eJE">
+        <div class="tag" data-page-node-id="lX6BLahmLS08kJAuAUnKNS">新版（流式 Tier2）</div>
+        <pre data-page-node-id="YFN9zX01rqWBKoGDvilZDo">yield d.content
+# 接口层：
+StreamingResponse(事件流())
+# 流里每字推：
+yield f"data: {...}\n\n"</pre>
+        <div class="note" data-page-node-id="Qa8fxvP2GnNs4YRGiOKHk1">立刻开始，字一个个蹦（打字机）。</div>
+      </div>
+    </div>
+    <div class="note" data-page-node-id="fg8X6yHzxrWeEfMouRVFZj">设计决策：<b data-page-node-id="GHGrPy5LyOnzhZdN7KkxaC">工具轮用非流式</b>（干净拿「调哪个工具+参数」），<b data-page-node-id="jn1UdWSNVcZENPEvc6btud">最终轮才用流式</b>（打字机）。因为流式里的 tool_calls 是碎片、要手拼，容易出 bug —— 这是踩坑后的最优解。</div>
+  </div>
+
+  <div class="card" data-page-node-id="jK7xxOjJuUDcYFIiqWZ2DZ">
+    <h2 data-page-node-id="MvynSQpZbiiQC1KNnwhuc6">三、学到什么程度</h2>
+    <p data-page-node-id="Gnl2IOsPsxOVXaHHyTuyvK"><span class="badge red" data-page-node-id="FtQymcKam9WRLGWYAPLYH9">死记</span> 以下三处要能闭眼写：</p>
+    <ul data-page-node-id="u961waBlKUCRPTg2Xpo6Ho">
+      <li data-page-node-id="mv9MjqijgyRvak9aOzDiAp"><b data-page-node-id="v695QZ2YRfwgLi1OVMGCNe">async def + yield 生成器</b>：<code data-page-node-id="D4w4yl7REIGj4fYhVjQ4Nh">async def 跑_agent(历史): ... yield d.content</code></li>
+      <li data-page-node-id="xVoXiJxFTXIy8ZAXKEAKAU"><b data-page-node-id="APfVdDkKe1l1QbLNtGdeXy">SSE 那行</b>：<code data-page-node-id="NiAVxHpYDYaAEJGIOeemGx">yield f"data: {json.dumps(token, ensure_ascii=False)}\n\n"</code></li>
+      <li data-page-node-id="Ah73rEMbypNzJgr0pPAlbg"><b data-page-node-id="sUZphTfcWFz37JQVPWy4PQ">aiosqlite 套路</b>：<code data-page-node-id="aJe1jL0C4wiqkBcUt1ysDf">async with aiosqlite.connect(...) as db:</code> + <code data-page-node-id="YfL27lkxzUM2Bk0Sa3IGKc">await db.execute/commit</code></li>
+    </ul>
+    <p data-page-node-id="Sy6hvumoC7XMCQRM45HzD7"><span class="badge green" data-page-node-id="jDcAVcYG82RcmTrOF5yAqE">懂框架</span> 以下能讲清即可，不用背：</p>
+    <ul data-page-node-id="9mndxGaFnvuDfZSDCgt9zQ">
+      <li data-page-node-id="1Lf7RGbQhbJxTx02G5qF9t">为什么异步：不卡线程、并发高</li>
+      <li data-page-node-id="gUPAPtGfUrJhHakx8E95df">一次性 vs 流式 的体验差异</li>
+      <li data-page-node-id="ng4SWt7GO0RRMEnlYgIjjR">「工具轮非流式 / 最终轮流式」的设计原因</li>
+      <li data-page-node-id="vUzwcHX3RkEOTBRRYTyfjp">async 会传染整条链</li>
+      <li data-page-node-id="aUe5DxVdo51CD0CrF18ftC">CORS / 配置分层（pydantic-settings）是干嘛的</li>
+    </ul>
+  </div>
+
+  <div class="card" data-page-node-id="Zf7nWzFVZaNTv2NouMN97U">
+    <h2 data-page-node-id="emgmlQRmEwJI4PnDK0Dp62">四、自测（遮住答案自己答）</h2>
+    <div class="q" data-page-node-id="GvhYGAlRffrSDEanVT0fqy">1. 在旧版函数上加个 await 就能变异步吗？为什么还要把 return 改成 yield？</div>
+    <details data-page-node-id="JLYTg436cCEo7pstdBLag6"><summary data-page-node-id="rHGb2DzudGxptCCHW7fV1K">看答案</summary>
+      <p class="a" data-page-node-id="yKIhZwNkNplkgt4aUAB91b">不够。await 只解决「等待不卡线程」；但旧版 return 是一次性把整段字符串端出来，前端只能等完才显示。想打字机效果，必须用 yield 把每个 token 一个个「流」出去，配合 StreamingResponse。</p>
+    </details>
+    <div class="q" data-page-node-id="n39U5ArZKrYtSXs0R6qBr1">2. 为什么「工具轮」用非流式、「最终轮」才用流式？</div>
+    <details data-page-node-id="FVFJvqIkhAfAfqEUhfWNXr"><summary data-page-node-id="sxadbGyBy9xJh34i7RzCYA">看答案</summary>
+      <p class="a" data-page-node-id="N8317IGq1dy1OwMrov0Inb">流式里的 tool_calls 是碎片段，得手动拼回完整调用，极易出错。所以让「判断调哪个工具」走干净的非流式一次拿全；只有「正式聊天回答」才需要打字机效果，才开 stream=True。</p>
+    </details>
+    <div class="q" data-page-node-id="XbEQwmMSJxAAvyEmilSnSZ">3. 一句话说出 await 的心智模型。</div>
+    <details data-page-node-id="lpjXLmDKqBPBGipIoCjy8Z"><summary data-page-node-id="blE9KbqOPBGqxNsBNHFdg4">看答案</summary>
+      <p class="a" data-page-node-id="rC8ll39a3XbmGJ4mBtaUOC">「这一步要等，但我先放手去干别的。」它几乎永远加在会等待的 IO 操作前：查库、调模型、读文件。</p>
+    </details>
+  </div>
+
+  <footer data-page-node-id="IH5vwHGgRnT1JKD2Fhrv2S">下一步：Tier 3（Docker 部署 + 正式 pytest + README）把项目收尾成简历级</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小店智能客服</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "Microsoft YaHei", sans-serif; background: #f5f6f8; }
+  .wrap { max-width: 640px; margin: 20px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.08); display: flex; flex-direction: column; height: 88vh; }
+  .head { background: #185FA5; color: #fff; padding: 14px 18px; font-size: 16px; font-weight: 600; }
+  #对话区 { flex: 1; overflow-y: auto; padding: 16px; background: #fafbfc; }
+  .msg { max-width: 80%; margin: 8px 0; padding: 10px 14px; border-radius: 14px; line-height: 1.6; font-size: 14px; white-space: pre-wrap; word-break: break-word; }
+  .msg.user { background: #185FA5; color: #fff; margin-left: auto; border-bottom-right-radius: 4px; }
+  .msg.bot { background: #fff; color: #222; border: 1px solid #eee; border-bottom-left-radius: 4px; }
+  .inputbar { display: flex; border-top: 1px solid #eee; padding: 10px; background: #fff; }
+  #输入框 { flex: 1; border: 1px solid #ddd; border-radius: 8px; padding: 10px; font-size: 14px; outline: none; }
+  #发送 { margin-left: 8px; border: none; background: #185FA5; color: #fff; border-radius: 8px; padding: 0 18px; font-size: 14px; cursor: pointer; }
+  #发送:disabled { opacity: .5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">小店智能客服（流式版）</div>
+  <div id="对话区"></div>
+  <div class="inputbar">
+    <input id="输入框" placeholder="问问：耳机多少钱？还有货吗？" autocomplete="off">
+    <button id="发送">发送</button>
+  </div>
+</div>
+
+<script>
+// 🟢 懂框架：session_id 在前端生成一次，存 localStorage，之后每次请求都带上，
+// 后端靠它区分"是谁在聊"。这里和 Tier 1 完全一致，没变。
+let session_id = localStorage.getItem("session_id");
+if (!session_id) {
+  session_id = "sess_" + Math.random().toString(36).slice(2, 10);
+  localStorage.setItem("session_id", session_id);
+}
+
+const 对话区 = document.getElementById("对话区");
+const 输入框 = document.getElementById("输入框");
+const 发送钮 = document.getElementById("发送");
+
+function 滚到底() { 对话区.scrollTop = 对话区.scrollHeight; }
+
+async function 发送() {
+  const 问题 = 输入框.value.trim();
+  if (!问题) return;
+  输入框.value = "";
+
+  // 用户气泡
+  const u = document.createElement("div");
+  u.className = "msg user"; u.textContent = 问题;
+  对话区.appendChild(u);
+
+  // 机器人气泡（先空，流式往里塞字）
+  const b = document.createElement("div");
+  b.className = "msg bot"; b.textContent = "";
+  对话区.appendChild(b);
+  滚到底();
+
+  发送钮.disabled = true;
+
+  try {
+    const 响应 = await fetch("/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ session_id, question: 问题 }),
+    });
+
+    // 🔴 死记：前端读 SSE 流的标准写法 —— 用 ReadableStream 一点一点读
+    const reader = 响应.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";          // 还没拼成完整事件的残片先攒着
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      // SSE 事件以空行（\n\n）分隔，逐个切出来处理
+      let i;
+      while ((i = buffer.indexOf("\n\n")) >= 0) {
+        const 块 = buffer.slice(0, i);
+        buffer = buffer.slice(i + 2);
+        if (块.startsWith("data: ")) {
+          try {
+            const token = JSON.parse(块.slice(6));   // 后端用 json.dumps 包过，这里解回字符串
+            b.textContent += token;                   // 打字机：每收到一截就接在后面
+            滚到底();
+          } catch (e) { /* 忽略解析失败的残片 */ }
+        }
+      }
+    }
+  } catch (e) {
+    b.textContent = "⚠️ 请求失败：" + e;
+  } finally {
+    发送钮.disabled = false;
+    输入框.focus();
+  }
+}
+
+发送钮.addEventListener("click", 发送);
+输入框.addEventListener("keydown", (e) => { if (e.key === "Enter") 发送(); });
+</script>
+</body>
+</html>
