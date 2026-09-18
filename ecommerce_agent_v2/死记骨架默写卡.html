@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh" data-page-node-id="GL9S0FJ3wuQ5ftP5Aru2d1">
+<head data-page-node-id="5jF8m5M34CwlN4DVRmp9en">
+<meta charset="utf-8" data-page-node-id="5FKlHmf6Dg6cK7kny5PbxJ">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="S4MLyTQpVbY9EMKqHlnybc">
+<title>死记骨架默写卡 · 电商客服 v2 Tier2</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f5f5f4; color: #2C2C2A;
+         font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+         line-height: 1.6; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 16px; }
+  header { background: #A32D2D; color: #fff; border-radius: 12px;
+           padding: 16px; margin-bottom: 14px; }
+  header h1 { margin: 0 0 4px; font-size: 17px; font-weight: 600; }
+  header p { margin: 0; font-size: 13px; opacity: .92; }
+  .card { background: #fff; border: 1px solid #e3e1dc; border-radius: 12px;
+          padding: 14px 16px; margin-bottom: 14px; }
+  .card h2 { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: #A32D2D; }
+  .card .where { font-size: 12px; color: #5F5E5A; margin: 0 0 10px; }
+  pre { background: #F1EFE8; border: 1px solid #D3D1C7; border-radius: 8px;
+        padding: 8px 10px; font-size: 12px; line-height: 1.55; overflow-x: auto;
+        color: #2C2C2A; margin: 6px 0; white-space: pre; }
+  .note { font-size: 12px; color: #5F5E5A; margin-top: 8px; }
+  .warn { font-size: 12px; color: #A32D2D; background: #FCEBEB;
+          border: 1px solid #F7C1C1; border-radius: 8px; padding: 8px 10px; margin-top: 8px; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 600;
+           padding: 2px 9px; border-radius: 99px; }
+  .badge.red { background: #FCEBEB; color: #A32D2D; border: 1px solid #F7C1C1; }
+  ul { margin: 6px 0; padding-left: 18px; }
+  li { margin-bottom: 6px; font-size: 13px; }
+  footer { font-size: 12px; color: #5F5E5A; text-align: center; padding: 8px; }
+</style>
+</head>
+<body data-page-node-id="iFpaCmt8QbCV9DfWArKBRI">
+<div class="wrap" data-page-node-id="hUgV7fne65roBdbJ5vMv0J">
+
+  <header data-page-node-id="zqESE6GEkUvVbxwgxe15L0">
+    <h1 data-page-node-id="CVd9sLf1HEQ4KOZWdt7doc">🔴 死记骨架默写卡</h1>
+    <p data-page-node-id="Hs05x7ZeDOjaULcDtx0Krq">电商客服 v2 · Tier 2 三处必须闭眼写出来才算懂（代码为真实完整版）</p>
+  </header>
+
+  <div class="card" data-page-node-id="fUsto0s8xitrhvfwcRiSnp">
+    <h2 data-page-node-id="E1uMVX6DNjJHBaEQEY2zP6">① async def ... yield 生成器</h2>
+    <p class="where" data-page-node-id="8ODzOVFC4E3eQmjKbe4mMY">📍 位置：agent.py → <code data-page-node-id="uGq63iSRQDpdSQZRTfUCOK">async def 跑_agent(历史)</code> 完整函数</p>
+    <pre data-page-node-id="VKVi40Ml4nBTDP2cP42NWB">async def 跑_agent(历史: list):
+    消息 = [{"role": m["role"], "content": m["content"]} for m in 历史]
+    消息.insert(0, {"role": "system", "content": SYSTEM})
+    轮次 = 0
+    while 轮次 &lt; 10:
+        轮次 += 1
+        # ① 工具轮：非流式，干净拿工具+参数
+        resp = await client.chat.completions.create(
+            model=配置.MODEL, messages=消息,
+            tools=注册表.清单(), tool_choice="auto",
+        )
+        回复 = resp.choices[0].message
+        if 回复.tool_calls:
+            消息.append(回复)
+            for 调用 in 回复.tool_calls:
+                函数名 = 调用.function.name
+                参数 = json.loads(调用.function.arguments or "{}")
+                结果 = await 注册表.调用(函数名, 参数)
+                消息.append({"role": "tool", "tool_call_id": 调用.id, "content": str(结果)})
+            continue
+        # ② 最终轮：流式，逐 token 推（打字机）
+        stream = await client.chat.completions.create(
+            model=配置.MODEL, messages=消息, stream=True,
+        )
+        async for chunk in stream:
+            d = chunk.choices[0].delta
+            if d.content:
+                yield d.content
+        return
+    yield "⚠️ 达到最大轮次"</pre>
+    <div class="note" data-page-node-id="VqEtSUNXm7dJ4tVvbSJSHd"><b data-page-node-id="2MPM3xrkjKSa5LJ2Rqkwnj">核心</b>：<code data-page-node-id="AuFrWRo9AOnZW1dtllgKwx">async def</code> 让函数能「等」；<code data-page-node-id="2FJEIyDfoVxdKeHJftOEbe">yield</code>（非 return）让答案一字一字「流」出。两者配合 = 异步生成器。</div>
+    <div class="warn" data-page-node-id="AqL4C3gaaYMg5ykfKybiqO">⚠️ 易手滑点：<br data-page-node-id="kpJUTTf5eps96pg9HMtlXS">
+      1. 写 <code data-page-node-id="BBSCtQHz2roJIogLGeoxSE">async def</code> 忘了加 <code data-page-node-id="8MfOFJvfB0Ezg2wP0bvRTq">await</code> → 「异步」形同虚设。<br data-page-node-id="GfFt1Zh1a6Trg1raqTH4J6">
+      2. 把 <code data-page-node-id="XBP7dtDtFzUnZqGbg8AwyU">yield d.content</code> 写成 <code data-page-node-id="cCZIe6ncdM1g9f4ItH3Gml">return</code> → 打字机变一次性。<br data-page-node-id="gA7YYLQQtAZaW7KKXPHTW3">
+      3. 流式对象用 <code data-page-node-id="1MNeyCXI61Uy0ltSADfxTT">async for chunk in stream:</code>，不是普通 <code data-page-node-id="FWigh5C7b62t2p07vl18k6">for</code>。</div>
+  </div>
+
+  <div class="card" data-page-node-id="7RycDh3SyAcFlC5SKuH3xE">
+    <h2 data-page-node-id="SROWtyhuE1eUBMXBgIJgxI">② SSE 推送那行</h2>
+    <p class="where" data-page-node-id="84Vki0N0AdGtfkaMppjTWL">📍 位置：main.py 第 41–64 行（<code data-page-node-id="vtx7irEVD9fhJ4cK6MDlEs">/ask</code> 接口 + <code data-page-node-id="XSkalow2K7b3z4W5THFO34">事件流()</code> 完整块）</p>
+    <pre data-page-node-id="5w7LmKJ2Nf1UcJkpmOFTot">@app.post("/ask")
+async def ask(提问: 提问体):
+    await 会话库实例.追加(提问.session_id, "user", 提问.question)
+    历史 = await 会话库实例.取历史(提问.session_id)
+
+    async def 事件流():
+        完整 = ""
+        try:
+            async for token in 跑_agent(历史):
+                完整 += token
+                yield f"data: {json.dumps(token, ensure_ascii=False)}\n\n"
+        except Exception as e:
+            日志.exception("Agent 执行出错")
+            yield f"data: {json.dumps('⚠️ 服务出错：' + str(e), ensure_ascii=False)}\n\n"
+        finally:
+            if 完整.strip():
+                await 会话库实例.追加(提问.session_id, "assistant", 完整)
+
+    return StreamingResponse(事件流(), media_type="text/event-stream")</pre>
+    <ul data-page-node-id="FOI8QJY6FqJetuak6UBSjo">
+      <li data-page-node-id="H9wHGUuOwJnOrcUQZ1JJ4l"><code data-page-node-id="q1T9DL7eqsdrByOAhhrjAq">yield</code>：推出这一小段，不等全部（打字机关键）。</li>
+      <li data-page-node-id="3mH16BthtWxFtjFPWHnPDE"><code data-page-node-id="lvKZve69oMBtC4IbR2Xnnr">data: </code>：SSE 协议固定前缀，浏览器靠它识别「这是一条数据」。</li>
+      <li data-page-node-id="zVs1P1EuF2pb8agIC2McP5"><code data-page-node-id="6cEXEdIiFnedCRosh0NZ0H">json.dumps(token, ensure_ascii=False)</code>：转 JSON 安全串；<code data-page-node-id="f78ZnEfyK1257UoB6GBU0H">ensure_ascii=False</code> 保住真实中文。</li>
+      <li data-page-node-id="EFdGPWHwVZli2vRAa4DbGQ"><code data-page-node-id="z1g4EMJ1z6GHS7zL5AFnt3">\n\n</code>：SSE 消息分隔符（两个换行 = 一条推完）。</li>
+    </ul>
+    <div class="warn" data-page-node-id="wmqt3t7URh7HEKjBe4zeuN">⚠️ 易手滑点：<br data-page-node-id="XTofDckmdLKfiGAUfJrWOr">
+      1. 漏写 <code data-page-node-id="ufziKZukykofTUioqoRLLz">data: </code> 前缀 → 前端解析不了。<br data-page-node-id="1tbpwylzC9CKyTaHqVyOwA">
+      2. 漏掉第二个 <code data-page-node-id="Gh6a0QTbDMFON2LnfFzq8w">\n</code> → 流不结束，页面卡住。<br data-page-node-id="SBdHezhX6qvp1uu8QcyUod">
+      3. 忘了 <code data-page-node-id="thhIMKxBUjFfILWYDh8SBJ">ensure_ascii=False</code> → 中文变 <code data-page-node-id="A05UHNAuvbjCuOXb6bHGyy">\u5e2e\u60a8</code> 乱码。</div>
+  </div>
+
+  <div class="card" data-page-node-id="rfJCAAOAmgY2G1Y2aZf4sc">
+    <h2 data-page-node-id="eTxZql4id8Asesw0I6yBpI">③ aiosqlite 套路</h2>
+    <p class="where" data-page-node-id="zdbDnK6z3iGYLhEe28VEjH">📍 位置：db.py → <code data-page-node-id="45qZ8fD1AORIWBiAHj5jHm">会话库</code> 类（建表 / 追加 / 取历史，aiosqlite 套路全集）</p>
+    <pre data-page-node-id="rgji8UBfFNmndVpaPIvVfl">class 会话库:
+    def __init__(self, 库名=配置.会话DB名):
+        self.库名 = 库名
+
+    async def 初始化(self):
+        async with aiosqlite.connect(self.库名) as db:
+            await db.execute("""
+                CREATE TABLE IF NOT EXISTS turns (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    session_id TEXT, role TEXT, content TEXT, time TEXT
+                )
+            """)
+            await db.commit()
+
+    async def 追加(self, session_id, role, content):
+        async with aiosqlite.connect(self.库名) as db:
+            await db.execute(
+                "INSERT INTO turns (session_id, role, content, time) VALUES (?, ?, ?, ?)",
+                (session_id, role, content, datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+            )
+            await db.commit()
+
+    async def 取历史(self, session_id, 上限=20):
+        async with aiosqlite.connect(self.库名) as db:
+            async with db.execute(
+                "SELECT role, content FROM turns WHERE session_id=? AND role IN ('user','assistant') ORDER BY id ASC LIMIT ?",
+                (session_id, 上限),
+            ) as cur:
+                行 = await cur.fetchall()
+        return [{"role": r[0], "content": r[1]} for r in 行]</pre>
+    <div class="note" data-page-node-id="EFNyKH8vglJNMOAUWrE4Vu"><b data-page-node-id="0E6qGzWy9Da07ORDiyC4fS">核心</b>：<code data-page-node-id="ltCgzmV3QgK1HWtPvNAHVJ">async with aiosqlite.connect</code> 开库（用完自动关）；每个会「等」的操作前加 <code data-page-node-id="G2WF7P70w89fGg8m1zFEq4">await</code>；写操作末尾加 <code data-page-node-id="IIXqPL8XsQjnmmXHLxilQf">await db.commit()</code>。商品库写法完全相同。</div>
+    <div class="warn" data-page-node-id="FSx6MfBbqlHHzdaagc9Acq">⚠️ 易手滑点：<br data-page-node-id="3eKU4xLHgmQFcmwk10CuaY">
+      1. 写操作漏 <code data-page-node-id="q8o8PyM2FFfqOjmqzJhwPQ">await db.commit()</code> → 数据没真存，查不到。<br data-page-node-id="XF523vL2ZFFW6ERlBtMgMI">
+      2. 用同步 <code data-page-node-id="96s7Ge0jEwTAvznpypsJEk">sqlite3.connect</code> 忘了换 <code data-page-node-id="4DjcqHh3eHUB0IvmepMg8W">aiosqlite</code> → 异步里直接卡线程。<br data-page-node-id="ihXgqSTiA5TeofjNnKmv18">
+      3. SQL 用 <code data-page-node-id="vof5ynRNYxpYPwazikEfnv">?</code> 占位符 + 参数元组 <code data-page-node-id="eQHduF5uOjRAs7nO6s4hE0">(...,)</code>，别直接拼字符串（防注入）。</div>
+  </div>
+
+  <footer data-page-node-id="6ToJbatkeS50p7bUgjsF5j">配套卡：异步流式巩固卡.html（讲 why）· 本卡讲 what（闭眼默写，完整真实代码）</footer>
+
+</div>
+</body>
+</html>
