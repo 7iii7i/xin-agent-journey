@@ -120,21 +120,6 @@ yield f"data: {...}\n\n"</pre>
     </ul>
   </div>
 
-  <div class="card" data-page-node-id="Zf7nWzFVZaNTv2NouMN97U">
-    <h2 data-page-node-id="emgmlQRmEwJI4PnDK0Dp62">四、自测（遮住答案自己答）</h2>
-    <div class="q" data-page-node-id="GvhYGAlRffrSDEanVT0fqy">1. 在旧版函数上加个 await 就能变异步吗？为什么还要把 return 改成 yield？</div>
-    <details data-page-node-id="JLYTg436cCEo7pstdBLag6"><summary data-page-node-id="rHGb2DzudGxptCCHW7fV1K">看答案</summary>
-      <p class="a" data-page-node-id="yKIhZwNkNplkgt4aUAB91b">不够。await 只解决「等待不卡线程」；但旧版 return 是一次性把整段字符串端出来，前端只能等完才显示。想打字机效果，必须用 yield 把每个 token 一个个「流」出去，配合 StreamingResponse。</p>
-    </details>
-    <div class="q" data-page-node-id="n39U5ArZKrYtSXs0R6qBr1">2. 为什么「工具轮」用非流式、「最终轮」才用流式？</div>
-    <details data-page-node-id="FVFJvqIkhAfAfqEUhfWNXr"><summary data-page-node-id="sxadbGyBy9xJh34i7RzCYA">看答案</summary>
-      <p class="a" data-page-node-id="N8317IGq1dy1OwMrov0Inb">流式里的 tool_calls 是碎片段，得手动拼回完整调用，极易出错。所以让「判断调哪个工具」走干净的非流式一次拿全；只有「正式聊天回答」才需要打字机效果，才开 stream=True。</p>
-    </details>
-    <div class="q" data-page-node-id="XbEQwmMSJxAAvyEmilSnSZ">3. 一句话说出 await 的心智模型。</div>
-    <details data-page-node-id="lpjXLmDKqBPBGipIoCjy8Z"><summary data-page-node-id="blE9KbqOPBGqxNsBNHFdg4">看答案</summary>
-      <p class="a" data-page-node-id="rC8ll39a3XbmGJ4mBtaUOC">「这一步要等，但我先放手去干别的。」它几乎永远加在会等待的 IO 操作前：查库、调模型、读文件。</p>
-    </details>
-  </div>
 
   <footer data-page-node-id="IH5vwHGgRnT1JKD2Fhrv2S">下一步：Tier 3（Docker 部署 + 正式 pytest + README）把项目收尾成简历级</footer>
 

@@ -1,0 +1,19 @@
+# ===== docker-compose：一条命令起服务 =====
+# 用法：
+#   1) 在 .env 里放好 DEEPSEEK_API_KEY=sk-xxxx
+#   2) docker compose up --build -d
+#   3) 浏览器开 http://localhost:8003/
+services:
+  ecommerce-agent:
+    build: .                       # 用当前目录的 Dockerfile 构建镜像
+    container_name: ecommerce-agent-v2
+    ports:
+      - "8003:8003"                # 宿主机:容器，和 EXPOSE / --port 一致
+    env_file:
+      - .env                       # 运行时注入密钥（不打进镜像）
+    volumes:
+      - agent_data:/app/data       # 会话库 + 商品库持久化，容器重建不丢历史
+    restart: unless-stopped        # 意外退出自动重启
+
+volumes:
+  agent_data:                      # 命名卷，首次自动创建

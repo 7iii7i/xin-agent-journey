@@ -5,7 +5,7 @@
 #   ③ 加 logging，方便以后排查"为什么某轮调了工具 / 流式断了"
 import logging
 from dotenv import load_dotenv
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from openai import AsyncOpenAI
 
 load_dotenv()  # 读 .env 里的 DEEPSEEK_API_KEY（和 pydantic-settings 双保险）
@@ -16,13 +16,12 @@ class 设置(BaseSettings):
     DEEPSEEK_API_KEY: str
     BASE_URL: str = "https://api.deepseek.com"
     MODEL: str = "deepseek-chat"
-    DB名: str = "shop.db"          # 商品库（和 v1.1 共用，避免重复播种）
-    会话DB名: str = "sessions.db"  # 会话库（v2 多轮记忆）
+    DB名: str = "data/shop.db"          # 商品库（和 v1.1 共用，避免重复播种）
+    会话DB名: str = "data/sessions.db"  # 会话库（v2 多轮记忆）
     端口: int = 8003              # 避开 8001 / 8002
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+    # pydantic-settings v2 写法（替代已弃用的 class Config）
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
 
 配置 = 设置()

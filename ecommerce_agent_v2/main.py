@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from db import 商品库实例, 会话库实例
 from agent import 跑_agent
 from config import 配置, 日志
+from rag import 知识库实例
 
 
 # 🟢 懂框架：lifespan 是 FastAPI 的"启动/关闭钩子"。

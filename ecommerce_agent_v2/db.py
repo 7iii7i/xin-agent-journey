@@ -4,6 +4,7 @@
 # 事件循环可以去服务别的请求，并发量一下就上来了。
 # ⚠️ 一个关键点：原来 __init__ 里直接 建表()+播种()，但 async 函数不能在 __init__ 里 await，
 #    所以改成"启动时再 await 初始化()"——看 main.py 的 lifespan。
+import os
 import aiosqlite
 from datetime import datetime
 from config import 配置, 日志
@@ -74,6 +75,7 @@ class 会话库:
         self.库名 = 库名
 
     async def 初始化(self):
+        os.makedirs(os.path.dirname(self.库名) or ".", exist_ok=True)
         async with aiosqlite.connect(self.库名) as db:
             await db.execute("""
                 CREATE TABLE IF NOT EXISTS turns (

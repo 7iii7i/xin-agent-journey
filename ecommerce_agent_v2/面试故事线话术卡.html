@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh" data-page-node-id="Q2eMvAbBQJOjE0NnUpaGgo">
+<head data-page-node-id="gk69pHDpNtwZ1EPcmwVeQz">
+<meta charset="utf-8" data-page-node-id="kFxgA8wiq0X2I8lSaB1B0z">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="cMLfMf4R74qXmkXd2DHtbu">
+<title>面试故事线话术卡 · Agent 转岗</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f5f5f4; color: #2C2C2A;
+         font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+         line-height: 1.6; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 16px; }
+  header { background: #185FA5; color: #fff; border-radius: 12px;
+           padding: 16px; margin-bottom: 14px; }
+  header h1 { margin: 0 0 4px; font-size: 17px; font-weight: 600; }
+  header p { margin: 0; font-size: 13px; opacity: .9; }
+  .card { background: #fff; border: 1px solid #e3e1dc; border-radius: 12px;
+          padding: 14px 16px; margin-bottom: 14px; }
+  .card h2 { margin: 0 0 10px; font-size: 15px; font-weight: 600; color: #0C447C; }
+  .mind { background: #E6F1FB; border: 1px solid #B5D4F4; border-radius: 12px;
+          padding: 14px 16px; margin-bottom: 14px; }
+  .mind .big { font-size: 15px; font-weight: 600; color: #0C447C; }
+  .mind .sub { font-size: 13px; color: #444441; margin-top: 6px; }
+  .proj { border-left: 4px solid #185FA5; background: #FBFCFE;
+           border-radius: 8px; padding: 10px 12px; margin: 10px 0; }
+  .proj.v1 { border-left-color: #999; }
+  .proj.fac { border-left-color: #3B6D11; }
+  .proj.v2 { border-left-color: #185FA5; }
+  .proj.rpa { border-left-color: #A32D2D; }
+  .proj .name { font-size: 14px; font-weight: 600; color: #0C447C; }
+  .proj .meta { font-size: 12px; color: #5F5E5A; margin: 2px 0 6px; }
+  .proj .what { font-size: 13px; color: #2C2C2A; margin: 4px 0; }
+  .proj .tech { font-size: 12px; color: #444441; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 600;
+           padding: 2px 9px; border-radius: 99px; }
+  .badge.red { background: #FCEBEB; color: #A32D2D; border: 1px solid #F7C1C1; }
+  .badge.green { background: #EAF3DE; color: #3B6D11; border: 1px solid #C0DD97; }
+  ul { margin: 6px 0; padding-left: 18px; }
+  li { margin-bottom: 6px; font-size: 13px; }
+  .kv { font-size: 13px; margin: 4px 0; }
+  .kv b { color: #0C447C; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 6px; }
+  th, td { border: 1px solid #D3D1C7; padding: 6px 7px; text-align: left; vertical-align: top; }
+  th { background: #E6F1FB; color: #0C447C; font-weight: 600; }
+  .pit { background: #FCEBEB; border-radius: 8px; padding: 8px 10px; margin: 7px 0; }
+  .pit .t { font-size: 13px; font-weight: 600; color: #A32D2D; }
+  .pit .d { font-size: 12px; color: #444441; }
+  .ans { background: #EAF3DE; border-radius: 8px; padding: 8px 10px; margin: 7px 0; }
+  .ans .t { font-size: 13px; font-weight: 600; color: #3B6D11; }
+  .ans .d { font-size: 12px; color: #444441; }
+  .note { font-size: 12px; color: #5F5E5A; margin-top: 8px; }
+  footer { font-size: 12px; color: #5F5E5A; text-align: center; padding: 8px; }
+</style>
+</head>
+<body data-page-node-id="aIHziR860rLlH8F59PtOVU">
+<div class="wrap" data-page-node-id="R3lfUIDdDFPTqDNqfIV8Io">
+
+  <header data-page-node-id="Z28G9sfYmntcjHm8WW76j2">
+    <h1 data-page-node-id="TPFnHqR0YDvmChWEdpBbgB">面试故事线话术卡</h1>
+    <p data-page-node-id="C6AaqwD0QEcJ2QRzeHHz9u">v1.1 → 工厂库存 → v2 → 闲鱼RPA，一套 Agent 架构的演进（照着讲）</p>
+  </header>
+
+  <div class="mind" data-page-node-id="xX5o79591ivfSKADzsOboZ">
+    <div class="big" data-page-node-id="JhSwKPNWxFOSXT0LI8aMen">脉络：验证骨架 → 跨领域复用 → 生产级深化 → 真实业务闭环</div>
+    <div class="sub" data-page-node-id="m8FXbP8INP5nthGjV196Cg">本卡把 4 个项目拧成「我做了什么、踩了什么坑、怎么解决」一条线。面试时按"递进"讲，比逐个罗列项目强。规则：🔴 该背的要点 / 🟢 理解即可。</div>
+  </div>
+
+  <!-- ============ 一、一句话定位 ============ -->
+  <div class="card" data-page-node-id="BpHIyXGNIUVJ8IGljMzuUf">
+    <h2 data-page-node-id="4YchAKAdMkpxgSKlVDuBDd">一、开场一句话（自我介绍）</h2>
+    <div class="kv" data-page-node-id="TsHIR7NWd60Y3GbPnetpn4">我叫耿忻，28 岁，大专会计专业转行，<b data-page-node-id="T1XVcyu01UewSGsxWgWD9p">半年自学 Python + LLM 应用</b>，目标 Agent 开发工程师。</div>
+    <div class="kv" data-page-node-id="2795HcmnMsO08FuIcv50eH">我能独立搭出「<b data-page-node-id="LZdLuq85dmervi9oHHWbFn">分层架构 + 工具调用 + 会话记忆 + 异步流式 + RAG 检索</b>」的 Agent 服务，并用 Docker 容器化交付。</div>
+    <div class="kv" data-page-node-id="3BufVOcPYxwPIQBb1SixhB">最大差异化：我的项目全来自<b data-page-node-id="4N0BF0LakoPr1v3hn7EaRd">真实业务</b>（电商客服 / 工厂库存 / 无货源电商），不是玩具 demo——这是别人简历没有的落地证据。</div>
+    <div class="note" data-page-node-id="z9S1Aysu0z4QHHp7tkb2jk">⚠️ 主动提"大专学历在初筛有劣势，所以我用真实项目 + 能讲清原理来补"。诚实比遮掩加分。</div>
+  </div>
+
+  <!-- ============ 二、项目递进时间线 ============ -->
+  <div class="card" data-page-node-id="NDHiAgKnDfJ1Fk0XYNQbrv">
+    <h2 data-page-node-id="ybYc0IjUqI2nP8ah1EDHkQ">二、项目递进（按这个顺序讲）</h2>
+
+    <div class="proj v1" data-page-node-id="UxFDLuvr8gD0jy5ahgvKN0">
+      <div class="name" data-page-node-id="tYyqJVf5TtdUH28WTUmYgE">① 电商客服 v1.1（端口 8001）</div>
+      <div class="meta" data-page-node-id="KYIgkmlsNIqKadeXm11vlr">单文件 main.py · 同步 · 关键词查 · 验证核心骨架</div>
+      <div class="what" data-page-node-id="YWug7HHF3vJJNNnV5YDxM5">做了什么：用 DeepSeek 做一个一句话客服，能「搜商品 / 查价格 / 查库存」。</div>
+      <div class="tech" data-page-node-id="SyJBrCD7A36LuNFdbhbAeA">技术点：SQLite 四步封装（建表→播种→查→关） + 工具清单（3 个 function）+ <b data-page-node-id="4mT0te7ZiJV9StVtgmXgbW">Agent 三件套</b>（while / if tool_calls / 历史.append）+ FastAPI 暴露接口。</div>
+      <div class="tech" data-page-node-id="s2gqVQRrKe7PXO9FLhmUP8">价值：第一次把"LLM 自己决定调哪个工具"跑通，证明架构可行。</div>
+      <div class="tech" data-page-node-id="E0KsjtduHGoikioiBFiSqt">局限（面试主动说）：同步、单文件、无记忆、工具用 if-elif 硬编码、关键词查（= 朴素 RAG 前身）。</div>
+    </div>
+
+    <div class="proj fac" data-page-node-id="1eGs4KxFbuQAgJ9FyXFUOi">
+      <div class="name" data-page-node-id="PHjf75J5yfGKMccUYCTtAk">② 工厂库存查询（端口 8002）</div>
+      <div class="meta" data-page-node-id="KjH6q5bAMplcUMi5FRcgAJ">单文件 + 已 Docker 化 · 企业场景 · 证明架构可复用</div>
+      <div class="what" data-page-node-id="crOyiyHq4WxPnUoTQMUl8h">做了什么：同一套 Agent 骨架，换成「工厂库存」领域——大白话问"螺丝还有多少""给钢板入库 100 公斤"，AI 自动查 / 改库存库。</div>
+      <div class="tech" data-page-node-id="wUyjS2yDdDBx9MHwc2afpB">技术点：库存库 class（成品 / 原料 / 备件，含<b data-page-node-id="KsK7tzZAWyqwGS3mhHAT7j">写操作</b> 入库 / 出库）+ 4 工具 + 同款 Agent 三件套 + <b data-page-node-id="d1bp2PqzFIoOlfNu8cI5oD">Docker 容器化</b>（Dockerfile / compose / 部署说明，能上云、能打包 exe）。</div>
+      <div class="tech" data-page-node-id="9clx5ENvbGvfcd4tdqWHNE">价值：证明"同一套 Agent 架构能快速适配不同业务"——这是<b data-page-node-id="4zEP4DX8z91GpEJmbI45oS">架构复用</b>的硬证据，不是重写。</div>
+      <div class="note" data-page-node-id="G9RuYr0QKKcghl1Z0EcsIN">🟢 懂框架：写操作（入库 / 出库）要 UPDATE + commit，比 v1.1 只读多一步"落库"，并要防"没找到该物品"的边界。</div>
+    </div>
+
+    <div class="proj v2" data-page-node-id="uhCK3FM4z41hYnTvop1Wwp">
+      <div class="name" data-page-node-id="Kt0OjH5Qdc8on3egyVoSHD">③ 电商客服 v2（端口 8003）⭐ 简历主项目</div>
+      <div class="meta" data-page-node-id="kdcr9t7bQ35xcm85KIarWx">分层 10 文件 · 异步 + 流式 + RAG · 生产级</div>
+      <div class="what" data-page-node-id="GGpqNFe2NifwEiLJdepCgq">做了什么：把 v1.1 升级成生产级——分层、异步、打字机流式、会话记忆、RAG 语义检索，全套工业界交付。</div>
+      <div class="tech" data-page-node-id="SEikovvF5skphVpv4rllCz">技术点（逐条讲）：
+        <ul data-page-node-id="pG08M4pWo9iHhHhSxztPD9">
+          <li data-page-node-id="4MmBGfA9H7QBdsJOMHRv7R"><b data-page-node-id="5H3CG0qEqx6a5CnPRypECe">分层架构</b>：config / db / tools / agent / main 各司其职，职责清晰可维护</li>
+          <li data-page-node-id="bvzb4Qp9OaHliBVxWclWvB"><b data-page-node-id="PrwvSIvlfpDwkibhYXFRED">工具注册表</b>（类封装）：加工具只一行 `注册表.注册(...)` —— 开闭原则，加能力不动旧代码</li>
+          <li data-page-node-id="b6Mqv6oeeFbckSXnBfTiTk"><b data-page-node-id="4NGAdKF5TfsyzcSNPuvwcU">异步全链路</b>：aiosqlite + AsyncOpenAI + async 生成器，高并发不卡</li>
+          <li data-page-node-id="XjxxdhbgbwQSImBABxXjwG"><b data-page-node-id="xMPz8dJpKzG6ZfYobuQApO">SSE 流式</b>：`yield f"data:..."` + StreamingResponse，前端打字机效果</li>
+          <li data-page-node-id="ejHaHQCK6OHaEl7tgTJlD1"><b data-page-node-id="moci4Fqr9X8cGO5HtFFCVR">服务端会话记忆</b>：sessions.db 存历史，多轮对话 + 多用户隔离</li>
+          <li data-page-node-id="h2yFQrRXajdRjVaIXRzgaD"><b data-page-node-id="2rKAdGQHhYf2m7BMbmHBkO">RAG 向量知识库</b>：kb_search 工具，文档切片→embedding→向量库，口语化政策问答（朴素关键词查→语义检索）</li>
+          <li data-page-node-id="6MpAcum9kEf278ZdUFamko"><b data-page-node-id="wGW6kdiluuXoOe6EHI5Jzu">Docker + pytest + README</b>：容器化部署 + 离线测试 + 交付说明</li>
+        </ul>
+      </div>
+      <div class="tech" data-page-node-id="EJLzgzgYcIGAl4RDVSHbTA">价值：从"能跑"到"能交付"——面试官看到 Docker + 测试 + 分层，就知道是工业界标准做法。</div>
+    </div>
+
+    <div class="proj rpa" data-page-node-id="PjG6EEoGrEPLLdPKSfmwSJ">
+      <div class="name" data-page-node-id="Dtga2L2pUKMlXFr4hGOMlf">④ 闲鱼上架 RPA（无货源电商）</div>
+      <div class="meta" data-page-node-id="bWxyAS8kkO49XDXtVek68M">Playwright 浏览器自动化 · 真实现金流业务</div>
+      <div class="what" data-page-node-id="RpG3mQmv0xPM71eaukBWU0">做了什么：用 Playwright 自动操作浏览器，把 1688 选品结果自动上架到闲鱼——真实业务闭环，不是 demo。</div>
+      <div class="tech" data-page-node-id="FITDr57bYfDHTOlv7xSBiE">技术点：浏览器自动化（探针 / 登录态保持 / 表单填写 / 发布）+ 选品数据流转。</div>
+      <div class="tech" data-page-node-id="76Dt6f3MEZQGKqn5KoEbat">价值：这是<b data-page-node-id="JJ0HDLByHNCBc9A3QM8j77">差异化筹码</b>——别人简历是技术玩具，你有"Agent / 自动化真在产生业务价值"的证据。</div>
+      <div class="note" data-page-node-id="N8VD4w53hgTi0a7M5nEBQp">🟢 懂框架：RPA 解决"没开放 API 的网站只能模拟人点"的问题；和前面 Agent 是两套能力，合起来 = 选品(爬虫)+客服(Agent)+上架(RPA) 全链路。</div>
+    </div>
+  </div>
+
+  <!-- ============ 三、技术亮点（面试高频） ============ -->
+  <div class="card" data-page-node-id="3YA63yu3BW1xGeosEOZds6">
+    <h2 data-page-node-id="tpMVgob7vDk3OWr3zNJT4l">三、技术亮点（按考点准备）</h2>
+    <ul data-page-node-id="qRVwCkZ233W8oKgdiwURAt">
+      <li data-page-node-id="0PJLyEWDJIN01nXCOpMm3v"><b data-page-node-id="adS6hAiNXMQaV4rF7djeFf">Agent 架构三板斧</b> 🔴：分层解耦 + 工具注册表（开闭原则，加工具不动旧代码）+ 服务端会话记忆（多轮 / 多用户隔离）。这是你最硬的核心能力。</li>
+      <li data-page-node-id="A203qwmZZPzZjNF4WuF8Zl"><b data-page-node-id="a7902HGbGOMzymYsatQ9aG">异步工程</b> 🟢：asyncio 全链路（async 像传染病，从 db 一路传染到入口）+ aiosqlite 不阻塞 + SSE 流式让响应"边生成边显示"。</li>
+      <li data-page-node-id="GRlVCyjyPVIxOpLgOOnAzn"><b data-page-node-id="zmiibDixZC8jlQPt1atG8F">RAG</b> 🟢：朴素（关键词查）vs 真（embedding 向量 + 余弦相似 + rerank 两阶段粗排精排）；<b data-page-node-id="sqa4KylFiJiGHRLtCAQDVI">RAG 不替代 SQLite</b>，前者管语义文本、后者管精确数字，模型按"数据类型"自己选工具。</li>
+      <li data-page-node-id="L8b8T8J8Fga8wtD7iuIFnV"><b data-page-node-id="CydmI1XPxpLElrY0qHDxjR">部署</b> 🟢：Docker 把"代码 + 依赖"打包成可复现标准件；配置分层（pydantic-settings）；密钥用 env_file 运行时注入、不进镜像。</li>
+      <li data-page-node-id="9tWOTxsuLRuEAoquLtzHR4"><b data-page-node-id="CMBvBGoDjNMkQLDj6IPfkn">测试</b> 🟢：pytest 离线验证 Agent 分发 / 会话隔离 / 工具调用逻辑——和 Docker"验环境"是两回事。</li>
+    </ul>
+  </div>
+
+  <!-- ============ 四、坑与解法（STAR） ============ -->
+  <div class="card" data-page-node-id="klpU8KeXVboY3kITbIlciS">
+    <h2 data-page-node-id="LasOxEkYiXoMAkFugyvK0c">四、踩坑与解法（面试最爱问）</h2>
+
+    <div class="pit" data-page-node-id="CzPCzmR05yFhrJYWvwvYRX">
+      <div class="t" data-page-node-id="XeQgdWW2PblACHjT5e5SMl">坑 1：系统 Python 缺依赖，服务起不来</div>
+      <div class="d" data-page-node-id="RLRuWZmYfUTu67GQuWoxzD">解法：用受管 venv 隔离装包（fastapi / aiosqlite / pydantic-settings），不污染系统环境。<span class="badge green" data-page-node-id="GeXjiZTdNQav56nEytacFE">懂框架</span> 体会：环境隔离是基本功。</div>
+    </div>
+
+    <div class="pit" data-page-node-id="y2rJXpwyziiKdflbzLbVvP">
+      <div class="t" data-page-node-id="DYmyxvWukzKYs0l2Jsdt4A">坑 2：异步"传染"导致整条链报错</div>
+      <div class="d" data-page-node-id="T3bmXf01RcBNSYfIIxQw7H">db 改成 aiosqlite 后内部要 await，于是 注册表.调用()、跑_agent()、main 的 ask() 全得 async。<span class="badge red" data-page-node-id="UmScFVafrA6eNmdH3aE8m1">死记</span>：一个函数标 async，调用它的整条链都得 async。</div>
+    </div>
+
+    <div class="pit" data-page-node-id="4gDAtRUY0OhfUL8ZkYaENI">
+      <div class="t" data-page-node-id="klDVacV6cWO8AmyyBZkBs6">坑 3：pytest 漏初始化商品库，测试失败</div>
+      <div class="d" data-page-node-id="o9Sgzp4dOos1YdECYJICKf">只初始了会话库，没初始商品库 → 检索无数据。补 `商品库实例.初始化()` 后 2 passed。<span class="badge green" data-page-node-id="odotzMfAhbFC4kBEntjtrM">懂框架</span>：测试要还原真实运行的前置条件。</div>
+    </div>
+
+    <div class="pit" data-page-node-id="NYR7ZxYFk2hM89h8KFWtBI">
+      <div class="t" data-page-node-id="UcTecB3wal4gJEyXz9oDt0">坑 4：DeepSeek 没有 embedding 接口，RAG 卡住</div>
+      <div class="d" data-page-node-id="uHBMT3vEDkrpTA6DCHDI9Y">原想 embedding 走同一厂商 API，但 DeepSeek 只给对话接口。改本地中文模型 BAAI/bge-small-zh，封装成一处函数，想换 API 只改这处。<span class="badge green" data-page-node-id="t7nGSc9sKJXFYYjBnCqzx3">懂框架</span>：选模型看"有没有这个能力"，不是只看厂商。</div>
+    </div>
+
+    <div class="pit" data-page-node-id="Ojeo5V2GqtSuw6cnI4IqtO">
+      <div class="t" data-page-node-id="Q0I3ZL6Q9ZTKPPWScB9q1L">坑 5：Docker 引擎没启动，沙箱构建失败</div>
+      <div class="d" data-page-node-id="8E1MVwApfDzqTlu2dYIJ5M">文件正确，只是沙箱 Docker Engine 没跑。本机 `docker compose up --build -d` 验证即可。<span class="badge green" data-page-node-id="TR7iBtAvabWI1PEEpkN2LM">懂框架</span>：先确认引擎在运行再 build。</div>
+    </div>
+
+    <div class="pit" data-page-node-id="V4hd0mCKxP28FWMJDlnCGw">
+      <div class="t" data-page-node-id="x7iVJGuo0b4MqflqwNfIEM">坑 6：RAG 检索排序"假模型"翻车</div>
+      <div class="d" data-page-node-id="yFu0HwHc4L3v7eWFuaEhR3">教学版 embedder 靠手列同义词，漏了"修"字就把"耳机坏了给修吗"错匹配到耳机段。真实 bge 模型自动从海量中文学语义，不用手列、更稳。<span class="badge green" data-page-node-id="1XFTMSrhXoCZDogFxnvWGU">懂框架</span>：神经网络 embedding 优于规则同义词。</div>
+    </div>
+  </div>
+
+  <!-- ============ 五、高频反问准备 ============ -->
+  <div class="card" data-page-node-id="j8hwebX0Q38AR8VDOHBBPj">
+    <h2 data-page-node-id="7z5QAp2AaLMg1tAqlhLLvt">五、面试官可能反问 + 你的回答要点</h2>
+
+    <div class="ans" data-page-node-id="LdyAPkanOgZWiDcvAKaEXX">
+      <div class="t" data-page-node-id="QfBpSSMwgH65QdzQMxo45p">Q：RAG 为什么不直接查数据库？</div>
+      <div class="d" data-page-node-id="EYP8FzbTbT1r9YwCDjNiMb">A：SQLite 管精确数字（价格 / 库存），RAG 管语义文本（政策 / 说明）。两者并存，模型按"问题要哪类数据"自己选工具——不是替代关系，是互补。</div>
+    </div>
+
+    <div class="ans" data-page-node-id="GxVsYrP3WZo77uDr1h1WEb">
+      <div class="t" data-page-node-id="8rsUlJZWSnA42wVO5aprwb">Q：多轮对话怎么保证不串用户？</div>
+      <div class="d" data-page-node-id="PKAtEcX8JUZg2BTQPYWtUC">A：服务端用 session_id 区分，历史存 sessions.db；每个请求带自己的 session_id 取对应历史，天然隔离。前端 session_id 存 localStorage。</div>
+    </div>
+
+    <div class="ans" data-page-node-id="fUCHJjf49F3k1GqYe3Jl2o">
+      <div class="t" data-page-node-id="LjFKmen2g6mCHAB1ehonzp">Q：rerank 为什么分两步，不直接用最准的？</div>
+      <div class="d" data-page-node-id="mTfVMtP2mIqULvtHJhzWXQ">A：cross-encoder 精排要把"问题 + 文档"拼一起现算，不能预存，全量实时跑太慢。所以先用 bi-encoder 预存向量快捞 top-20（粗排保证不漏），再 cross-encoder 只给这 20 段精排取 top-3（精排保证前几条真相关）——速度 vs 精度的权衡。</div>
+    </div>
+
+    <div class="ans" data-page-node-id="IpY8NS5t8CqyNxVAeeGPrl">
+      <div class="t" data-page-node-id="rOIPweomWsue9ZrPYSIbja">Q：怎么评估你的 Agent 好不好？</div>
+      <div class="d" data-page-node-id="ki42LiiICWQ1EVoVZi2X2Z">A：代码层用 pytest 离线验逻辑；RAG 层用评估集跑 recall / 命中率 / 忠实度。每次改切片策略或换模型都跑一遍，用数据驱动调参，不是凭感觉。</div>
+    </div>
+
+    <div class="ans" data-page-node-id="Ma0dLG1fpRhIizGygHsUOR">
+      <div class="t" data-page-node-id="X5E8DL6maPmOAmkPGetXW6">Q：你学历是专科，怎么补？</div>
+      <div class="d" data-page-node-id="Yk4xOJlWZx1KCsP2pVX5pb">A：我用真实项目 + 能讲清原理来补。我的 Agent 从架构到部署全链路自己搭过、跑通过、踩过的坑能说清，比只看教程的人落地能力强。贵司要的是能干活的人，我证明过我能。</div>
+    </div>
+  </div>
+
+  <!-- ============ 六、学到什么程度 ============ -->
+  <div class="card" data-page-node-id="BQvKVdR7FwRaDGZn5lvGfU">
+    <h2 data-page-node-id="40y2EWmOSHLNqXsqOcFwZi">六、你该「死记」vs「懂框架」的边界</h2>
+    <div class="kv" data-page-node-id="Y6Qtpi7FWDdX5lh7015jEz"><span class="badge red" data-page-node-id="GdDgAFFd7zl41qktbC1oEJ">死记（闭眼能写骨架）</span></div>
+    <ul data-page-node-id="9mlnZKDcGEg8aAZYUf1io3">
+      <li data-page-node-id="lZAA8sC08b2lZP97OYojwe">Agent 三件套：while / if tool_calls / 历史.append（含 choices[0]）</li>
+      <li data-page-node-id="foTRJYpilxhiLYurja9Raq">工具注册表：注册表.注册(schema, 函数) + 注册表.调用(名, 参数)</li>
+      <li data-page-node-id="GPmxQCUc36E6mKDKvGft8n">SQLite 四步：connect → execute → commit/close</li>
+      <li data-page-node-id="OuQHl1RGIdJkLYbwS8GoxP">SSE 两行：yield f"data: {...}\n\n" + return StreamingResponse(..., media_type="text/event-stream")</li>
+      <li data-page-node-id="AFbNE698lNFA8V2qG3tDe2">async 生成器：async def 跑_agent(历史): yield d.content</li>
+    </ul>
+    <div class="kv" data-page-node-id="DmFwTLZEhUP7ohrTgGQb4d"><span class="badge green" data-page-node-id="39UJcVg4pm682u0vPlSobG">懂框架（理解 + 会改即可）</span></div>
+    <ul data-page-node-id="hwBP1X55Jo25gw9ETVEeqA">
+      <li data-page-node-id="fCglE9vPb3w2d4AeROhNoq">分层依赖方向、会话隔离原理、RAG 原理（embedding / 向量库 / rerank 两阶段）</li>
+      <li data-page-node-id="QKl5qH4HTbeXroCdmD41sB">Docker（镜像 / 卷 / 密钥注入 / 分层缓存）、pytest 离线测试思路</li>
+      <li data-page-node-id="OzDscj9KZ0VyAApKMCe7D6">多 Agent 编排、记忆系统、评估观测、K8s/CI-CD（阶段 2–3，待学）</li>
+    </ul>
+    <div class="note" data-page-node-id="J8xyqrko1XKT99cm8fLFhU">定位：代码 AI 写、自己懂原理 + 会看 + 能审。不要求从零手写每个框架，会看、能评审、能指挥即可。</div>
+  </div>
+
+  <footer data-page-node-id="1eqVF57puJ8K2lVibZQYcU">面试故事线话术卡 · 与 5 张巩固卡配合使用 · 讲的时候按"递进"走，别逐个罗列</footer>
+</div>
+</body>
+</html>

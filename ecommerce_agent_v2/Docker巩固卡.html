@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh" data-page-node-id="bxdZ8IGnrUyR95QZr4BmEW">
+<head data-page-node-id="F0imK5VmHJsFoCtSGdufRP">
+<meta charset="utf-8" data-page-node-id="lhMm46LZCq2QpClb2KiV3G">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="IzNllFMrCdbGlL6GWhBpLB">
+<title>Docker 巩固卡 · 电商客服 v2 Tier3</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f5f5f4; color: #2C2C2A;
+         font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+         line-height: 1.6; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 16px; }
+  header { background: #185FA5; color: #fff; border-radius: 12px;
+           padding: 16px; margin-bottom: 14px; }
+  header h1 { margin: 0 0 4px; font-size: 17px; font-weight: 600; }
+  header p { margin: 0; font-size: 13px; opacity: .9; }
+  .card { background: #fff; border: 1px solid #e3e1dc; border-radius: 12px;
+          padding: 14px 16px; margin-bottom: 14px; }
+  .card h2 { margin: 0 0 10px; font-size: 15px; font-weight: 600; color: #0C447C; }
+  .mind { background: #E6F1FB; border: 1px solid #B5D4F4; border-radius: 12px;
+          padding: 14px 16px; margin-bottom: 14px; }
+  .mind .big { font-size: 16px; font-weight: 600; color: #0C447C; }
+  .mind .sub { font-size: 13px; color: #444441; margin-top: 6px; }
+  .two { display: flex; gap: 10px; flex-wrap: wrap; }
+  .col { flex: 1; min-width: 150px; border-radius: 10px; padding: 10px; }
+  .col.old { background: #FCEBEB; border: 1px solid #F7C1C1; }
+  .col.new { background: #E6F1FB; border: 1px solid #B5D4F4; }
+  .col .tag { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+  .col.old .tag { color: #A32D2D; }
+  .col.new .tag { color: #0C447C; }
+  pre { background: #F1EFE8; border: 1px solid #D3D1C7; border-radius: 8px;
+        padding: 8px 10px; font-size: 12px; line-height: 1.5; overflow-x: auto;
+        color: #2C2C2A; margin: 6px 0; white-space: pre; }
+  .note { font-size: 12px; color: #5F5E5A; margin-top: 8px; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 600;
+           padding: 2px 9px; border-radius: 99px; }
+  .badge.red { background: #FCEBEB; color: #A32D2D; border: 1px solid #F7C1C1; }
+  .badge.green { background: #EAF3DE; color: #3B6D11; border: 1px solid #C0DD97; }
+  ul { margin: 6px 0; padding-left: 18px; }
+  li { margin-bottom: 6px; font-size: 13px; }
+  details { margin-top: 6px; }
+  summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #185FA5; }
+  .q { font-size: 13px; margin: 8px 0 2px; font-weight: 600; }
+  .a { font-size: 13px; color: #444441; margin: 0 0 8px; }
+  footer { font-size: 12px; color: #5F5E5A; text-align: center; padding: 8px; }
+</style>
+</head>
+<body data-page-node-id="8gNauiM63egARuKmjmDCDB">
+<div class="wrap" data-page-node-id="EgAOpudGAwPefrtPBPFQiO">
+
+  <header data-page-node-id="lCSuGqHxjWj05QSqnp1qTd">
+    <h1 data-page-node-id="scbTSfb3f40Yga6UrUCHZs">Docker 巩固卡</h1>
+    <p data-page-node-id="rbBk2DbVrHQG5mfFUn9As1">电商客服 v2 · Tier 3 学完这张 = 容器化部署过关</p>
+  </header>
+
+  <div class="mind" data-page-node-id="mgvdjtyDqVxjYPJAx0sb90">
+    <div class="big" data-page-node-id="XwUzEDNSDhsVeFzl28DZA3">Docker = 把「代码 + 运行环境」封成一个谁拿到都一模一样跑的标准件</div>
+    <div class="sub" data-page-node-id="8d1nMMtsCymUVesuALYIa4">终极意义：消灭「在我机器能跑、到你那跑不了」。公网部署只是它最常用的一个落点，不是全部。</div>
+  </div>
+
+  <div class="card" data-page-node-id="wO3Ch42K5JhZA8LFKz5LU4">
+    <h2 data-page-node-id="rDU77xJa8Jk6bDZfzJQdqY">一、这一步包含哪 3 个文件</h2>
+    <ul data-page-node-id="CiF3Eg7oty1y06MZffoQTJ">
+      <li data-page-node-id="TAYAq0xDDBItlKWBVVpHw1"><b data-page-node-id="Ck08JEHXE6g2rsL0pgSHSc">Dockerfile</b>：镜像构建配方（怎么把项目装进容器）</li>
+      <li data-page-node-id="4ND7KwxF6aGEFxlvAvRLLV"><b data-page-node-id="DptWjVCktDVuuE1ySo9h2n">docker-compose.yml</b>：一键起服务 + 端口 / 卷 / 密钥配置</li>
+      <li data-page-node-id="nc2CmlajGZvlsj4desP9EN"><b data-page-node-id="iaJeCAKPZtQbBt2mzqDVIg">.dockerignore</b>：排除不该打进镜像的（密钥 / 缓存 / 本地库）</li>
+    </ul>
+    <div class="note" data-page-node-id="hjlFHSidXICukmVPmQKHxs">三者全是 <span class="badge green" data-page-node-id="Gs0DME22zVialQKRZha5VK">懂框架</span>：理解每句干嘛、会改端口 / 卷名即可，<b data-page-node-id="ZnT2kacJL0dAeFIx0GEDWO">不用背原文</b>。</div>
+  </div>
+
+  <div class="card" data-page-node-id="PNkzMef6Jd7HwtUMpPmENP">
+    <h2 data-page-node-id="JocNTEGNlGinWiyw7JoFmY">二、Dockerfile 的几个关键点（为什么这么写）</h2>
+    <div class="two" data-page-node-id="btDn0FeRHQdyskH4Z6a5yL">
+      <div class="col old" data-page-node-id="xSO6O7FnTAh1IFXmvNIlwC">
+        <div class="tag" data-page-node-id="YrQsYYEHtoJ7PIsYeQQVsh">易踩坑</div>
+        <pre data-page-node-id="imZBOTzpFxD7xqcPIh0XPp">CMD ["uvicorn","main:app",
+    "--host","0.0.0.0",
+    "--port","8003"]</pre>
+        <div class="note" data-page-node-id="qHCccKDOlUhHpgZp2xuRbl">CLI 方式<b data-page-node-id="Vruailj9u7YF0wztN3e25r">不读 config.端口</b>，必须显式写 <code data-page-node-id="LE0uPRMmIXKyikZOKzSeI5">--port 8003</code>，否则容器内起在 8000、外面映射 8003 对不上。</div>
+      </div>
+      <div class="col new" data-page-node-id="x7dey3V6b6GZQZGGft6vUS">
+        <div class="tag" data-page-node-id="eW3YZDIKvUP6M7UqyU6nWu">正确做法</div>
+        <pre data-page-node-id="V2J7Xm3pNY8tY2lgvIuV6W">COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .          # 源码后复制
+ENV PYTHONIOENCODING=utf-8</pre>
+        <div class="note" data-page-node-id="7enUTZxnfWzQBQDVQcGgft">① 依赖先装、源码后复制 = <b data-page-node-id="g8uTS79rpqQdhHYG6Nq6vc">分层缓存</b>，改代码不重装包；② 中文编码兜底防 ascii 报错。</div>
+      </div>
+    </div>
+    <div class="note" data-page-node-id="HQL19y8DS8lNQY1iHhZEcW"><span class="badge red" data-page-node-id="o5ItSPYKbSUvYoL4agTPcf">死记</span> Dockerfile 套路顺序：FROM → ENV → WORKDIR → COPY 依赖 → RUN pip → COPY 源码 → EXPOSE → CMD。改项目时照这个顺序填空。</div>
+  </div>
+
+  <div class="card" data-page-node-id="7ZDUQvbfUjdyP7Wl81MFgO">
+    <h2 data-page-node-id="CG0LhkoQHyCxFFt1k0boEY">三、compose 一条命令起服务</h2>
+    <pre data-page-node-id="3h97W9weEREnu0cvMpKyXy">docker compose up --build -d   # 构建 + 后台启动
+docker compose logs -f         # 看日志
+docker compose down            # 停止</pre>
+    <ul data-page-node-id="baARcDwU4DYiogm9VJF5Hu">
+      <li data-page-node-id="vIc2ogrLmIvjA6mWidu7A8"><code data-page-node-id="XmhJFyEoHjxxkdakoGAsC9">ports: "8003:8003"</code>：宿主机 : 容器内，必须一致</li>
+      <li data-page-node-id="lg7iq91TcZ90KSedE3sOEO"><code data-page-node-id="IstTlZHmvUK8tP7GA6oQSo">env_file: .env</code>：密钥运行时注入，<b data-page-node-id="izESJBg4EmT9I2kFolNHhz">不打进镜像</b></li>
+      <li data-page-node-id="2ARIp52U11tYPddpbKlzfO"><code data-page-node-id="YC51Bkzd6o9YG0STNAlqjm">volumes: agent_data:/app/data</code>：会话 / 商品库<b data-page-node-id="YOtW3RoRxRDxgQnxyilgCu">持久化</b>，容器删了数据还在</li>
+      <li data-page-node-id="doIp9TmSE9tC2UnQdMjL7j"><code data-page-node-id="iRUbsdrU8bCl0LGzr2ci7R">restart: unless-stopped</code>：意外退出自动重启</li>
+    </ul>
+    <div class="note" data-page-node-id="3nyMtPBrWes4anTuNXuMdv"><span class="badge red" data-page-node-id="VkT6FGk6WPyDx9Ngy8YtaH">死记</span> 那条启动命令 <code data-page-node-id="ofWe6pRMHP1OTrjrHkCOuH">docker compose up --build -d</code> 你会真敲，记熟。</div>
+  </div>
+
+  <div class="card" data-page-node-id="EzcXpduLl9ebF4rzk5wqFi">
+    <h2 data-page-node-id="mx91Ma54DXmtn7Ufj1WgHE">四、Docker 到底图啥（vs 没有 Docker）</h2>
+    <div class="two" data-page-node-id="dq2v9fkAbDipUWyyV6fANO">
+      <div class="col old" data-page-node-id="nxBHE1QPiNjekD2zg69Pnn">
+        <div class="tag" data-page-node-id="OgbKMq6D9pAjCJJSuZyQdh">没有 Docker</div>
+        <pre data-page-node-id="nqd6v1SPTnpYwjQHriloIJ">你的机器：Py3.13+依赖 ✓
+同事/云：Py3.11、缺依赖
+→ 跑不起来</pre>
+        <div class="note" data-page-node-id="LLvRmXBBLJJrR5uF8dCnMn">每换一台机器都要重配环境。</div>
+      </div>
+      <div class="col new" data-page-node-id="60iLZWOAiQDgKDcdVh4TNC">
+        <div class="tag" data-page-node-id="85fkgdDhiCqPmjQe796Q4H">有 Docker</div>
+        <pre data-page-node-id="Sm1M0UOwCJD6bGn4vh5kK3">代码+依赖+系统库
+→ 封成 1 个 image
+任何装 Docker 的机器 ✓</pre>
+        <div class="note" data-page-node-id="CG8yCnq1IfRmZQZoE2eAGZ">一次构建，到处运行。</div>
+      </div>
+    </div>
+    <div class="note" data-page-node-id="TUb71B32azwlBfyVzL9BuS">三层真正价值（<span class="badge green" data-page-node-id="JEBqEGIBnoxrD4H8Co4pry">懂框架</span>）：
+      <b data-page-node-id="J07HBg6CfmA8IPUhNxmKxB">①环境一致性</b>（自带依赖，到哪都一样）、
+      <b data-page-node-id="2woiySDZaaIYzgBkiZwiug">②可移植</b>（同事本 / 内网 / CI / 云 / K8s 都是一个 image）、
+      <b data-page-node-id="6O7KP1h0mTvyg9Gdujr45L">③隔离</b>（不污染本机、不跟别的版本打架）。</div>
+  </div>
+
+  <div class="card" data-page-node-id="zbiIcKdCqh2P8Ecj9J4Hfd">
+    <h2 data-page-node-id="BDsPXqKWfzzZA5kpRcFx80">五、澄清：「检验」≠ 找 bug</h2>
+    <div class="two" data-page-node-id="JWQ9D0mka4SYk3aDlHYDxP">
+      <div class="col old" data-page-node-id="yuW9s9SocDbM9AUBYXDThC">
+        <div class="tag" data-page-node-id="cueRi4VG8bJ41AGLtqvk8q">pytest（早就有）</div>
+        <pre data-page-node-id="Gef7YQYbo48d5Amx9CzrWq">找逻辑 bug
+分发对不对 / 会话隔离 /
+工具调用……</pre>
+        <div class="note" data-page-node-id="YSXMcAje2HPNzlKIAXyEVx">测的是「代码对不对」。</div>
+      </div>
+      <div class="col new" data-page-node-id="olahda1s6GMeKxzZSHYttT">
+        <div class="tag" data-page-node-id="M8MGT8MUFOb41hBQNafxmL">Docker 的「检验」</div>
+        <pre data-page-node-id="e18aMYnvzDjMbZHX0Bray0">验环境可复现
+依赖齐不齐 / 干净机器
+能不能跑起来</pre>
+        <div class="note" data-page-node-id="rKd67FWxh6j0klJAtByb8D">测的是「环境掉不掉链子」。</div>
+      </div>
+    </div>
+    <div class="note" data-page-node-id="3fbdxq91heWm1yCaMwWtxv">两者不冲突，<b data-page-node-id="cDTLqFsTCjXInSPQsSMEFk">Docker 替代不了 pytest</b>。前面说的「Docker 用来检验」指的就是验「环境可复现」，不是找代码 bug——别混。</div>
+  </div>
+
+  <div class="card" data-page-node-id="OjlIMbytnNqpQmcdEziqKQ">
+    <h2 data-page-node-id="BvAN0d75nSQVtz62Ym72lk">六、只在我本机 / 局域网跑？要不要放公网？</h2>
+    <ul data-page-node-id="IexPBwkZtPUtjIMtQOBnUG">
+      <li data-page-node-id="SBdbccOctKq1DE5nZlx6mC"><span class="badge green" data-page-node-id="u0GFXBCO6wlG5gW27CQ677">懂框架</span> 默认 <code data-page-node-id="8HaQuTRN9LcYLd9bIfpthG">docker compose up</code> 就在<b data-page-node-id="f3VWvcSZlMYhx6Fd8PVVsg">你本机</b>起，<code data-page-node-id="AoMxSaPyTbL8dpNyubbnSg">localhost:8003</code> 能访问；同局域网用你<b data-page-node-id="8DXBmqzVgO7YuvYpYxgoG3">内网 IP</b> 也能访问（手机 / 同事电脑）。</li>
+      <li data-page-node-id="hBKHcwkws8XfFvie8PlGy1"><span class="badge green" data-page-node-id="erZoIEhPvDX0Yff5F7c4NQ">懂框架</span> 「只能局域网」<b data-page-node-id="iiAXPkN5sL7xlgH0xkPVm3">不是 Docker 限制</b>，是「你没放公网」。想公网可访问有两条路：① 把镜像推到云服务器（ECS / 容器服务）跑 —— 因为 image 可移植，直接搬过去就行；② 家用宽带做端口映射（不推荐，不稳且有风险）。</li>
+      <li data-page-node-id="SiIl8Mn8H8mpAQizlNfubB"><span class="badge green" data-page-node-id="sgFnFilajPGJPx2dvViuXq">懂框架</span> 简历项目<b data-page-node-id="BZ5nFOuHcLAc9pofghzcyV">不必真放公网</b>：本地 <code data-page-node-id="IMVVBCmtgC8j6t78pGJoNi">docker compose up --build -d</code> 跑通 + 截图，已足够证明你会 Docker 部署。真要远程 demo 给面试官看才需要上云或内网穿透。</li>
+    </ul>
+  </div>
+
+  <div class="card" data-page-node-id="vQtIEUzXeYtAHwoUqEHQ5g">
+    <h2 data-page-node-id="z7Cfb9eBGGYdzsjo4QkW0c">七、学到什么程度</h2>
+    <p data-page-node-id="08jWZnR4Pxpr4BAdzywKB3"><span class="badge red" data-page-node-id="9NLN4SrTrIFNO0C3tlrMUL">死记</span> 以下三处要能默写 / 照敲：</p>
+    <ul data-page-node-id="h9viBTFO6bt3OxrrTJ9aZG">
+      <li data-page-node-id="hGZhUNRIZXRdR9E4jITwj5"><b data-page-node-id="ykAdBsH30BKhRULT9Xd3Hv">Dockerfile 套路顺序</b>：FROM → ENV → WORKDIR → COPY 依赖 → RUN pip → COPY 源码 → EXPOSE → CMD</li>
+      <li data-page-node-id="qkagzBUMg7SdTParM8unos"><b data-page-node-id="Yn914BKNZfU2WyCD8kQE3F">那条启动命令</b>：<code data-page-node-id="4lmGvND7muxyhMGID2yifq">docker compose up --build -d</code></li>
+      <li data-page-node-id="ZIw5aZr9mjy94HpEeUyeOJ"><b data-page-node-id="Rqbeku4G6Sh2TBVVqwBhar">CMD 必须显式 --port 8003</b>：CLI 不读 config.端口，漏写端口对不上</li>
+    </ul>
+    <p data-page-node-id="7YY9RMMjQHwBX872GpQZOJ"><span class="badge green" data-page-node-id="mIXo0O98JjQWvEswiJcDnx">懂框架</span> 以下能讲清即可，不用背：</p>
+    <ul data-page-node-id="aPyElegYHANhn3rrCznTaW">
+      <li data-page-node-id="bqD7FnBAiQIlJ44rzU4DWB">分层缓存为什么（依赖先装、源码后复制）</li>
+      <li data-page-node-id="Z02tkjXjSHlwQguLg3Z8YZ">中文编码兜底 ENV 防 ascii 报错</li>
+      <li data-page-node-id="a5t75veOutWk3u9zLuG0G9">env_file 注入密钥（密钥不打进镜像）</li>
+      <li data-page-node-id="j63gLTBsYEvROSX2NAl3Lc">volume 持久化（容器删了数据还在）</li>
+      <li data-page-node-id="AuGDZwEJDQGomceBgfPK9D">镜像（模板，只读可复用）vs 容器（跑起来的实例，有状态可重启）</li>
+      <li data-page-node-id="N7DBUbva1BFGhLMMD7ME5F">双身份：检验环境可复现 + 工业界标准交付</li>
+      <li data-page-node-id="DckaGnoKGWHFf0Q6e6hMUK">公网 vs 局域网：默认本机 / 局域网，公网靠上云（镜像可移植）</li>
+    </ul>
+  </div>
+
+
+  <footer data-page-node-id="dSmAMtVcnoh58Vo27qx6wu">本卡 = Tier3 容器化收尾。三张卡（异步流式 / 死记骨架 / Docker）齐了，面试前各翻一遍即通</footer>
+
+</div>
+</body>
+</html>

@@ -1,8 +1,12 @@
-# 离线测试（Tier 2 异步版）：用 unittest.mock 把 DeepSeek 客户端"假掉"，
+# 离线测试套件（Tier 2 异步版）：用 unittest.mock 把 DeepSeek 客户端"假掉"，
 # 不花一分钱 API、不联网，也能验证「异步工具注册表分发」和「异步会话记忆」。
 #
 # 🟢 懂框架：这就是"mock 掉 LLM 也能测"——面试加分点，说明你懂"可测性"。
 #   跑_agent 现在是 async generator，数据库也是 async，所以测试整体用 asyncio + AsyncMock。
+#
+# 跑法（系统 Python 已装好依赖）：
+#   cd ecommerce_agent_v2
+#   python -m pytest tests/ -v
 import os
 import sys
 import asyncio
@@ -12,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from unittest.mock import AsyncMock, MagicMock
 import agent
-from db import 会话库实例
+from db import 商品库实例, 会话库实例
 
 
 def 造假工具轮(工具名, 参数):
@@ -46,20 +50,23 @@ async def 造假流(文本):
     yield chunk
 
 
-async def 测注册表_异步_带工具():
+async def 跑_注册表_测():
+    # 真实运行靠 main.py 的 lifespan 同时初始化两个库；测试里手动补（否则商品库未建表会报"无法打开数据库文件"）
+    await 商品库实例.初始化()
+    await 会话库实例.初始化()
+    # 模型被调 3 次：工具轮(要调工具) → 最终轮判断(不用工具) → 流(逐 token)
     agent.client.chat.completions.create = AsyncMock(side_effect=[
-        造假工具轮("search_product", {"keyword": "耳机"}),  # 轮1 非流式：要调工具
-        造假最终轮(),                                         # 轮2 非流式：不用工具
-        造假流("无线蓝牙耳机 Pro 199元，库存50。"),          # 轮2 流式：逐 token
+        造假工具轮("search_product", {"keyword": "耳机"}),
+        造假最终轮(),
+        造假流("无线蓝牙耳机 Pro 199元，库存50。"),
     ])
     out = ""
     async for t in agent.跑_agent([{"role": "user", "content": "有耳机吗"}]):
         out += t
     assert out == "无线蓝牙耳机 Pro 199元，库存50。", out
-    print("✓ 异步注册表分发 + 流式最终轮：通过")
 
 
-async def 测会话库_异步隔离():
+async def 跑_会话库_测():
     await 会话库实例.初始化()  # 确保表存在
     sid = "测试会话_" + os.urandom(4).hex()
     await 会话库实例.追加(sid, "user", "你好")
@@ -70,10 +77,19 @@ async def 测会话库_异步隔离():
     # 不同 session 互不干扰
     await 会话库实例.追加("另一个会话", "user", "别的话")
     assert await 会话库实例.取历史(sid) == 历史
-    print("✓ 会话库异步 + 多轮隔离：通过")
+
+
+def test_注册表_异步分发与流式():
+    """验证：工具轮非流式 → 最终轮判断 → 流式逐字，最终拼出完整答案。"""
+    asyncio.run(跑_注册表_测())
+
+
+def test_会话库_异步隔离():
+    """验证：同一 session 历史按序可取，且不同 session 互不串。"""
+    asyncio.run(跑_会话库_测())
 
 
 if __name__ == "__main__":
-    asyncio.run(测注册表_异步_带工具())
-    asyncio.run(测会话库_异步隔离())
+    asyncio.run(跑_注册表_测())
+    asyncio.run(跑_会话库_测())
     print("\n全部离线测试通过 ✅")

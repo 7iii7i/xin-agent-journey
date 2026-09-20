@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh" data-page-node-id="SIGb6WjXV1UfYXRlXVrzkx">
+<head data-page-node-id="lnToFMhugfV5OsTNYzbolH">
+<meta charset="utf-8" data-page-node-id="3woLy46OViWMkyDlTeu0s6">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="BmdBeudPFxkhn2rAigpYjR">
+<title>RAG 总览卡 · 电商客服 v2 进阶</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f5f5f4; color: #2C2C2A;
+         font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+         line-height: 1.6; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 16px; }
+  header { background: #185FA5; color: #fff; border-radius: 12px;
+           padding: 16px; margin-bottom: 14px; }
+  header h1 { margin: 0 0 4px; font-size: 17px; font-weight: 600; }
+  header p { margin: 0; font-size: 13px; opacity: .9; }
+  .card { background: #fff; border: 1px solid #e3e1dc; border-radius: 12px;
+          padding: 14px 16px; margin-bottom: 14px; }
+  .card h2 { margin: 0 0 10px; font-size: 15px; font-weight: 600; color: #0C447C; }
+  .mind { background: #E6F1FB; border: 1px solid #B5D4F4; border-radius: 12px;
+          padding: 14px 16px; margin-bottom: 14px; }
+  .mind .big { font-size: 16px; font-weight: 600; color: #0C447C; }
+  .mind .sub { font-size: 13px; color: #444441; margin-top: 6px; }
+  .two { display: flex; gap: 10px; flex-wrap: wrap; }
+  .col { flex: 1; min-width: 150px; border-radius: 10px; padding: 10px; }
+  .col.old { background: #FCEBEB; border: 1px solid #F7C1C1; }
+  .col.new { background: #E6F1FB; border: 1px solid #B5D4F4; }
+  .col .tag { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+  .col.old .tag { color: #A32D2D; }
+  .col.new .tag { color: #0C447C; }
+  pre { background: #F1EFE8; border: 1px solid #D3D1C7; border-radius: 8px;
+        padding: 8px 10px; font-size: 12px; line-height: 1.5; overflow-x: auto;
+        color: #2C2C2A; margin: 6px 0; white-space: pre; }
+  .note { font-size: 12px; color: #5F5E5A; margin-top: 8px; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 600;
+           padding: 2px 9px; border-radius: 99px; }
+  .badge.red { background: #FCEBEB; color: #A32D2D; border: 1px solid #F7C1C1; }
+  .badge.green { background: #EAF3DE; color: #3B6D11; border: 1px solid #C0DD97; }
+  ul { margin: 6px 0; padding-left: 18px; }
+  li { margin-bottom: 6px; font-size: 13px; }
+  details { margin-top: 6px; }
+  summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #185FA5; }
+  .q { font-size: 13px; margin: 8px 0 2px; font-weight: 600; }
+  .a { font-size: 13px; color: #444441; margin: 0 0 8px; }
+  footer { font-size: 12px; color: #5F5E5A; text-align: center; padding: 8px; }
+</style>
+</head>
+<body data-page-node-id="2R9IFf36r63OyND0u5j8pt">
+<div class="wrap" data-page-node-id="C4Ll0uGJBLIp6pbcKs4EKW">
+
+  <header data-page-node-id="SbJdT8qqsfhFFkpYeyS4QC">
+    <h1 data-page-node-id="fwHPoh7OZ3aolR2UvjIRcD">RAG 总览卡</h1>
+    <p data-page-node-id="ep3dx6ibvh1hIGF4RG5q6J">电商客服 v2 · Agent 进阶 = 检索增强生成过关</p>
+  </header>
+
+  <div class="mind" data-page-node-id="pZMyJToUc6IbnV5EV1OjNz">
+    <div class="big" data-page-node-id="pkSUd5AGk2wpZ9wr4e7qF0">RAG = 检索增强生成：回答前先去你的知识库检索相关资料，塞进 prompt 再让 LLM 答</div>
+    <div class="sub" data-page-node-id="sqvSX1vbx7hjdKmnJ5Bnpt">解决「模型不懂你的私有数据 / 会瞎编」。你 v2 的「商品库搜索」本质就是最朴素的 RAG，真 RAG 只是把「精确查」升级成「意思相近查」。</div>
+  </div>
+
+  <div class="card" data-page-node-id="WSdbtFmAAZ0pZFnq5XWoNK">
+    <h2 data-page-node-id="jPtEW5y8puvKeHN1DHX0hz">一、朴素 RAG vs 真 RAG（对照）</h2>
+    <div class="two" data-page-node-id="Khfla3AibrcHUnO6VOWpv5">
+      <div class="col old" data-page-node-id="ADNXYs64557HBlQL2f5R3J">
+        <div class="tag" data-page-node-id="Pk9ACTDlvLrvWODqCozIc6">朴素 RAG（你项目早期）</div>
+        <pre data-page-node-id="r2jmRp7fHj5EkgyrqlMawH">用户问 → 工具去 shop.db
+→ 关键词 / SQL LIKE 查
+→ 结果塞 prompt → 答</pre>
+        <div class="note" data-page-node-id="faiKk9ByqX32RQvgquAm28">靠「字面相等」匹配。用户换个说法（"东西寄回去行不行"）就查不到 / 查错段。</div>
+      </div>
+      <div class="col new" data-page-node-id="7yOPx0FQ713HSLrPUDsgDr">
+        <div class="tag" data-page-node-id="lzCKBeEHkPRfjk54uivoyu">真 RAG（v2 加的 kb_search）</div>
+        <pre data-page-node-id="WbphZGZlMoJ4j7kpXCZm55">文档切片→向量化→存库
+提问→向量化→比相似
+→ 捞最像的原文 → 答</pre>
+        <div class="note" data-page-node-id="QfdJFvofgQOEWVIEwFUuUM">靠「意思相近」匹配。问法千变万化也能命中正确资料。</div>
+      </div>
+    </div>
+    <div class="note" data-page-node-id="QDgGlFRvOxe7MT85SEM5Yl"><span class="badge green" data-page-node-id="dc1nAaLT3AxtuCEjptAAGP">懂框架</span> 面试一句话：早期用 SQL 关键词查（朴素 RAG），后来升级成向量检索处理口语化提问。两者都是 RAG，只是检索方式不同。</div>
+  </div>
+
+  <div class="card" data-page-node-id="iz5Ki6jK91kR2izO2Qp4nS">
+    <h2 data-page-node-id="x5pD6w3U6PCmsFTBADezqa">二、rag.py 三个方法（你只需懂干嘛）</h2>
+    <ul data-page-node-id="YxnpoaFIeNg3Mg7WBWuj59">
+      <li data-page-node-id="bqv9h0Sm9BZ67UFpFrIoLZ"><b data-page-node-id="jr2PS850dHGJKFh4Ta7oyF">构建()</b>：文档切片 → embedding 变向量 → 存盘（只跑一次，<code data-page-node-id="wjOppsQ0GM1rvR4NJqWhqe">构建知识库.py</code> 触发）</li>
+      <li data-page-node-id="jAG40C2FBL4u7ehYeXgU6v"><b data-page-node-id="ZPwndiUBXZeQe9i5LTjcTB">加载()</b>：服务启动时把磁盘上的向量文件读回内存变量（之后检索全在内存算，快）</li>
+      <li data-page-node-id="YVZu4IcG3rr9kBDLFwGTFB"><b data-page-node-id="QD8yoC0UM3JOUQ11FwjFRn">检索()</b>：问题变向量 → 和库里比余弦相似度 → 取 top-k 最像的原文当资料返回</li>
+    </ul>
+    <div class="note" data-page-node-id="kbPuuOgEsJDoEEwkgLljnD"><span class="badge green" data-page-node-id="XYxZt4Fe1ExTrlRGPkaycT">懂框架</span> 两个内存变量分工：<b data-page-node-id="xjsGIHLAsESuVEUVhsftlp">向量矩阵</b>负责「找」（比相似）、<b data-page-node-id="0DE95C46xuetWp7m9eJNpQ">片段列表(原文)</b>负责「给」（捞真句喂 LLM）。向量是原文经 embedding 单向提炼出的「语义指纹」，<b data-page-node-id="iqDAGhXWOEmlLtYqkDxK5E">变不回原文</b>，所以两者必须都存。</div>
+  </div>
+
+  <div class="card" data-page-node-id="vgA7DJCVNp3dRdpu4Nx1xu">
+    <h2 data-page-node-id="UZPnH9sDDES9XlquAZP84J">三、它怎么挂进你项目（死记这一行）</h2>
+    <pre data-page-node-id="iyefnXwtofq5U1RxoKGBT3">注册表.注册(
+  {... "name": "kb_search" ...},
+  知识库实例.检索接口)</pre>
+    <div class="note" data-page-node-id="GWXX9RjmeIQM5zDHXTJSDr"><span class="badge red" data-page-node-id="kMgAV0PhABWjeDlsGEwszj">死记</span> 这一行和之前 <code data-page-node-id="aOTwBNKFJGBTfsINB9vuTe">search_product / get_price / get_stock</code> 那三行<b data-page-node-id="Mw9M8LweF1osHmnrQ9Atp9">一模一样</b>——就是往工具注册表多挂一个工具。Agent 层一行没动，模型看 SYSTEM 提示自动决定用 <code data-page-node-id="fPAL5stc8Fe78KmnnNjhqH">kb_search</code>。</div>
+  </div>
+
+  <div class="card" data-page-node-id="e4TGCC0TDj2tncH1Sq6SUQ">
+    <h2 data-page-node-id="YChHKonMCLuLE7oDU7JZp7">四、rerank 重排（两阶段检索）</h2>
+    <div class="two" data-page-node-id="1w2FRF1k8mEmLVyuv3h6Ul">
+      <div class="col old" data-page-node-id="tECE8lM5ABeVrCHvfe4hfN">
+        <div class="tag" data-page-node-id="0AoR7PMn7FFmPg1piG3lGv">粗排 bi-encoder 双塔</div>
+        <pre data-page-node-id="9v5nPJjbDNCrQRUYX0TsKJ">问题 / 文档 各自独立
+编码成向量
+向量预存·查得快·但粗</pre>
+        <div class="note" data-page-node-id="xf7nONYAKqABKryI1cfm9V">你项目 <code data-page-node-id="XTIMREDEaJWOO9T89jU7Rm">kb_vecs.npz</code> 就是预存的文档向量。从 1000 段快速捞回 top-20。</div>
+      </div>
+      <div class="col new" data-page-node-id="HHeci22DlcZrpc4RufXNX8">
+        <div class="tag" data-page-node-id="IQZ2gKCyNXBC1AEO9W3rNo">精排 cross-encoder 交叉</div>
+        <pre data-page-node-id="D31l8kmjEBr0XxOm8wslz3">问题 + 文档 拼一起
+同时看·现算分数
+准但慢</pre>
+        <div class="note" data-page-node-id="CsS588wKk3yPABvC2MaxKv">只对粗排捞回的 20 段逐段打分重排，取最准的 top-3。</div>
+      </div>
+    </div>
+    <div class="note" data-page-node-id="zDoE9ZRpnh52QEY9oKtjfp"><span class="badge green" data-page-node-id="cdy33mQhRHkTkJ0bDO9wFA">懂框架</span> 为什么分两步：cross-encoder 更准但<b data-page-node-id="DxlfhncPlinbAbv7yWAPPp">不能预存</b>（要和问题拼一起现算），全量 1000 段实时跑太慢。所以先用 bi-encoder 预存向量快捞候选，再用 cross-encoder 只对候选精排——速度和精度权衡。你项目目前只有粗排那一步。</div>
+  </div>
+
+  <div class="card" data-page-node-id="jR2uNodgLyG12vdhvaDMOb">
+    <h2 data-page-node-id="BZbDxNRwmHREKnm0vDRyxQ">五、进阶三块（面试聊取舍）</h2>
+    <ul data-page-node-id="Q2be7KoUOmlIAc7OGeiVoX">
+      <li data-page-node-id="dwzeTOnaHsj4HZ382A5nfC"><b data-page-node-id="cnEeFBXKLy1A5CV1HTigSi">切片 chunking + 重叠</b>：长文档切段再向量化；重叠防答案被切断丢失（大了精度粗、小了易切散）。</li>
+      <li data-page-node-id="anlZ1PR43d1Fi7d4quHK5f"><b data-page-node-id="5uZdePGGVmAs8vbM9yW0fS">rerank 重排</b>：见上——粗排捞全、精排排准。</li>
+      <li data-page-node-id="PoZKROeKsU3dIBt4vfWYhc"><b data-page-node-id="BtpZbPs2XnblaxVge95UbX">评估指标</b>：用评估集（问题+标准答案）跑 <b data-page-node-id="MwwEgZBz0fyoohurB7yxDZ">召回率 Recall</b>（该找的段找没找到）/ <b data-page-node-id="t1rypPH3UZHZ9sFiCAnocO">命中率 Hit Rate</b>（前几条有没有对的）/ <b data-page-node-id="jjaCRV4In7j3FdH8pOdALf">忠实度 Faithfulness</b>（答的能不能在资料里找到依据）。让每次优化有数据对比。</li>
+    </ul>
+    <div class="note" data-page-node-id="RAV5dObjqCz1f2XWT6K2z3"><span class="badge green" data-page-node-id="l4Ki6WK0SWom8XNLMkghTC">懂框架</span> 三块全部「懂框架」即可，不用能手写 rerank 模型或评估脚本。</div>
+  </div>
+
+  <div class="card" data-page-node-id="t29zvahvnpc3i7EpEMHb6a">
+    <h2 data-page-node-id="3mGsneQkVwHDmES2KpO1t1">六、学到什么程度</h2>
+    <p data-page-node-id="x9qsBtJCxzTmdheUBLjP9a"><span class="badge red" data-page-node-id="b3NXs5cDCLlvTgbOduc3EU">死记</span> 以下要能认得出、讲得清：</p>
+    <ul data-page-node-id="RBCJnwI2GZhnlKXp8vA3Vb">
+      <li data-page-node-id="xRDyzyqRGKLhVs2pwaBUGu"><b data-page-node-id="wWZHKfR40FRDoRkWwZ5yDe">注册表多一行</b>：<code data-page-node-id="I3Ua6asdvgpnJcExfBOAAT">kb_search</code> 挂在工具注册表里，和另三个工具同套路</li>
+      <li data-page-node-id="L5fGIzl0qrOMlayRRAKDOV"><b data-page-node-id="lj4lxmtvTZGnS6NLCq9doW">三方法名</b>：构建 / 加载 / 检索（干嘛即可，不用背代码）</li>
+      <li data-page-node-id="VINilnmtuFLriHTGAhSsP1"><b data-page-node-id="BO8BrvovpnA8u6nX8CgtC0">rerank 两阶段</b>：粗排 bi-encoder 预存向量捞 top-k → 精排 cross-encoder 现算取 top-n</li>
+    </ul>
+    <p data-page-node-id="7QBGSmIyDgKjCsBvkEhYDF"><span class="badge green" data-page-node-id="QLxJRCobPEbKgRMk8QKxHW">懂框架</span> 以下能讲清即可，不用背：</p>
+    <ul data-page-node-id="Ftp3sXFYWn9aQIjCG5sD7j">
+      <li data-page-node-id="9oJY3HHRATVLdmLGXGpEOl">朴素 RAG（关键词）vs 真 RAG（语义向量）的区别与取舍</li>
+      <li data-page-node-id="o4lO2TG3DsXuKt13z4HQqW">向量 vs 原文：向量负责找、原文负责给，向量不可逆回原文</li>
+      <li data-page-node-id="z1G5FBKT5is14A8JiHGpuN">embedding = 把文字变成「语义坐标」的一串数字（DeepSeek 无此接口，故用本地 bge 中文模型）</li>
+      <li data-page-node-id="jxKMAGmNOGVxKZsU3ZK8mM">加载() = 启动把磁盘向量读回内存，之后检索快</li>
+      <li data-page-node-id="22XZJW3UmRBVhHLx5dgnWq">切片重叠 / 评估三指标的含义</li>
+    </ul>
+  </div>
+
+
+  <footer data-page-node-id="FUdjAhzV5fO9MlEZ6rOtFu">本卡 = RAG 进阶收尾。四张卡（异步流式 / 死记骨架 / Docker / RAG）齐了，面试前各翻一遍即通</footer>
+
+</div>
+</body>
+</html>

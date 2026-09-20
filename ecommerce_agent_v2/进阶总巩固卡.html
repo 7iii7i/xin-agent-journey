@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh" data-page-node-id="kLEwa6RHjqNx4sRID4C8Zi">
+<head data-page-node-id="1JAAb6FFAPwMFEfPM7sTGl">
+<meta charset="utf-8" data-page-node-id="gcOf86H3kC05tVrCUGcIE0">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="nBdilVxwvBf8Hk8LLj61jp">
+<title>进阶总巩固卡 · Agent 三件套之后</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f5f5f4; color: #2C2C2A;
+         font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+         line-height: 1.6; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 16px; }
+  header { background: #185FA5; color: #fff; border-radius: 12px;
+           padding: 16px; margin-bottom: 14px; }
+  header h1 { margin: 0 0 4px; font-size: 17px; font-weight: 600; }
+  header p { margin: 0; font-size: 13px; opacity: .9; }
+  .card { background: #fff; border: 1px solid #e3e1dc; border-radius: 12px;
+          padding: 14px 16px; margin-bottom: 14px; }
+  .card h2 { margin: 0 0 10px; font-size: 15px; font-weight: 600; color: #0C447C; }
+  .mind { background: #E6F1FB; border: 1px solid #B5D4F4; border-radius: 12px;
+          padding: 14px 16px; margin-bottom: 14px; }
+  .mind .big { font-size: 15px; font-weight: 600; color: #0C447C; }
+  .mind .sub { font-size: 13px; color: #444441; margin-top: 6px; }
+  .two { display: flex; gap: 10px; flex-wrap: wrap; }
+  .col { flex: 1; min-width: 150px; border-radius: 10px; padding: 10px; }
+  .col.old { background: #FCEBEB; border: 1px solid #F7C1C1; }
+  .col.new { background: #E6F1FB; border: 1px solid #B5D4F4; }
+  .col .tag { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+  .col.old .tag { color: #A32D2D; }
+  .col.new .tag { color: #0C447C; }
+  pre { background: #F1EFE8; border: 1px solid #D3D1C7; border-radius: 8px;
+        padding: 8px 10px; font-size: 12px; line-height: 1.5; overflow-x: auto;
+        color: #2C2C2A; margin: 6px 0; white-space: pre; }
+  .note { font-size: 12px; color: #5F5E5A; margin-top: 8px; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 600;
+           padding: 2px 9px; border-radius: 99px; }
+  .badge.red { background: #FCEBEB; color: #A32D2D; border: 1px solid #F7C1C1; }
+  .badge.green { background: #EAF3DE; color: #3B6D11; border: 1px solid #C0DD97; }
+  .sub2 { font-size: 13px; color: #444441; }
+  ul { margin: 6px 0; padding-left: 18px; }
+  li { margin-bottom: 6px; font-size: 13px; }
+  details { margin-top: 6px; }
+  summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #185FA5; }
+  .q { font-size: 13px; margin: 8px 0 2px; font-weight: 600; }
+  .a { font-size: 13px; color: #444441; margin: 0 0 8px; }
+  footer { font-size: 12px; color: #5F5E5A; text-align: center; padding: 8px; }
+</style>
+</head>
+<body data-page-node-id="quw49ia7f8vwdOJd86T3nM">
+<div class="wrap" data-page-node-id="1v1D3ep7qb6of2WKsZBjxN">
+
+  <header data-page-node-id="N5WuGu4HDrXOiz5vBCN4S4">
+    <h1 data-page-node-id="qWj2NSfISPBsV9PO4UMiEI">进阶总巩固卡</h1>
+    <p data-page-node-id="IGz6fs7JCdTd8XKOyPem3t">Agent 三件套之后 · 电商客服 v2（异步 / 流式 / Docker / RAG 全收录）</p>
+  </header>
+
+  <div class="mind" data-page-node-id="F093RjUhhjcNhBtE5Dg3p9">
+    <div class="big" data-page-node-id="Y8j6zSAdlzNNF4RUhKZk2T">脉络：能跑(Tier1) → 能流式(Tier2) → 能部署(Tier3) → 能语义检索(RAG)</div>
+    <div class="sub" data-page-node-id="pGSge89EORPsvsek4JdbZw">本卡 = Agent 核心循环（while+tool_calls+历史）之后学的一切。规则：标 [代码] 的块贴真实代码，标 [白话] 的块只讲人话。</div>
+  </div>
+
+  <!-- ============ A. Tier 2 异步 + 流式 ============ -->
+  <div class="card" data-page-node-id="ZGCdUd3J7ygtUwJ53jxyXG">
+    <h2 data-page-node-id="5UIywE4qvZH6kpt2mG87hK">A. Tier 2 · 异步全链路 [代码]</h2>
+    <p data-page-node-id="OUkuuCpANzYw2hdekGbxwx"><span class="badge red" data-page-node-id="rj80aHuENHOyF7ivi26cYe">死记核心</span> Agent 三件套逻辑一字没变，只是整体 <b data-page-node-id="pk7pPRiTFRc0IZOst2x5cf">async</b>，且最终轮改成流式打字机。</p>
+<pre data-page-node-id="gfP7ukwHJj2hoiM80mobXz">async def 跑_agent(历史: list):
+    消息 = [{"role": m["role"], "content": m["content"]} for m in 历史]
+    消息.insert(0, {"role": "system", "content": SYSTEM})
+    轮次 = 0
+    while 轮次 &lt; 10:                       # 最多 10 轮防死循环
+        resp = await client.chat.completions.create(
+            model=配置.MODEL, messages=消息,
+            tools=注册表.清单(), tool_choice="auto")
+        回复 = resp.choices[0].message
+        if 回复.tool_calls:                  # ① 工具轮：非流式，干净拿工具+参数
+            for 调用 in 回复.tool_calls:
+                结果 = await 注册表.调用(调用.function.name, json.loads(调用.function.arguments))
+                消息.append({"role": "tool", "tool_call_id": 调用.id, "content": str(结果)})
+            continue
+        stream = await client.chat.completions.create(
+            model=配置.MODEL, messages=消息, stream=True)
+        async for chunk in stream:           # ② 最终轮：流式逐 token
+            d = chunk.choices[0].delta
+            if d.content:
+                yield d.content              # 吐给前端（打字机）</pre>
+    <p class="note" data-page-node-id="kTHDLRshCDJ7E5Od8KGjE0"><span class="badge green" data-page-node-id="HMRbYcFlvVeuV1OLMpwIM8">懂框架</span> <b data-page-node-id="Dcjzmb6YsPFfKHwFL8mbDR">异步传染</b>：一个函数 async 了，调用它的整条链都得 async（db 改成 aiosqlite → 注册表.调用 加 await → 跑_agent 加 await）。<b data-page-node-id="TYG2ZhYyuU2XJtpVPtLz2C">工具轮非流式、最终轮流式</b>的设计：工具轮要拼 tool_calls 碎片，非流式一次拿全最省心；最终轮要打字机，才开 stream。</p>
+  </div>
+
+  <div class="card" data-page-node-id="zsU8ztuEbEIduI22dUZsS0">
+    <h2 data-page-node-id="PdAfrUomVF9GPPicpdmKtO">A2. SSE 流式推送 [代码·死记两行]</h2>
+<pre data-page-node-id="d2IDk5qXAw7QDw8obFQEy5"># main.py 55 行：SSE 格式，每行 "data: 内容\n\n"
+yield f"data: {json.dumps(token, ensure_ascii=False)}\n\n"
+
+# main.py 64 行：用 StreamingResponse 把事件流包成 SSE 接口
+return StreamingResponse(事件流(), media_type="text/event-stream")</pre>
+    <p class="note" data-page-node-id="Qx39KDMzfQsNCS7QIoEIgM"><span class="badge red" data-page-node-id="0s3S0DDpz0ef7Hvo8vSJ46">死记</span> 这两行就是"一截一截推给前端"的关键。55 行把每个 token 包成 SSE 格式（json.dumps 防特殊字符炸）；64 行声明这是 <code data-page-node-id="5hv8EOgfFn6sifvdTHR5iz">text/event-stream</code> 流。前端用 fetch + getReader 按 <code data-page-node-id="2v9JKJVjxFDoDbtNJJZyAn">\n\n</code> 切流读取。</p>
+  </div>
+
+  <div class="card" data-page-node-id="86G85D5gTHZKg7wsdFK0BS">
+    <h2 data-page-node-id="ADguQY4fICwfK1n4jXIYXM">A3. aiosqlite 异步数据库 [代码]</h2>
+<pre data-page-node-id="QfcaWDGFGcceVEMhInfVza"># db.py：sqlite3 → aiosqlite，每行前面加 await
+async def 初始化(self):
+    async with aiosqlite.connect(self.库名) as db:
+        await db.execute("CREATE TABLE IF NOT EXISTS products (...)")
+        await db.commit()                    # 四步套路：connect→execute→commit/fetchall→close</pre>
+    <p class="note" data-page-node-id="Hif8XhuVljc7UU6am2W6yp"><span class="badge red" data-page-node-id="cT4RMAbfl34S5VDlWbdJFt">死记</span> 异步四步套路和同步版一模一样，只多 <code data-page-node-id="YkKY334nckrJNm3xLqUo8R">await</code> + 用 <code data-page-node-id="lTzm4NSZy9paUJdRlSYTkH">aiosqlite.connect</code>。<span class="badge green" data-page-node-id="b0HflCAp4OsDV2wZIyOLYf">懂框架</span> 异步后"查库等待"期间事件循环能去服务别的请求，并发量才上得来。注意：<code data-page-node-id="NKVlJZM2HuUxKVGpl1oDaC">__init__</code> 里不能 await，所以建表挪到 main.py 的 <code data-page-node-id="i6TzyXe3w2ewIUUz2VeCrl">lifespan</code> 里启动再 <code data-page-node-id="czEW2fwpWJ26aUYQ4Gb4Nu">await 初始化()</code>。</p>
+  </div>
+
+  <div class="card" data-page-node-id="pKJYmHHUHdCXHLPoA3W3Gp">
+    <h2 data-page-node-id="gagoEmZqjS8yDA4c2Nj4xx">A4. 配置分层 [代码·懂框架]</h2>
+<pre data-page-node-id="GUV0uNFCpnUxGyOr1je6k7"># config.py：pydantic-settings 管配置 + AsyncOpenAI 客户端
+class 设置(BaseSettings):
+    DEEPSEEK_API_KEY: str
+    MODEL: str = "deepseek-chat"
+    端口: int = 8003
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+配置 = 设置()
+client = AsyncOpenAI(api_key=配置.DEEPSEEK_API_KEY, base_url=配置.BASE_URL)</pre>
+    <p class="note" data-page-node-id="UiCdIVaIf0PzFXiEp5h3Q7"><span class="badge green" data-page-node-id="nPIq6Ma962wM6asfl4XwUZ">懂框架</span> 配置集中一处，改端口/密钥不碰业务代码；<code data-page-node-id="daWS6k9kueSKdmVWsYZed0">.env</code> 存密钥不进代码库。<b data-page-node-id="vbCEJA7KswoxJqqhzCtCBc">客户端必须是 AsyncOpenAI</b>（异步项目死记点）。</p>
+  </div>
+
+  <div class="card" data-page-node-id="P6DsLR9QFK5cFCb1h82TNj">
+    <h2 data-page-node-id="uFyU3Duk9IREVpaIDqv6w9">A5. CORS [白话·懂框架]</h2>
+    <p class="sub2" data-page-node-id="EObgAx7irRB4PQJRuBiRJ6">前端（index.html 跑在别处/别端口）要访问本接口，得放开跨域。main.py 里 <code data-page-node-id="KvwEYKif5LQOOZkrDzqKhl">app.add_middleware(CORSMiddleware, allow_origins=["*"], ...)</code> 即放行。生产要把 <code data-page-node-id="QiBsdOIHVYa0gvWOqICUpL">allow_origins</code> 收紧成具体域名，别用 <code data-page-node-id="e5LApWFFn5AkPCpsq9DL9w">*</code>。</p>
+    <p class="note" data-page-node-id="WEaGSWnf268a9hOkKvUNeP"><span class="badge green" data-page-node-id="kPfjfQNgAvRk6EJ7x3AEZw">懂框架</span> 只懂"为什么有这行、生产要收"即可，不用背。</p>
+  </div>
+
+  <!-- ============ B. Tier 3 Docker + 测试 + README ============ -->
+  <div class="card" data-page-node-id="jZXSephTmBp7up2uKBdLNz">
+    <h2 data-page-node-id="JZcZX4KoUlyGtCtjXW3GYa">B. Tier 3 · Docker + 测试 + README [白话]</h2>
+
+    <p data-page-node-id="i5raoGFN3zdQWoGJxNYQ6e"><b data-page-node-id="IJo79RDDpnmTjqBqE7TG72">B1. Docker 容器化</b> <span class="badge green" data-page-node-id="qBWKsxuiHCX4TUwGIkIhp7">懂框架</span></p>
+    <ul data-page-node-id="gb1XsBQ1pyhL8DYpSd3TOe">
+      <li data-page-node-id="tFpoSLVknSviym77SomhbE"><b data-page-node-id="FJEuvbTly1XoaZLVw4oSrt">Dockerfile</b>：镜像配方，怎么把项目装进容器（FROM / COPY / RUN / CMD）。分层缓存：先装依赖再复制源码，改代码不重装包。</li>
+      <li data-page-node-id="GacqOlJ1HRgjWwYTw3DHiE"><b data-page-node-id="gLqJW2ccgSBATq0Rf08BQU">docker-compose.yml</b>：一键起服务（build + 端口 8003:8003 + volume 持久化 + env_file 注入密钥 + restart 自重启）。</li>
+      <li data-page-node-id="mZ3tn8GN0hCjbv1s2GVxNV"><b data-page-node-id="1ZGvRD397R6RQrnf7M3dXn">.dockerignore</b>：排除 .env / 缓存 / 本地库，密钥不进镜像。</li>
+    </ul>
+    <p class="note" data-page-node-id="iD9f4gcyoJ24GX50fj3dj3"><b data-page-node-id="RarphMoVqgAupmLxrlva9k">双身份</b>：①检验——能 build 跑起来 = 环境可复现（依赖齐、换机器能跑）；②交付——工业级标准打包，面试官看得到。中文编码兜底、端口映射、volume 持久化都是生产约定。</p>
+
+    <p data-page-node-id="3HedOjL314JgKmFAslCoQz"><b data-page-node-id="XhrViGV5abWoAL0CX1Gzzd">B2. pytest 离线测试</b> <span class="badge green" data-page-node-id="iF8rZbZ3ICSBmipT1MtDGw">懂框架</span></p>
+    <p class="sub2" data-page-node-id="BKD1RsjOtp0XNk4xn3huGL">用 AsyncMock 假 DeepSeek，自动验证"工具分发 / 会话隔离 / 工具调用"逻辑对不对。<b data-page-node-id="t0w83uD0AQDzGCgzOP024x">和 Docker 分工不同</b>：pytest 验"代码逻辑"，Docker 验"环境可复现"。</p>
+
+    <p data-page-node-id="852gk2OqQmZHFEUc2i9fzb"><b data-page-node-id="v59OLDl4P7AB5XziEAmSf8">B3. README</b> <span class="badge green" data-page-node-id="JG0ooYuvT2U4QiKFbRYY7m">懂框架</span></p>
+    <p class="sub2" data-page-node-id="Dexqx0IQTCqajU2nDPUV2v">把上面写成给人看的交付说明（怎么跑、怎么构建知识库、接口说明）。简历项目的门面。</p>
+  </div>
+
+  <!-- ============ C. RAG 向量知识库 ============ -->
+  <div class="card" data-page-node-id="od0CpDTAv1XcCQ6i7OHzXo">
+    <h2 data-page-node-id="HJGOicBp5vnXePO4BVKsLz">C1. 朴素 RAG vs 真 RAG [白话·懂框架]</h2>
+    <div class="two" data-page-node-id="eIqPy4X2eC3jVDlHIfyI0y">
+      <div class="col old" data-page-node-id="8nkpVOyv3suQ4JbmwBHZbr">
+        <div class="tag" data-page-node-id="REOHqYH6syLTzZtCEvECkQ">朴素 RAG（项目早期 search_product）</div>
+        <p class="sub2" data-page-node-id="3WbDhA4w05ogf4kWWCG0sW">用户问 → 工具去 shop.db → 关键词 / SQL LIKE 查 → 答。靠"字面相等"匹配，换个说法就查不到。</p>
+      </div>
+      <div class="col new" data-page-node-id="LvivDVmzB5mAW277OWHwGz">
+        <div class="tag" data-page-node-id="fQ7JdXI2H4e4aX4MXDmdFX">真 RAG（v2 的 kb_search）</div>
+        <p class="sub2" data-page-node-id="rEIZjWo6zMThwHMCfi1hin">文档切片→向量化→存库；提问→向量化→比相似→捞最像原文→答。靠"意思相近"匹配，问法千变万化也命中。</p>
+      </div>
+    </div>
+    <p class="note" data-page-node-id="i55SEYR6baKVq7cxJtHKLf"><span class="badge green" data-page-node-id="fCGXgyrNzj4vgNcE7AZFHV">懂框架</span> 两者都是 RAG，只是检索方式不同。口语化提问（"东西寄回去行不行"）绕开字面关键词，只有语义检索兜得住。</p>
+  </div>
+
+  <div class="card" data-page-node-id="y4CFRwZFWFRnNBS8mkmyHG">
+    <h2 data-page-node-id="HAn3LlMojjiKy1rkI4Xspa">C2. embedding 向量化 [白话·懂框架]</h2>
+    <p class="sub2" data-page-node-id="G7QKafF9Eo5fZ4AozyD4cR">把一段文字变成"一串数字"（向量）。<b data-page-node-id="be3Svq87R5Y22Jz1rkS1OM">意思相近的文字，这串数字也相近</b>——像给句子发"语义坐标"。它是单向提炼：向量变不回原句（指纹≠照片）。本项目用本地中文模型 <code data-page-node-id="IScTZMXXxVd3sVzNQvaEXW">BAAI/bge-small-zh-v1.5</code>（DeepSeek 只有对话接口、无 embedding 接口）。</p>
+    <p class="note" data-page-node-id="PU3NgnFRwuj9KvgGhJ8dKM"><span class="badge green" data-page-node-id="gY2fNEhWjUD8An9TAQeEeV">懂框架</span> 只懂"embedding = 把人话翻成可比距离的语义坐标"即可，不用能手写模型。</p>
+  </div>
+
+  <div class="card" data-page-node-id="8Yly0Qj4pnzCf3hfq3ASsV">
+    <h2 data-page-node-id="OExTBd7dnX8B7Sn0TAHs9F">C3. rag.py 三个方法 [代码]</h2>
+    <p data-page-node-id="aFNCzefh7RAOTZsHWpJ7vV"><span class="badge red" data-page-node-id="i2FvcY3002fkqUAj4UcTWY">死记三方法</span> 就这三个：构建 / 加载 / 检索。</p>
+<pre data-page-node-id="IA6FC7g0ZbANhtzOIPoWs4">def 构建(self):                              # ① 切片→变向量→存盘（跑一次）
+    self.片段列表 = 片段
+    vecs = 模型.encode(self.片段列表, normalize_embeddings=True)
+    self.向量矩阵 = np.asarray(vecs, dtype="float32")
+    np.savez(_向量文件, 向量=self.向量矩阵)   # 存向量
+    json.dump(self.片段列表, ...)             # 存原文
+
+def 加载(self):                              # ② 启动读回内存
+    d = np.load(_向量文件)
+    self.向量矩阵 = d["向量"].astype("float32")
+    self.片段列表 = json.load(...)
+
+def 检索(self, 问题, top_k=3):               # ③ 比相似取 top-k
+    q = np.asarray(模型.encode([问题], ...)[0])
+    sims = self.向量矩阵 @ q                 # 点积 = 余弦相似度
+    idx = np.argsort(-sims)[:k]              # 从大到小取前 k
+    return "\n".join(f"[资料{i+1}] {self.片段列表[j]}" ...)</pre>
+    <p class="note" data-page-node-id="Mv0B4JSHDRjA7dS8ZiGaNj"><span class="badge green" data-page-node-id="Ep2z0gUVvG1rCyyxOFoh3Q">懂框架</span> 数学（<code data-page-node-id="KyCfHvQj8O8C11zv9DjADW">@</code> 点积、<code data-page-node-id="LDMExGobrfOcwLxXKeVpEe">argsort</code>）和 <code data-page-node-id="MsFmWiSTMpHo51psZkREAe">asyncio.to_thread</code> 包裹是黑盒，先当不存在；你只需懂三方法"干嘛"。</p>
+  </div>
+
+  <div class="card" data-page-node-id="kIykqrOFcWLEkC19kOIkDM">
+    <h2 data-page-node-id="Ir69vtMGqTSBluJXY4PZye">C4. 注册表挂 kb_search [代码·死记一行]</h2>
+<pre data-page-node-id="Ma4l1QW8s3eg9Fizy9MEpZ">注册表.注册({
+    "type": "function",
+    "function": {
+        "name": "kb_search",
+        "description": "在店铺知识库里做语义检索，回答退换货/质保/发货/客服时间等",
+        "parameters": {"type": "object",
+            "properties": {"query": {"type": "string", ...}, "top_k": {...}},
+            "required": ["query"]},
+    },
+}, 知识库实例.检索接口)</pre>
+    <p class="note" data-page-node-id="tbHiN3zwWZRf03paN5cI4u"><span class="badge red" data-page-node-id="drfEl5K8akq15rNr1CZmpg">死记</span> 这一行和 <code data-page-node-id="FHIfbX9CpYrahsFeXKgt0x">search_product / get_price / get_stock</code> 那三行<b data-page-node-id="TDeddXLVqU96bmVjc1FNCl">一模一样</b>——往注册表多挂一个工具。Agent 层一行没动，模型看 SYSTEM 提示自动决定用 <code data-page-node-id="VIbGy3EYo0iPvQzDmpW0Lt">kb_search</code>。</p>
+  </div>
+
+  <div class="card" data-page-node-id="3AUHC4HPiN7bUsDAdcqRZH">
+    <h2 data-page-node-id="AISvMtTTEQqmYmNwbqOFjh">C5–C8. RAG 进阶四块 [白话·懂框架]</h2>
+    <p data-page-node-id="xDo1PJus5auVLvMa5vJCkC"><b data-page-node-id="uGE0lmXSrltAnDCR4WH5Wb">C5. 向量矩阵 vs 片段列表</b>：向量负责"找"（比相似度），原文负责"给"（捞真句喂 LLM）。向量不可逆回原文，所以两个都存。</p>
+    <p data-page-node-id="VLc0Yl3nMTStWwu7Mh5e25"><b data-page-node-id="aHmxaj5DDCMoMaisqXIecV">C6. rerank 两阶段</b>：粗排 bi-encoder（文档向量预存、查得快、但粗）先捞 top-20 → 精排 cross-encoder（问题+文档拼一起现算、准但慢）只对候选重排取 top-3。分两步是速度与精度权衡（cross-encoder 不能预存，全量现算太慢）。</p>
+    <p data-page-node-id="qrOFhSGpghu26uwzdoaG4W"><b data-page-node-id="wDPRC5fqCzYscHiemG0iPl">C7. 切片重叠 + 评估</b>：长文档切段再向量化，留重叠防答案被切断；评估用 recall（该找的段找没找到）/ 命中率（前几条有没有对的）/ 忠实度（答的能否在资料找到依据），让每次优化有数据对比。</p>
+    <p data-page-node-id="Jbv4AFI5APKGiFEDeVVo68"><b data-page-node-id="E4LvCJOEYvdFOSiqS1gv2c">C8. RAG 不替代 SQLite</b>：SQLite 管精确数字（价格/库存），RAG 管语义文本（政策）。两者并存、模型按"问题要什么数据 + 工具描述"自己选——<b data-page-node-id="AuG7ufOCIcsywbM582FpRg">判据是数据类型，不是口语化程度</b>。</p>
+    <p class="note" data-page-node-id="5S6PqfO4qXQr6zl98oBv1n"><span class="badge green" data-page-node-id="CU1wbHrsoX6bA3IZWdCOor">懂框架</span> 这四块全部"懂框架"即可，面试能聊清取舍，不用能手写。</p>
+  </div>
+
+
+  <footer data-page-node-id="oKD69sFHBBSKHeFqvouJKW">本卡 = A(异步/流式) + B(Docker/测试) + C(RAG) 汇总。配合《死记骨架默写卡》即 Agent 三件套之前后的完整体系</footer>
+
+</div>
+</body>
+</html>

@@ -2,3 +2,7 @@ fastapi
 uvicorn
 openai
 python-dotenv
+aiosqlite
+pydantic-settings
+numpy
+sentence-transformers
